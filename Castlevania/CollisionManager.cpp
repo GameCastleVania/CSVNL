@@ -42,15 +42,55 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 		{
 			if (int a = RecF::Collide(simon->CRec, b->CRec))
 			{
-				if ((simon->GetVY() < 0 && simon->GetY() - 10 > b->CRec.y))
+				//xet va cham theo truc y----------------------------------
+				if ((simon->GetVY() < 0 && simon->GetY() - b->CRec.height - 28 > b->CRec.y))
 				{
-					simon->SetY(b->CRec.y + 31);
+					simon->SetY(b->CRec.y + 60);
 					simon->SetVY(0);
 					if (simon->GetState() == JUMP) simon->SetState(STAND);
 				}
+
+				//xet va cham theo truc x----------------------------------
+				//simon di qua phai
+				if ((simon->GetVX() > 0 && simon->GetX() + 10 > b->CRec.x))
+				{
+					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() <= b->CRec.y + b->CRec.height))
+					{
+						simon->SetX(b->CRec.x - 10);
+						simon->SetVX(0);
+					}
+					else if (b->CRec.height > 40 && ((simon->GetY() >= b->CRec.y) && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					{
+						simon->SetX(b->CRec.x - 10);
+						simon->SetVX(0);
+					}
+				}
+				//simon qua trai
+				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
+				{
+					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() <= b->CRec.y + b->CRec.height))
+					{
+						simon->SetX(b->CRec.x + b->CRec.width + 10);
+						simon->SetVX(0);
+					}
+					else if (b->CRec.height > 40 && (simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					{
+						simon->SetX(b->CRec.x + b->CRec.width + 10);
+						simon->SetVX(0);
+					}
+				}
+
+				/*	else if ((simon->GetVX() < 0 && simon->GetX() - 10 < b->CRec.x) && (simon->GetY() >= b->CRec.y && simon->GetY() < b->CRec.y + b->CRec.height))
+				{
+				simon->SetX(b->CRec.x + 10);
+				simon->SetVX(0);
+				}*/
+
 			}
 		}
 	}
+
+
 #pragma endregion
 
 	quadtree->Clear();

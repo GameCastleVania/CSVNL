@@ -40,7 +40,7 @@ void Game::InitVariables()
 
 void Game::InitState()
 {
-	StateManagement::GetInstance()->SwitchState(new StateMainMenu());
+	StateManagement::GetInstance()->SwitchState(new StateMap2());
 }
 
 void Game::Run()

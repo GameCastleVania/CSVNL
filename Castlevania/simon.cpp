@@ -35,14 +35,14 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	//load sprite simon
 	simon_R = new Sprite(d3ddv, "resource\\image\\simon\\simon-right.png", 60, 66, 4, 4);
 	simon_L = new Sprite(d3ddv, "resource\\image\\simon\\simon-left.png", 60, 66, 4, 4);
-	simon_StandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftS.png", 50, 66, 1, 1);
-	simon_StandR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightS.png", 50, 66, 1, 1);
+	simon_StandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftS.png", 50, 63, 1, 1);
+	simon_StandR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightS.png", 50, 63, 1, 1);
 	simon_DieL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftdeath.png", 64, 68, 1, 1);
 	simon_DieR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightdeath.png", 64, 68, 1, 1);
 	simon_LadderUpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftLCT.png", 58, 67, 2, 2);
 	simon_LadderUpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightLCT.png", 58, 67, 2, 2);
-	simon_LadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCT.png", 58, 67, 2, 2);
-	simon_LadderDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightXCT.png", 58, 67, 2, 2);
+	simon_LadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCT.png", 58, 65, 2, 2);
+	simon_LadderDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightXCT.png", 58, 65, 2, 2);
 	simon_CrouchL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNgoi.png", 56, 67, 1, 1);
 	simon_CrouchR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNgoi.png", 56, 67, 1, 1);
 	simon_MSStandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftRoi.png", 60, 66, 3, 3);
@@ -56,10 +56,10 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	simon_StandBack = new Sprite(d3ddv, "resource\\image\\simon\\simon-Stand.png", 51, 66, 1, 1);
 	simon_FlyL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftFly.png", 57, 66, 1, 1);
 	simon_FlyR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightFly.png", 57, 66, 1, 1);
-	simon_JumpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNhay.png", 56, 66, 1, 1);
-	simon_JumpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNhay.png", 53, 66, 1, 1);
+	simon_JumpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNhay.png", 56, 67, 1, 1);
+	simon_JumpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNhay.png", 53, 67, 1, 1);
 	CRec = RecF(x - 25, y - 30, 50, 66, vx, vy);// load vi tri ban dau cho simon
-	
+
 }
 
 void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
@@ -78,25 +78,26 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		downPress = false;
 	}
 
-	//if (y < 62)
-	//{
-	//	vy = 0;
-	//	y = 62;
-	//	playerState = STAND;
-	//}
+	/*if (y < 62)
+	{
+	vy = 0;
+	y = 62;
+	playerState = STAND;
+	}*/
 
 
 	////Falling ----------------------------------------------------
-	if (y > GROUND_Y)
+	if (y > 61)
 	{
 		vy -= 0.2f;
 	}
 	else vy = 0;
 
-	//Screen Edge-------------------------------------------------
-	if (x < vpx + 40) x = vpx + 40;
 
-	if (x > vpx + 440) x = vpx + 440;
+	////Screen Edge-------------------------------------------------
+	//if (x < vpx + 40) x = vpx + 40;
+
+	//if (x > vpx + 440) x = vpx + 440;
 
 
 	// move left or right --------------------------
@@ -119,7 +120,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	else if (leftPress && downPress == false && playerState != CROUCH)
 	{
 
-		if (playerState != JUMP )
+		if (playerState != JUMP)
 		{
 			playerState = RUN;
 			LRight = false;
@@ -130,7 +131,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		if (playerState == JUMP)
 		{
 			LRight = false;
-		}	
+		}
 	}
 	else //Stand if do nothing---------------------------
 	{
@@ -141,13 +142,12 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		}
 		else vx = 0;
 	}
-
 	//jump left or right //fix jump continous
 
 	if (spacePress && downPress == false && playerState != JUMP)
 	{
 		if (doJump == false)
-		{		
+		{
 			playerState = JUMP;
 			vy = 7;
 		}
@@ -168,11 +168,10 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	if (downPress &&playerState != JUMP)
 	{
 		playerState = CROUCH;
-		y = y - 8;
 	}
 
 
-			
+
 	//Move player-------------------------------------------------
 	x += vx;
 	y += vy;
@@ -181,7 +180,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
 	{
-		if (LRight == true) 
+		if (LRight == true)
 		{
 			simon_R->Next();
 			simon_StandR->Next();
@@ -224,7 +223,7 @@ void CSimon::Draw(int vpx, int vpy)
 	}
 	else
 	{
-		
+
 		switch (playerState)
 		{
 		case STAND:
@@ -244,7 +243,7 @@ void CSimon::Draw(int vpx, int vpy)
 		}
 	}
 
-	
+
 }
 void CSimon::UpdateCRec()
 {
@@ -260,7 +259,7 @@ void CSimon::UpdateCRec()
 	if (playerState == JUMP)
 	{
 		CRec.x = x - 10;
-		CRec.y = y - 10;
+		CRec.y = y - 33;
 		CRec.width = 56;
 		CRec.height = 66;
 		CRec.vx = vx;
@@ -269,8 +268,8 @@ void CSimon::UpdateCRec()
 
 	if (playerState == CROUCH)
 	{
-		CRec.x = x - 10;
-		CRec.y = y - 10;
+		CRec.x = x - 28;
+		CRec.y = y - 33;
 		CRec.width = 56;
 		CRec.height = 66;
 		CRec.vx = 0;

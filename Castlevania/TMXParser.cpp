@@ -59,7 +59,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 				y = std::atoi(object_node->first_attribute("y")->value());
 				width = std::atoi(object_node->first_attribute("width")->value());
 				height = std::atoi(object_node->first_attribute("height")->value());
-				RecF rec(x, mapheight*TILE_SIZE - y, width, height);
+				RecF rec(x, mapheight*TILE_SIZE - y - height, width, height);
 				recList.push_back(rec);
 			}
 		}
@@ -78,7 +78,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 					y = std::atoi(object_node->first_attribute("y")->value());
 					width = std::atoi(object_node->first_attribute("width")->value());
 					height = std::atoi(object_node->first_attribute("height")->value());
-					RecF rec(x, mapheight*TILE_SIZE - y, width, height);
+					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height);
 					stairList.push_back(rec);
 				}
 			}
