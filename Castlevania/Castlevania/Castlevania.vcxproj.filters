@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="FrameWork">
+      <UniqueIdentifier>{e3d01eed-60c9-4477-9238-c7eb98d0a8b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\IO">
+      <UniqueIdentifier>{d12a7e6e-52ba-4e8c-9c1b-fa9afbb4ef49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState">
+      <UniqueIdentifier>{21a3ba0b-9a20-418e-87cd-8299411a1e0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\Map">
+      <UniqueIdentifier>{177f058f-fce8-4b26-a7e0-aeb0391f2633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\StateMap">
+      <UniqueIdentifier>{05944010-b3bf-436f-b8bb-60278f75be10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\Menu">
+      <UniqueIdentifier>{72208756-7de2-4e87-b3cb-dd334a03f756}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\Intro">
+      <UniqueIdentifier>{3435fc19-261e-4267-bbbe-c2c19c649215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{f570a745-cd7a-437a-b461-46edd447548b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon">
+      <UniqueIdentifier>{260941a1-cbc1-4680-8fbf-20c781bdd36e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{c255feb8-86b5-460d-add5-5b3813448ca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Explosion">
+      <UniqueIdentifier>{b7e26249-0cae-4f8a-a36c-0db5f0dbf303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{6336f712-f594-4828-9260-9a67f300e152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Boss">
+      <UniqueIdentifier>{e074065e-15c8-4f3d-b4ba-209dfecf2c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\EnemyMap2">
+      <UniqueIdentifier>{fbe81593-9790-4dd9-93d7-ad67ec212ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{d84d0ae3-ef09-417a-ac28-edb20a18d060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet\BossBullet">
+      <UniqueIdentifier>{d173217a-616d-4da5-b336-1b2a245cdbcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet\EnemyBullet">
+      <UniqueIdentifier>{7d064a76-d811-4d0f-999b-5c98d12dd003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Weapon\WeaponType">
+      <UniqueIdentifier>{3ea4a116-0e5e-47d3-82e8-5ffaf6994bef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Other">
+      <UniqueIdentifier>{54862e65-b8f6-4367-8a0f-51910550853c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="trace.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="simon.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="quadtree.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TMXParser.cpp">
+      <Filter>FrameWork\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboard.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="recF.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="psound.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="StateManagement.cpp">
+      <Filter>GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="map.cpp">
+      <Filter>FrameWork\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="font.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMap2.cpp">
+      <Filter>GameState\StateMap</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>GameState\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="StateLoad.cpp">
+      <Filter>GameState\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="weapon.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="weaponManager.cpp">
+      <Filter>GameObject\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="explosion.cpp">
+      <Filter>Enemy\Explosion</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="boss2.cpp">
+      <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackKnight.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonSkullCannon.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghost.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="VampireBat.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="Medusa.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss2Bullet.cpp">
+      <Filter>Bullet\BossBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Bullet\EnemyBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="winmain.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MorningStar.cpp">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClCompile>
+    <ClCompile Include="Dagger.cpp">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBomb.cpp">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Enemy\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Candle.cpp">
+      <Filter>Enemy\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Enemy\Other</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="utils.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="trace.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="simon.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="quadtree.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="TMXParser.h">
+      <Filter>FrameWork\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="recF.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="psound.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManagement.h">
+      <Filter>GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>FrameWork\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="font.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMap2.h">
+      <Filter>GameState\StateMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>GameState\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="StateLoad.h">
+      <Filter>GameState\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="weapon.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="weaponManager.h">
+      <Filter>GameObject\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="explosion.h">
+      <Filter>Enemy\Explosion</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="boss2.h">
+      <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackKnight.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonSkullCannon.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghost.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireBat.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="Medusa.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss2Bullet.h">
+      <Filter>Bullet\BossBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Bullet\EnemyBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MorningStar.h">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClInclude>
+    <ClInclude Include="Dagger.h">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBomb.h">
+      <Filter>GameObject\Weapon\WeaponType</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Enemy\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Candle.h">
+      <Filter>Enemy\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Enemy\Other</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
