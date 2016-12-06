@@ -12,6 +12,7 @@ class Map{
 private:
 	Sprite* _spriteSheet;
 	RecFList _collisionRecs;
+	RecFList _stairRecs;
 
 	int _width;
 	int _height;
@@ -25,9 +26,10 @@ public:
 	void Draw(int vpx, int vpy);
 
 	RecFList CRecList();
+	RecFList CRecStairList();
 
 	int Width();
 	int Height();
-	void SetMap(int width, int height, int* mapArr, RecFList collisionRecs);
+	void SetMap(int width, int height, int* mapArr, RecFList collisionRecs,RecFList _stairRecs);
 };
 #endif

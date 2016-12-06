@@ -19,7 +19,7 @@ Parser::~Parser()
 {
 }
 
-void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs)
+void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs, RecFList &_stairRecs)
 {
 	
 	rapidxml::xml_document<> doc;
@@ -33,6 +33,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 	int count = mapwidth*mapheight;
 	arr = new int[count];
 	RecFList recList;
+	RecFList stairList;
 
 	for (rapidxml::xml_node<>* layer_node = root_node->first_node("layer"); layer_node; layer_node = layer_node->next_sibling("layer")) {
 		std::string layername = layer_node->first_attribute("name")->value();
@@ -64,10 +65,30 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 		}
 	}
 
+	for (rapidxml::xml_node<>* oGroup_node = root_node->first_node("objectgroup"); oGroup_node; oGroup_node = oGroup_node->next_sibling("objectgroup")) {
+		std::string name = oGroup_node->first_attribute("name")->value();
+		if (name.compare("MoveObject") == 0)
+		{
+			for (rapidxml::xml_node<>* object_node = oGroup_node->first_node("object"); object_node; object_node = object_node->next_sibling("object")){
+				std::string o_name = object_node->first_attribute("name")->value();
+				if (o_name.compare("StairDL") == 0)
+				{
+					int x, y, width, height;
+					x = std::atoi(object_node->first_attribute("x")->value());
+					y = std::atoi(object_node->first_attribute("y")->value());
+					width = std::atoi(object_node->first_attribute("width")->value());
+					height = std::atoi(object_node->first_attribute("height")->value());
+					RecF rec(x, mapheight*TILE_SIZE - y, width, height);
+					stairList.push_back(rec);
+				}
+			}
+		}
+	}
 	
 	_width = mapwidth;
 	_height = mapheight;
 	_collisionRecs = recList;
+	_stairRecs = stairList;
 
 }
 void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
