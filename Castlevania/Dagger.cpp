@@ -13,9 +13,9 @@ Dagger::Dagger(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _simon)
 	explosion = _explosion;
 	last_time = 0;
 	simon = _simon;
+
 	daggerL = new Sprite(d3ddv, "resource\\image\\weapon\\1L.png", 32, 18, 1, 1);
 	daggerR = new Sprite(d3ddv, "resource\\image\\weapon\\1R.png", 32, 18, 1, 1);
-	//LRight = true;
 	CRec = RecF(0, 0, 32, 28);
 }
 
@@ -37,8 +37,6 @@ void Dagger::Update()
 	CRec.vx = vx;
 	CRec.vy = vy;
 
-	/*if (life == 45) Destroy();
-	life++;*/
 }
 void Dagger::Destroy()
 {

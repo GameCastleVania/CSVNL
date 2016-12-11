@@ -20,8 +20,8 @@ protected:
 	WeaponList simonWList;
 	Direction direc;
 
-	bool fight;
-	int count;
+	bool fight; // xet trang thai phim co nhan hay k
+	int count; // xet so lan vu khi thu 2 dc nem 
 
 	//Weapon type temp
 	Weapon weapon;
@@ -37,9 +37,9 @@ public:
 
 	void Draw(int vpx, int vpy);
 	void Update(int vpx, int vpy);
-	void Get(WeaponType type, float x, float y, float vx, float vy);
-	void LowerTimeLimit();
+	void Destroy(int vpx, int vpy);
 
+	void Get(WeaponType type, float x, float y, float vx, float vy);
 	void PlayerShoot();
 	//void SetPLayerBType(BonusType t);
 

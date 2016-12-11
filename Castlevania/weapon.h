@@ -8,10 +8,11 @@
 class Weapon : public GameObject
 {
 protected:
-	bool ex;
+	bool ex = false;
 	Explosion* explosion;
 	CSimon* simon;
-	bool fight;
+	bool fight = false; // co nhan nut danh hay k
+	bool falling = false; // trang thai len cao roi xuong cua Axe va FireBomb
 public:
 	Weapon();
 	~Weapon();
@@ -26,6 +27,8 @@ public:
 	bool CanExplode();
 	bool SetFight(bool val);
 	bool GetFight();
+	bool SetFalling(bool val);
+	bool GetFalling();
 
 #pragma endregion
 };

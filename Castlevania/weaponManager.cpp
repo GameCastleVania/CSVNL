@@ -7,16 +7,16 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	psound = _psound;
 	direc = RIGHT;
 	fight = false;
-	count = 0;
+	count = 0; 
 
 	for (int i = 0; i < 70; i++){
 		simonWList.push_back(new Weapon());
 	}
 
-	axe = Axe(_d3ddv, _explosion);
+	axe = Axe(_d3ddv, _explosion, _simon);
 	bmerang = Boomerang(_d3ddv, _explosion);
 	dagger = Dagger(_d3ddv, _explosion, _simon);
-	fbomb = FireBomb(_d3ddv, _explosion);
+	fbomb = FireBomb(_d3ddv, _explosion, _simon);
 }
 
 WeaponManager::~WeaponManager()
@@ -28,50 +28,74 @@ void WeaponManager::Draw(int vpx, int vpy)
 	if (fight)
 	{
 		for (int i = 0; i < simonWList.size(); i++){
-			simonWList[i]->Draw(vpx, vpy);		
+			simonWList[i]->Draw(vpx, vpy);	
+			count++;
+			Destroy(vpx,vpy);
 		}
 	}
 	
 }
 
+void WeaponManager::Destroy(int vpx, int vpy)
+{
+	for (int i = 0; i < simonWList.size(); i++)
+	{
+		switch (simon->GetWeaponType())
+		{
+		case FIREBOMB:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		case DAGGER:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		case AXE:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		
+		default:
+			break;
+		}
+
+
+	}
+}
+
 void WeaponManager::Update(int vpx, int vpy)
 {
-
-	simon->SetWeaponType(DAGGER);
-
-		
+	
+	if(kbd->IsKeyDown(DIK_Z)) simon->SetWeaponType(FIREBOMB);
+	if (kbd->IsKeyDown(DIK_X)) simon->SetWeaponType(AXE);
+	if (kbd->IsKeyDown(DIK_C)) simon->SetWeaponType(DAGGER);
 
 	PlayerShoot();
-
-	////Update all bullet
+	
 	for (int i = 0; i < simonWList.size(); i++)
 	{
 		simonWList[i]->Update();
-		if (simonWList[i]->GetX() > vpx + 600 || simonWList[i]->GetX() < vpx)
-		{
-			simonWList[i]->Destroy();
-			count = 0;
-		}
-			
 	}
-		
 
 }
 
-void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
-{
-	for (int i = 0; i < simonWList.size(); i++)
-	{
-		if (type == AXE) simonWList[i] = new Axe(axe);
-		if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
-		if (type == DAGGER) simonWList[i] = new Dagger(dagger);
-		if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
 
-		simonWList[i]->SetFight(true);
-		simonWList[i]->Set(x, y, vx, vy, 2);
-		break;
-	}
-}
+
 
 void WeaponManager::PlayerShoot()
 {
@@ -90,24 +114,63 @@ void WeaponManager::PlayerShoot()
 	x = simon->GetWeaponx();
 	y = simon->GetWeapony();
 
-	switch (direc)
+
+	if (direc == RIGHT)
 	{
-	case LEFT:
-		vx = -BULLET_SPEED;
-		vy = 0;
-		break;
-	case RIGHT:
-		vx = BULLET_SPEED;
-		vy = 0;
-		break;
-	default:
-		break;
+		switch (simon->GetWeaponType())
+		{
+		case DAGGER:
+		{
+			vx = BULLET_SPEED;
+			vy = 0;
+			break;
+		}			
+		case AXE:
+		{
+			vx = 3;
+			vy = 6;
+			break;
+		}						
+		case FIREBOMB:
+		{
+			vx = 2;
+			vy = 4;
+			break;
+		}		
+		default:
+			break;
+		}
+	}
+	else if (direc == LEFT)
+	{
+		switch (simon->GetWeaponType())
+		{
+		case DAGGER:
+			vx = -BULLET_SPEED;
+			vy = 0;
+			break;
+		case AXE:
+		{
+			vx = -3;
+			vy = 6;
+			break;
+		}
+		case FIREBOMB:
+		{
+			vx = -2;
+			vy = 4;
+			break;
+		}
+
+		default:
+			break;
+		}
 	}
 
 	if (kbd->IsKeyDown(DIK_RETURN))
 	{
-		if (count == 0) fight = true;
-		if (fight)
+		fight = true;
+		if (fight && count == 0)
 		{
 			WeaponType type = simon->GetWeaponType();
 			/*if (type == Multi) psound->Play(10);
@@ -117,6 +180,21 @@ void WeaponManager::PlayerShoot()
 			Get(type, x, y, vx, vy);
 		}
 		
+	}
+}
+
+void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
+{
+	for (int i = 0; i < simonWList.size(); i++)
+	{
+		if (type == AXE) simonWList[i] = new Axe(axe);
+		if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
+		if (type == DAGGER) simonWList[i] = new Dagger(dagger);
+		if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
+
+		simonWList[i]->SetFight(true);
+		simonWList[i]->Set(x, y, vx, vy, type);
+		break;
 	}
 }
 
@@ -132,9 +210,4 @@ void WeaponManager::PlayerShoot()
 WeaponList WeaponManager::GetSimonWList()
 {
 	return simonWList;
-}
-
-void WeaponManager::LowerTimeLimit()
-{
-	//timeLimit -= 5;
 }
