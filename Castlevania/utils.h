@@ -18,12 +18,16 @@ enum PlayerState
 	CROUCH, // ngoi
 	CROUCHW, //ngoi danh
 	RUN, // chay
-	JUMP, // nhay
+	JUMP,// nhay
+	JUMPFIGHT,
 	LADDERUP, //len cau thang
 	LADDERDOWN, //xuong cau thang
 	LADDERUPW, //len cau thang danh
 	LADDERDOWNW, //xuong cau thang danh
-
+	STANDUR,
+	RUNUPR,
+	STANDDL,
+	RUNDOWNL,
 };
 
 enum BulletType

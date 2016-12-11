@@ -15,6 +15,17 @@ RecF::RecF(float X, float Y, float Width, float Height, float Vx, float Vy)
 	width = Width;
 	height = Height;
 }
+RecF::RecF(float X, float Y, float Width, float Height, int Type, float Vx, float Vy)
+{
+	collisionTime = 1;
+	x = X;
+	y = Y;
+	width = Width;
+	height = Height;
+	type = Type;
+	vx = Vx;
+	vy = Vy;
+}
 
 RecF::~RecF()
 {
@@ -148,7 +159,7 @@ float RecF::SweptAABB(RecF b1, RecF b2, float& normalx, float& normaly)
 	}
 
 	// find the earliest/latest times of collision
-	float entryTime = (xEntry > yEntry) ? xEntry : yEntry; 
+	float entryTime = (xEntry > yEntry) ? xEntry : yEntry;
 	float exitTime = (xExit > yExit) ? xExit : yExit;
 
 	// if there was no collision

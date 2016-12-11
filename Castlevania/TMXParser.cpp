@@ -19,9 +19,9 @@ Parser::~Parser()
 {
 }
 
-void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs, RecFList &_stairRecs)
+void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs, RecFList &_ladderRecs)
 {
-	
+
 	rapidxml::xml_document<> doc;
 	rapidxml::file<> file(fileName);
 	doc.parse<0>(file.data());
@@ -33,7 +33,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 	int count = mapwidth*mapheight;
 	arr = new int[count];
 	RecFList recList;
-	RecFList stairList;
+	RecFList ladderList;
 
 	for (rapidxml::xml_node<>* layer_node = root_node->first_node("layer"); layer_node; layer_node = layer_node->next_sibling("layer")) {
 		std::string layername = layer_node->first_attribute("name")->value();
@@ -54,7 +54,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 		if (name.compare("Collision") == 0)
 		{
 			for (rapidxml::xml_node<>* object_node = oGroup_node->first_node("object"); object_node; object_node = object_node->next_sibling("object")){
-				int x, y, width, height;				
+				int x, y, width, height;
 				x = std::atoi(object_node->first_attribute("x")->value());
 				y = std::atoi(object_node->first_attribute("y")->value());
 				width = std::atoi(object_node->first_attribute("width")->value());
@@ -71,24 +71,31 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 		{
 			for (rapidxml::xml_node<>* object_node = oGroup_node->first_node("object"); object_node; object_node = object_node->next_sibling("object")){
 				std::string o_name = object_node->first_attribute("name")->value();
-				if (o_name.compare("StairDL") == 0)
+				if (o_name.compare("Stair") == 0)
 				{
-					int x, y, width, height;
+					int x, y, width, height, type;
+					char* _type;
 					x = std::atoi(object_node->first_attribute("x")->value());
 					y = std::atoi(object_node->first_attribute("y")->value());
 					width = std::atoi(object_node->first_attribute("width")->value());
 					height = std::atoi(object_node->first_attribute("height")->value());
-					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height);
-					stairList.push_back(rec);
+					_type = object_node->first_attribute("type")->value();
+					if (strcmp(_type, "UR") == 0) type = 0;
+					if (strcmp(_type, "UL") == 0) type = 1;
+					if (strcmp(_type, "DL") == 0) type = 2;
+					if (strcmp(_type, "DR") == 0) type = 3;
+					if (strcmp(_type, " ") == 0) type = 4;
+					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height, type);
+					ladderList.push_back(rec);
 				}
 			}
 		}
 	}
-	
+
 	_width = mapwidth;
 	_height = mapheight;
 	_collisionRecs = recList;
-	_stairRecs = stairList;
+	_ladderRecs = ladderList;
 
 }
 void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
@@ -120,19 +127,19 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					}
 					/*if (o_name.compare("BoneTowers") == 0)
 					{
-						enemyList.push_back(new DragonSkullCannon(x,  mapheight*TILE_SIZE - height - y));
+					enemyList.push_back(new DragonSkullCannon(x,  mapheight*TILE_SIZE - height - y));
 					}
 					if (o_name.compare("Ghoste") == 0)
 					{
-						enemyList.push_back(new Ghost(x,  mapheight*TILE_SIZE - height - y));
+					enemyList.push_back(new Ghost(x,  mapheight*TILE_SIZE - height - y));
 					}
 					if (o_name.compare("MedusaHeads") == 0)
 					{
-						enemyList.push_back(new Medusa(x,  mapheight*TILE_SIZE - height - y));
+					enemyList.push_back(new Medusa(x,  mapheight*TILE_SIZE - height - y));
 					}
 					if (o_name.compare("Bats") == 0)
 					{
-						enemyList.push_back(new VampireBat(x,  mapheight*TILE_SIZE - height - y));
+					enemyList.push_back(new VampireBat(x,  mapheight*TILE_SIZE - height - y));
 					}*/
 				}
 			}

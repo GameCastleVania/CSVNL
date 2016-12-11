@@ -20,6 +20,11 @@ CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 	psound = _psound;
 	fight = false;
 	alive = true;
+
+	bool doJump = false;
+	bool isUpPress = false;
+	bool isDownPress = false;
+
 	last_time = 0;
 	_last_time = 0;
 	x = X;
@@ -46,6 +51,8 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	simon_StandR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightS.png", 60, 66, 1, 1);
 	simon_DieL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftdeath.png", 64, 68, 1, 1);
 	simon_DieR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightdeath.png", 64, 68, 1, 1);
+	simon_StandUR = new Sprite(d3ddv, "resource\\image\\simon\\simon-StandURCT.png", 56, 66, 1, 1);
+	simon_StandDL = new Sprite(d3ddv, "resource\\image\\simon\\simon-StandDLCT.png", 56, 66, 1, 1);
 	simon_LadderUpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftLCT.png", 58, 67, 2, 2);
 	simon_LadderUpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightLCT.png", 58, 67, 2, 2);
 	simon_LadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCT.png", 58, 65, 2, 2);
@@ -81,12 +88,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	bool fightUp = kbd->IsKeyUp(DIK_K);
 	bool enterPress = kbd->IsKeyDown(DIK_RETURN);
 	bool enterUp = kbd->IsKeyUp(DIK_RETURN);
-	
+
 	//Jump Falling------------------------------------------------
 	if (playerState == JUMP)
 	{
 		vy -= 0.12f;
-		downPress = false;
 	}
 
 	/*if (y < 62)
@@ -98,11 +104,14 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 
 	////Falling ----------------------------------------------------
-	if (y > 61)
+	if (playerState != RUNUPR && playerState != STANDUR)
 	{
-		vy -= 0.2f;
+		if (y > 61)
+		{
+			vy -= 0.2f;
+		}
+		else vy = 0;
 	}
-	else vy = 0;
 
 
 	////Screen Edge-------------------------------------------------
@@ -113,11 +122,12 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	// move left or right --------------------------
 
-	if (rightPress && downPress == false && doFight == false && !fightPress && !enterPress && playerState != CROUCH && playerState != STANDW)
+	if (rightPress && downPress == false && isOnLadder == false
+		&& !fightPress && !enterPress && playerState != CROUCH  && playerState != STANDW)
 	{
 		if (playerState != JUMP)
 		{
-			 playerState = RUN;
+			playerState = RUN;
 			LRight = true;
 			vx = WALK_SPEED;
 		}
@@ -128,12 +138,14 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			LRight = true;
 		}
 	}
-	else if (leftPress && downPress == false && doFight == false && !fightPress && !enterPress && playerState != CROUCH  && playerState != STANDW)
+	else	
+	if (leftPress && downPress == false && isOnLadder == false 
+		&& !fightPress && !enterPress && playerState != CROUCH  && playerState != STANDW)
 	{
 
 		if (playerState != JUMP)
 		{
-			 playerState = RUN;
+			playerState = RUN;
 			LRight = false;
 			vx = -WALK_SPEED;
 		}
@@ -146,19 +158,55 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	}
 	else //Stand if do nothing---------------------------
 	{
-		if (playerState != JUMP)
+		if (playerState != JUMP && playerState != STANDUR && playerState != RUNUPR)
 		{
 			if (!doFight)
 				playerState = STAND;
-			else
-				playerState = STANDW;
 			vx = 0;
 		}
 		else vx = 0;
 	}
+
+
+	///////////// move up on ladder
+	if (rightPress && downPress == false && upPress == true && isOnLadder == true && playerState != CROUCH)
+	{
+		if (playerState != JUMP)
+		{
+			playerState = RUNUPR;
+			LRight = true;
+			vx = 0.95f;
+		}
+		else vx = 0.95;
+	}
+	else if (((rightPress == false && upPress == false) || (rightPress == true && upPress == false) || (rightPress == false && upPress == true)) && isOnLadder == true)
+	{
+		vx = 0;
+		playerState = STANDUR;
+	}
+
+	////////////// move down on ladder
+	if (leftPress && downPress == true && upPress == false && isOnLadder == true && playerState != CROUCH)
+	{
+		if (playerState != JUMP)
+		{
+			playerState = RUNDOWNL;
+			LRight = false;
+			vx = -0.95f;
+		}
+		else vx = -0.95f;
+	}
+
+
+	if (rightPress == false) isRightPress = false;
+	else isRightPress = true;
+
+
+
 	//jump left or right //fix jump continous
 
-	if (spacePress && downPress == false && playerState != JUMP)
+	if (spacePress && downPress == false && upPress == false && isOnLadder == false 
+		&& playerState != JUMP && (playerState == STAND||playerState == RUN) && fightPress== false)
 	{
 		if (doJump == false)
 		{
@@ -177,12 +225,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	}
 
 
-
 	/// stand fight------------------------------------------------
 
 	//Fight
 
-	if ((fightPress || enterPress) && doFight == false && isfightUP == true)
+	if ((fightPress) && doFight == false && isfightUP == true && playerState != RUN)
 	{
 		doFight = true;
 		isfightUP = false;
@@ -191,29 +238,42 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		playerState = STANDW;
 	}
 
-	if (fightUp == true || enterUp == true)
+	if (fightUp == true)
 	{
 		isfightUP = true;
 	}
 	else isfightUP = false;
 
 
-
 	// Crouch---------------------------------------------------
 
-	if (downPress &&playerState != JUMP)
+	if (downPress &&playerState != JUMP && isOnLadder == false)
 	{
 		playerState = CROUCH;
 	}
 
 	//Crouch fight
-	if ((fightPress || enterPress) && playerState == CROUCH)
+	if ((fightPress || enterPress) && playerState == CROUCH )
 	{
 		playerState = CROUCHW;
 	}
 
 	
+	//LadderUp ------------------------------------------
 
+	if (upPress && playerState != CROUCH && playerState != JUMP)
+	{
+		isUpPress = true;
+	}
+	else isUpPress = false;
+
+	//LadderDown
+
+	if (downPress && playerState != CROUCH && playerState != JUMP)
+	{
+		isDownPress = true;
+	}
+	else isDownPress = false;
 
 	//Move player-------------------------------------------------
 	x += vx;
@@ -246,17 +306,41 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	{
 		if (LRight && doFight)
 		{
-			if (simon_MSStandR->GetIndex() == 2) doFight = false;
+			if (simon_MSStandR->GetIndex() == 2)
+			{
+				doFight = false;
+				playerState = STAND;
+			}
 			simon_MSStandR->NextEnd();
 		}
 		else if (!LRight && doFight)
 		{
-			if (simon_MSStandL->GetIndex() == 2) doFight = false;
+			if (simon_MSStandL->GetIndex() == 2) 
+			{
+				doFight = false;
+				playerState = STAND;
+			}
 			simon_MSStandL->NextEnd();
 		}
 		_last_time = _now;
 	}
 	
+	DWORD __now = GetTickCount();
+	if (__now - __last_time > 1000 / 7.0f)
+	{
+		if (LRight == true)
+		{
+			simon_StandUR->Next();
+			simon_LadderUpR->Next();
+		}
+		else
+		{
+			simon_StandDL->Next();
+			simon_LadderDownL->Next();
+		}
+		__last_time = __now;
+	}
+
 	UpdateGunPoint();
 	UpdateCRec();
 }
@@ -285,6 +369,15 @@ void CSimon::Draw(int vpx, int vpy)
 		case STANDW:
 			simon_MSStandR->Render(x, y, vpx, vpy);
 			break;
+		case JUMPFIGHT:
+			simon_MSStandR->Render(x, y, vpx, vpy);
+			break;
+		case RUNUPR:
+			simon_LadderUpR->Render(x, y, vpx, vpy);
+			break;
+		case STANDUR:
+			simon_StandUR->Render(x, y, vpx, vpy);
+			break;
 		default:
 			break;
 		}
@@ -311,6 +404,15 @@ void CSimon::Draw(int vpx, int vpy)
 			break;
 		case STANDW:
 			simon_MSStandL->Render(x, y, vpx, vpy);
+			break;
+		case JUMPFIGHT:
+			simon_MSStandL->Render(x, y, vpx, vpy);
+			break;
+		case RUNDOWNL:
+			simon_LadderDownL->Render(x, y, vpx, vpy);
+			break;
+		case STANDDL:
+			simon_StandDL->Render(x, y, vpx, vpy);
 			break;
 		default:
 			break;
@@ -366,6 +468,27 @@ void CSimon::UpdateGunPoint()
 		}
 	}
 }
+
+void CSimon::ladderUPRight()
+{
+	vy = 1.0f;
+	playerState = RUNUPR;
+	isOnLadder = true;
+	LRight = true;
+}
+
+
+void CSimon::ladderDOWNLeft()
+{
+	if (isRightPress == true && isUpPress == true)
+	{
+		vy = -1.0f;
+		playerState = RUNDOWNL;
+		isOnLadder = true;
+		LRight = false;
+	}
+}
+
 void CSimon::UpdateCRec()
 {
 	if (playerState == STAND || playerState == RUN)
@@ -392,6 +515,26 @@ void CSimon::UpdateCRec()
 		CRec.x = x - 28;
 		CRec.y = y - 33;
 		CRec.width = 56;
+		CRec.height = 66;
+		CRec.vx = 0;
+		CRec.vy = 0;
+	}
+
+	if (playerState == RUNUPR || playerState == STANDUR || playerState == RUNDOWNL || playerState == STANDDL)
+	{
+		CRec.x = x - 10;
+		CRec.y = y - 33;
+		CRec.width = 58;
+		CRec.height = 66;
+		CRec.vx = 0;
+		CRec.vy = 0;
+	}
+
+	if (playerState == STANDW || playerState == JUMPFIGHT)
+	{
+		CRec.x = x - 10;
+		CRec.y = y - 33;
+		CRec.width = 60;
 		CRec.height = 66;
 		CRec.vx = 0;
 		CRec.vy = 0;

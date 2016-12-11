@@ -15,11 +15,10 @@ private:
 	PSound* psound;
 	DWORD last_time;
 	DWORD _last_time;
+	DWORD __last_time;
 	PlayerState playerState;
 	WeaponType Simon_WType;
-	bool LRight = true;
-	bool doJump = false;
-
+	
 	bool isfightUP = false;
 	bool fight;
 	bool alive;
@@ -30,11 +29,21 @@ public:
 	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, float X, float Y);
 	~CSimon();
 
+	bool LRight = true;
+	bool doJump = false;
 	bool doFight = false;
+	bool isUpPress = false;
+	bool isRightPress = false;
+	bool isDownPress = false;
+	bool isOnLadder = false;
+
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);
 	void Draw(int vpx, int vpy);
 	
+	void ladderUPRight();
+	void ladderDOWNLeft();
+
 	void UpdateCRec();
 	void UpdateGunPoint();
 	void Kill();
@@ -50,6 +59,8 @@ private: //All player sprite
 	Sprite* simon_StandR; // dung phai
 	Sprite* simon_DieL; // chet trai
 	Sprite* simon_DieR; // chet phai
+	Sprite* simon_StandUR; // dung khi len cau thang
+	Sprite* simon_StandDL;
 	Sprite* simon_LadderUpR; // len cau thang phai
 	Sprite* simon_LadderUpL; // len cau thang trai
 	Sprite* simon_LadderDownR; // xuong cau thang phai

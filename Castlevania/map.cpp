@@ -13,7 +13,7 @@ Map::~Map()
 Map::Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char *fileName)
 {
 	Parser tmx(fileName);
-	tmx.ReadMap(_width, _height, _mapArr, _collisionRecs, _stairRecs);
+	tmx.ReadMap(_width, _height, _mapArr, _collisionRecs, _ladderRecs);
 	_spriteSheet = new Sprite(_d3ddv, spriteSheet, 32, 32, 100, 10);
 	animation = 0;
 	////////////////
@@ -62,7 +62,7 @@ void Map::SetMap(int width, int height, int* mapArr, RecFList collisionRecs, Rec
 	_height = height;
 	_mapArr = mapArr;
 	_collisionRecs = collisionRecs;
-	_stairRecs = stairRecs;
+	_ladderRecs = stairRecs;
 }
 
 RecFList Map::CRecList()
@@ -70,8 +70,8 @@ RecFList Map::CRecList()
 	return _collisionRecs;
 }
 
-RecFList Map::CRecStairList()
+RecFList Map::CRecLadderList()
 {
-	return _stairRecs;
+	return _ladderRecs;
 }
 #pragma endregion

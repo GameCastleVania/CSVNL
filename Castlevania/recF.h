@@ -9,9 +9,11 @@ public:
 	float vx, vy;
 	float width, height;
 	float collisionTime;
+	int type;
 
 	RecF();
 	RecF(float x, float y, float width, float height, float vx = 0, float vy = 0);
+	RecF(float x, float y, float width, float height, int type, float vx = 0, float vy = 0);
 	~RecF();
 	void Tranlate(float dx, float dy);
 	static bool OverLapse(RecF a, RecF b);

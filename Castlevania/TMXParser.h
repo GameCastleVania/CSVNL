@@ -39,7 +39,7 @@ public:
 
 	rapidxml::xml_node<>* root_node;
 
-	void ReadMap(int &_width, int &_height, int* &_mapArr, RecFList &_collisionRecs, RecFList &_stairRecs);
+	void ReadMap(int &_width, int &_height, int* &_mapArr, RecFList &_collisionRecs, RecFList &_ladderRecs);
 	void ReadEnemy(char* name, EnemyList &enemyList);
 	//void ReadGameObject(Platform** platform);
 	//void ReadGameObject(Bridge* bridge1, Bridge* bridge2);

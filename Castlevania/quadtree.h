@@ -33,6 +33,7 @@ public:
 	void Clear();
 	void Insert(GameObject* obj);
 	void Insert(RecF* rec);
+	void InsertLadder(RecF* rec);
 	ObjectList* Retrieve(ObjectList* returnObject, GameObject* object);
 	//ObjectList* Retrieve(ObjectList* returnObject, RecF* CollisionRec);
 };
