@@ -24,8 +24,8 @@ void StateManagement::Update(bool isPause, LPDIRECT3DDEVICE9 d3ddv, DSound* Audi
 	//update state
 	if (m_pCurrentState)
 	{
+		
 		m_pCurrentState->Draw(vpx, vpy);
-
 		if (!isPause)
 		{
 			m_pCurrentState->Update(vpx, vpy);

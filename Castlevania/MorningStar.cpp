@@ -1,5 +1,6 @@
 #include "MorningStar.h"
 
+#define ANIMATE_RATE 12
 
 MorningStar::MorningStar()
 {}
@@ -8,42 +9,84 @@ MorningStar::MorningStar()
 MorningStar::~MorningStar()
 {}
 
-MorningStar::MorningStar(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion)
+MorningStar::MorningStar(LPDIRECT3DDEVICE9 d3ddv, CSimon* _Simon, PSound* _psound, int X, int Y)
 {
-	explosion = _explosion;
-	life = 0;
-	mstarL = new Sprite(d3ddv, "resource\\image\\weapon\morningstarL.png", 160, 65, 3, 3);
-	mstarR = new Sprite(d3ddv, "resource\\image\\weapon\morningstarR.png", 160, 65, 3, 3);
+	psound = _psound;
+	simon = _Simon;
+	last_time = 0;
+	x = X;
+	y = Y;
+	vx = 0;
+	vy = 0;
+	fight = false;
+	isfightUp = false;
+	doFight = false;
+	count = 0;
 
-	CRec = RecF(0, 0, 160, 65);
+	mstarL = new Sprite(d3ddv, "resource\\image\\weapon\\morningstarL.png", 150, 65, 3, 3);
+	mstarR = new Sprite(d3ddv, "resource\\image\\weapon\\morningstarR.png", 150, 65, 3, 3);
+	CRec = RecF(0, 0, 150, 65);
 }
 
-void MorningStar::Draw(float vpx, float vpy)
+void MorningStar::Draw(int vpx, int vpy)
 {
-	if (visible)
+	if (simon->GetLRight())
 	{
-		mstarL->Render(x + 80, y + 32, vpx, vpy);
-		mstarR->Render(x + 80, y + 32, vpx, vpy);
-
+		if (fight )
+		{
+			mstarR->Render(simon->GetX() + 31, simon->GetY(), vpx, vpy);				
+		}
+							
 	}
+	else 
+	{
+		if (fight )
+			mstarL->Render(simon->GetX() - 31, simon->GetY(), vpx, vpy);
+	}	
 }
 
-void MorningStar::Update()
+void MorningStar::Update(Keyboard *kbd, int vpx, int vpy)
 {
-	if (visible)
+
+	bool fightPress = kbd->IsKeyDown(DIK_K);
+	bool fightUp = kbd->IsKeyUp(DIK_K);
+	if (fightPress && !fight && isfightUp)
 	{
-		x += vx;
-		y += vy;
-		CRec = RecF(x, y, 160, 65);
+		fight = true;
+		isfightUp = false;
+		if (mstarL->GetIndex() == 3) mstarL->SetIndex(-1);
+		if (mstarR->GetIndex() == 3) mstarR->SetIndex(-1);
 	}
 
-	if (life == 45) Destroy();
-	life++;
+	if (fightUp == true)
+	{
+		isfightUp = true;
+	}
+	else isfightUp = false;
+
+	DWORD now = GetTickCount();
+	if (now - last_time > 1000 / ANIMATE_RATE)
+	{
+
+		if (simon->GetLRight() && fight )
+		{
+			if (mstarR->GetIndex() == 2)
+				Destroy();
+			mstarR->NextEnd();
+				
+		}
+			
+		else if (!simon->GetLRight() && fight)
+		{			
+			if (mstarL->GetIndex() == 2)
+				Destroy();
+			mstarL->NextEnd();
+		}
+		last_time = now;	
+	}
 }
 void MorningStar::Destroy()
 {
-	explosion->Get(1, x, y, 5);
-	visible = false;
-	x = y = vx = vy = 100;
-	CRec = RecF(0, 0, 0, 0);
+	fight = false;
+	
 }

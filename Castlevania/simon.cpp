@@ -4,6 +4,7 @@
 #define GROUND_Y 61
 
 #define ANIMATE_RATE 8
+#define ANIMATE_RATE_W 10
 #define JUMP_VELOCITY_BOOST 3.0f
 #define FALLDOWN_VELOCITY_DECREASE 0.5f
 
@@ -12,15 +13,21 @@ CSimon::CSimon()
 
 }
 
-CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, int X, int Y)
+CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 {
 	playerState = STAND;
 	LRight = true;
 	psound = _psound;
+	fight = false;
+	alive = true;
+	last_time = 0;
+	_last_time = 0;
 	x = X;
 	y = Y;
 	vx = 0;
 	vy = 0;
+	wpx = x;
+	wpy = y;
 	Init(_d3ddv);
 }
 
@@ -35,8 +42,8 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	//load sprite simon
 	simon_R = new Sprite(d3ddv, "resource\\image\\simon\\simon-right.png", 60, 66, 4, 4);
 	simon_L = new Sprite(d3ddv, "resource\\image\\simon\\simon-left.png", 60, 66, 4, 4);
-	simon_StandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftS.png", 50, 63, 1, 1);
-	simon_StandR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightS.png", 50, 63, 1, 1);
+	simon_StandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftS.png", 60, 66, 1, 1);
+	simon_StandR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightS.png", 60, 66, 1, 1);
 	simon_DieL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftdeath.png", 64, 68, 1, 1);
 	simon_DieR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightdeath.png", 64, 68, 1, 1);
 	simon_LadderUpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftLCT.png", 58, 67, 2, 2);
@@ -51,8 +58,8 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	simon_MSLadderUpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightLCTRoi.png", 56, 67, 3, 3);
 	simon_MSLadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCTRoi.png", 60, 66, 3, 3);
 	simon_MSLadderDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightXCTRoi.png", 60, 66, 3, 3);
-	simon_MSDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNgoiRoi.png", 57, 55, 3, 3);
-	simon_MSDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNgoiRoi.png", 57, 55, 3, 3);
+	simon_MSCrouchL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNgoiRoi.png", 57, 55, 3, 3);
+	simon_MSCrouchR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNgoiRoi.png", 56, 66, 3, 3);
 	simon_StandBack = new Sprite(d3ddv, "resource\\image\\simon\\simon-Stand.png", 51, 66, 1, 1);
 	simon_FlyL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftFly.png", 57, 66, 1, 1);
 	simon_FlyR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightFly.png", 57, 66, 1, 1);
@@ -70,7 +77,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	bool rightPress = kbd->IsKeyDown(DIK_D);
 	bool spacePress = kbd->IsKeyDown(DIK_SPACE);
 	bool spaceUp = kbd->IsKeyUp(DIK_SPACE);
-
+	bool fightPress = kbd->IsKeyDown(DIK_K);
+	bool fightUp = kbd->IsKeyUp(DIK_K);
+	bool enterPress = kbd->IsKeyDown(DIK_RETURN);
+	bool enterUp = kbd->IsKeyUp(DIK_RETURN);
+	
 	//Jump Falling------------------------------------------------
 	if (playerState == JUMP)
 	{
@@ -102,11 +113,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	// move left or right --------------------------
 
-	if (rightPress && downPress == false && playerState != CROUCH)
+	if (rightPress && downPress == false && doFight == false && !fightPress && !enterPress && playerState != CROUCH && playerState != STANDW)
 	{
 		if (playerState != JUMP)
 		{
-			playerState = RUN;
+			 playerState = RUN;
 			LRight = true;
 			vx = WALK_SPEED;
 		}
@@ -117,12 +128,12 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			LRight = true;
 		}
 	}
-	else if (leftPress && downPress == false && playerState != CROUCH)
+	else if (leftPress && downPress == false && doFight == false && !fightPress && !enterPress && playerState != CROUCH  && playerState != STANDW)
 	{
 
 		if (playerState != JUMP)
 		{
-			playerState = RUN;
+			 playerState = RUN;
 			LRight = false;
 			vx = -WALK_SPEED;
 		}
@@ -137,7 +148,10 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	{
 		if (playerState != JUMP)
 		{
-			playerState = STAND;
+			if (!doFight)
+				playerState = STAND;
+			else
+				playerState = STANDW;
 			vx = 0;
 		}
 		else vx = 0;
@@ -163,13 +177,42 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	}
 
 
-	// Crouch
+
+	/// stand fight------------------------------------------------
+
+	//Fight
+
+	if ((fightPress || enterPress) && doFight == false && isfightUP == true)
+	{
+		doFight = true;
+		isfightUP = false;
+		if (simon_MSStandR->GetIndex() == 3) simon_MSStandR->SetIndex(0);
+		if (simon_MSStandL->GetIndex() == 3) simon_MSStandL->SetIndex(0);
+		playerState = STANDW;
+	}
+
+	if (fightUp == true || enterUp == true)
+	{
+		isfightUP = true;
+	}
+	else isfightUP = false;
+
+
+
+	// Crouch---------------------------------------------------
 
 	if (downPress &&playerState != JUMP)
 	{
 		playerState = CROUCH;
 	}
 
+	//Crouch fight
+	if ((fightPress || enterPress) && playerState == CROUCH)
+	{
+		playerState = CROUCHW;
+	}
+
+	
 
 
 	//Move player-------------------------------------------------
@@ -183,9 +226,10 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		if (LRight == true)
 		{
 			simon_R->Next();
-			simon_StandR->Next();
+			simon_StandR->Next();			
 			simon_JumpR->Next();
 			simon_CrouchR->Next();
+			simon_MSCrouchR->Next();
 		}
 		else
 		{
@@ -193,9 +237,27 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			simon_StandL->Next();
 			simon_JumpL->Next();
 			simon_CrouchL->Next();
+			simon_MSCrouchL->Next();
 		}
 		last_time = now;
 	}
+	DWORD _now = GetTickCount();
+	if (_now - _last_time > 1000 / ANIMATE_RATE_W)
+	{
+		if (LRight && doFight)
+		{
+			if (simon_MSStandR->GetIndex() == 2) doFight = false;
+			simon_MSStandR->NextEnd();
+		}
+		else if (!LRight && doFight)
+		{
+			if (simon_MSStandL->GetIndex() == 2) doFight = false;
+			simon_MSStandL->NextEnd();
+		}
+		_last_time = _now;
+	}
+	
+	UpdateGunPoint();
 	UpdateCRec();
 }
 
@@ -216,6 +278,12 @@ void CSimon::Draw(int vpx, int vpy)
 			break;
 		case CROUCH:
 			simon_CrouchR->Render(x, y, vpx, vpy);
+			break;
+		case CROUCHW:
+			simon_MSCrouchR->Render(x, y, vpx, vpy);
+			break;
+		case STANDW:
+			simon_MSStandR->Render(x, y, vpx, vpy);
 			break;
 		default:
 			break;
@@ -238,12 +306,65 @@ void CSimon::Draw(int vpx, int vpy)
 		case CROUCH:
 			simon_CrouchL->Render(x, y, vpx, vpy);
 			break;
+		case CROUCHW:
+			simon_MSCrouchL->Render(x, y, vpx, vpy);
+			break;
+		case STANDW:
+			simon_MSStandL->Render(x, y, vpx, vpy);
+			break;
 		default:
 			break;
 		}
 	}
+}
 
-
+void CSimon::UpdateGunPoint()
+{
+	if (LRight == true)
+	{
+		switch (playerState)
+		{
+		case STAND:
+			wpx = x + 10;
+			wpy = y;
+			break;
+		case RUN:
+			wpx = x + 10;
+			wpy = y;
+			break;
+		case JUMP:
+			wpx = x + 10;
+			wpy = y - 10;
+			break;
+		case CROUCH:
+			wpx = x + 10;
+			wpy = y - 10;
+			break;
+		}
+		
+	}
+	else
+	{
+		switch (playerState)
+		{
+		case STAND:
+			wpx = x - 10;
+			wpy = y;
+			break;
+		case RUN:
+			wpx = x - 10;
+			wpy = y;
+			break;
+		case JUMP:
+			wpx = x - 10;
+			wpy = y - 10;
+			break;
+		case CROUCH:
+			wpx = x - 10;
+			wpy = y - 10;
+			break;
+		}
+	}
 }
 void CSimon::UpdateCRec()
 {

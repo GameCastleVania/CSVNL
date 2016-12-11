@@ -20,22 +20,20 @@ Axe::Axe(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion)
 
 void Axe::Draw(float vpx, float vpy)
 {
-	if (visible)
-	{
+	
 		axeL->Render(x + 15, y + 14, vpx, vpy);
 		axeR->Render(x + 15, y + 14, vpx, vpy);
 
-	}
+	
 }
 
 void Axe::Update()
 {
-	if (visible)
-	{
+	
 		x += vx;
 		y += vy;
 		CRec = RecF(x, y, 30, 28);
-	}
+	
 
 	if (life == 45) Destroy();
 	life++;
@@ -43,7 +41,7 @@ void Axe::Update()
 void Axe::Destroy()
 {
 	explosion->Get(1, x, y, 5);
-	visible = false;
+	
 	x = y = vx = vy = 100;
 	CRec = RecF(0, 0, 0, 0);
 }

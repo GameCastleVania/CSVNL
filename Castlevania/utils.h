@@ -13,22 +13,17 @@ LPDIRECT3DSURFACE9 CreateSurfaceFromFile(LPDIRECT3DDEVICE9 d3ddv, char *FilePath
 
 enum PlayerState
 {
-	STAND,
-	STANDS,
-	CROUCH,
-	RUN,
-	RUNS,
-	RUNUP,
-	RUNDOWN,
-	JUMP,
-	JUMPDOWN,
-	SWIM,
-	SWIMS,
-	SWIMUP,
-	SWIMUPS,
-	DIVE,
-	FALL,
-	LOOKUP
+	STAND, //dung
+	STANDW, //dung danh
+	CROUCH, // ngoi
+	CROUCHW, //ngoi danh
+	RUN, // chay
+	JUMP, // nhay
+	LADDERUP, //len cau thang
+	LADDERDOWN, //xuong cau thang
+	LADDERUPW, //len cau thang danh
+	LADDERDOWNW, //xuong cau thang danh
+
 };
 
 enum BulletType
@@ -43,7 +38,7 @@ enum WeaponType
 	BOOMERANG,
 	DAGGER,
 	FIREBOMB,
-	MORNINGSTAR,
+	MORNINGSTAR
 };
 
 enum EnemyState

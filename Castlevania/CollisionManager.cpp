@@ -49,7 +49,6 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->SetVY(0);
 					if (simon->GetState() == JUMP) simon->SetState(STAND);
 				}
-
 				//xet va cham theo truc x----------------------------------
 				//simon di qua phai
 				if ((simon->GetVX() > 0 && simon->GetX() + 10 > b->CRec.x))

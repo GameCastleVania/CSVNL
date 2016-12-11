@@ -8,27 +8,37 @@
 #include "recF.h"
 #include "sprite.h"
 
+
 class CSimon : public GameObject
 {
 private:
 	PSound* psound;
 	DWORD last_time;
+	DWORD _last_time;
 	PlayerState playerState;
-
-public:
-	CSimon();
-	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, int X, int Y);
-	~CSimon();
-
+	WeaponType Simon_WType;
 	bool LRight = true;
 	bool doJump = false;
 
+	bool isfightUP = false;
+	bool fight;
+	bool alive;
+	float wpx, wpy;
+
+public:
+	CSimon();
+	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, float X, float Y);
+	~CSimon();
+
+	bool doFight = false;
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);
 	void Draw(int vpx, int vpy);
 	
 	void UpdateCRec();
-
+	void UpdateGunPoint();
+	void Kill();
+	void SetInvinsible();
 	
 #pragma region Sprite
 private: //All player sprite
@@ -52,8 +62,8 @@ private: //All player sprite
 	Sprite* simon_MSLadderUpR; // danh roi khi len cau thang phai
 	Sprite* simon_MSLadderDownL; // danh roi khi xuong cau thang trai
 	Sprite* simon_MSLadderDownR; // danh roi khi xuong cau thang phai
-	Sprite* simon_MSDownL; //danh roi khi ngoi trai
-	Sprite* simon_MSDownR; //danh roi khi ngoi phai
+	Sprite* simon_MSCrouchL; //danh roi khi ngoi trai
+	Sprite* simon_MSCrouchR; //danh roi khi ngoi phai
 	Sprite* simon_StandBack; //dung quay lung lai
 	Sprite* simon_FlyL; //vang qua trai
 	Sprite* simon_FlyR; //vang qua phai
@@ -64,6 +74,28 @@ private: //All player sprite
 #pragma region Get_Set
 public: //Get & set function
 
+	float GetWeaponx()
+	{
+		return wpx;
+	}
+
+	float GetWeapony()
+	{
+		return wpy;
+	}
+
+	bool IsAlive()
+	{
+		return alive;
+	}
+	WeaponType GetWeaponType()
+	{
+		return Simon_WType;
+	}
+	void SetWeaponType(WeaponType type)
+	{
+		Simon_WType = type;
+	}
 
 	bool GetLRight()
 	{

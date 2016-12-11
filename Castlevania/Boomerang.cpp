@@ -20,30 +20,27 @@ Boomerang::Boomerang(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion)
 
 void Boomerang::Draw(float vpx, float vpy)
 {
-	if (visible)
-	{
+	
 		boomerangL->Render(x + 14, y + 14, vpx, vpy);
 		boomerangR->Render(x + 14, y + 14, vpx, vpy);
 
-	}
+	
 }
 
 void Boomerang::Update()
 {
-	if (visible)
-	{
+	
 		x += vx;
 		y += vy;
 		CRec = RecF(x, y, 28, 28);
-	}
-
+	
 	if (life == 45) Destroy();
 	life++;
 }
 void Boomerang::Destroy()
 {
 	explosion->Get(1, x, y, 5);
-	visible = false;
+	
 	x = y = vx = vy = 100;
 	CRec = RecF(0, 0, 0, 0);
 }

@@ -1,5 +1,5 @@
 #include "Dagger.h"
-
+#define ANIMATE_RATE 8
 
 Dagger::Dagger()
 {}
@@ -8,41 +8,42 @@ Dagger::Dagger()
 Dagger::~Dagger()
 {}
 
-Dagger::Dagger(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion)
+Dagger::Dagger(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _simon)
 {
 	explosion = _explosion;
-	life = 0;
-	daggerL = new Sprite(d3ddv, "resource\\image\\weapon\1L.png", 32, 18, 1, 1);
-	daggerR = new Sprite(d3ddv, "resource\\image\\weapon\1R.png", 32, 18, 1, 1);
-
+	last_time = 0;
+	simon = _simon;
+	daggerL = new Sprite(d3ddv, "resource\\image\\weapon\\1L.png", 32, 18, 1, 1);
+	daggerR = new Sprite(d3ddv, "resource\\image\\weapon\\1R.png", 32, 18, 1, 1);
+	//LRight = true;
 	CRec = RecF(0, 0, 32, 28);
 }
 
 void Dagger::Draw(float vpx, float vpy)
 {
-	if (visible)
+	if (fight)
 	{
-		daggerL->Render(x + 16, y + 14, vpx, vpy);
-		daggerR->Render(x + 16, y + 14, vpx, vpy);
+		if (simon->GetLRight()) daggerR->Render(x + 10, y, vpx, vpy);
+		else if (!simon->GetLRight()) daggerL->Render(x - 10, y, vpx, vpy);
 	}
 }
 
 void Dagger::Update()
 {
-	if (visible)
-	{
-		x += vx;
-		y += vy;
-		CRec = RecF(x, y, 32, 28);
-	}
+	x += vx;
+	y += vy;
+	CRec.x = x;
+	CRec.y = y;
+	CRec.vx = vx;
+	CRec.vy = vy;
 
-	if (life == 45) Destroy();
-	life++;
+	/*if (life == 45) Destroy();
+	life++;*/
 }
 void Dagger::Destroy()
 {
-	explosion->Get(1, x, y, 5);
-	visible = false;
-	x = y = vx = vy = 100;
+	//explosion->Get(1, x, y, 5);
+	fight = false;
+	x = y = vx = vy = -100;
 	CRec = RecF(0, 0, 0, 0);
 }

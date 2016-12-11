@@ -7,8 +7,10 @@
 #include "simon.h"
 #include "CollisionManager.h"
 #include "BulletManager.h"
+#include "weaponManager.h"
 #include "EnemyManager.h"
 #include "explosion.h"
+#include "MorningStar.h"
 
 class State
 {
@@ -19,7 +21,9 @@ protected:
 	PSound* psound;
 	Map* map;
 	CSimon* simon;
+	MorningStar* mstar;
 	BulletManager* bulletManager;
+	WeaponManager* weaponManager;
 	EnemyManager* enemyManager;
 	Explosion* explosion;
 	CollisionManager* collisionManager;
