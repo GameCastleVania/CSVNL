@@ -229,7 +229,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	//Fight
 
-	if ((fightPress) && doFight == false && isfightUP == true && playerState != RUN)
+	if ((fightPress || enterPress) && doFight == false && isfightUP == true && playerState != RUN)
 	{
 		doFight = true;
 		isfightUP = false;
