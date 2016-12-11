@@ -34,6 +34,9 @@
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="StateMap2_2.cpp" />
+    <ClCompile Include="StateMap2_3.cpp" />
+    <ClCompile Include="StateMap2_4.cpp" />
     <ClCompile Include="winmain.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="map.cpp" />
@@ -46,7 +49,7 @@
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="StateLoad.cpp" />
     <ClCompile Include="StateManagement.cpp" />
-    <ClCompile Include="StateMap2.cpp" />
+    <ClCompile Include="StateMap2_1.cpp" />
     <ClCompile Include="TMXParser.cpp" />
     <ClCompile Include="trace.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -91,7 +94,10 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateLoad.h" />
     <ClInclude Include="StateManagement.h" />
-    <ClInclude Include="StateMap2.h" />
+    <ClInclude Include="StateMap2_1.h" />
+    <ClInclude Include="StateMap2_2.h" />
+    <ClInclude Include="StateMap2_3.h" />
+    <ClInclude Include="StateMap2_4.h" />
     <ClInclude Include="TMXParser.h" />
     <ClInclude Include="trace.h" />
     <ClInclude Include="utils.h" />
