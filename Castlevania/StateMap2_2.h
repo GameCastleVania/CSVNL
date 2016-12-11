@@ -4,11 +4,11 @@
 #include "StateLoad.h"
 #include "font.h"
 
-class StateMap2 : public State
+class StateMap2_2 : public State
 {
 public:
-	StateMap2();
-	~StateMap2();
+	StateMap2_2();
+	~StateMap2_2();
 
 	void Init(LPDIRECT3DDEVICE9 D3ddv, DSound* Audio, Keyboard* kbd);
 	void Update(int &vpx, int &vpy);

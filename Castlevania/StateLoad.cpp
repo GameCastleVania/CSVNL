@@ -60,7 +60,7 @@ void StateLoad::Update(int &vpx, int &vpy)
 	
 	if (vt < 200)	//dung khoang time (WINDOW_WIDTH/2) den 200 sau do chuyen map
 	{
-		StateManagement::GetInstance()->SwitchState(new StateMap2());
+		StateManagement::GetInstance()->SwitchState(new StateMap2_1());
 	}
 		
 

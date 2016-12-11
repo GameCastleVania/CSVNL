@@ -1,6 +1,6 @@
 #pragma once
 #include "State.h"
-#include "StateMap2.h"
+#include "StateMap2_1.h"
 #include "sprite.h"
 #include "game.h"
 

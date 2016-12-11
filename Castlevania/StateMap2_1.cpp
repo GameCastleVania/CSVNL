@@ -1,13 +1,13 @@
-#include "StateMap2.h"
+#include "StateMap2_1.h"
 
 extern int Current_State;
 
-StateMap2::StateMap2()
+StateMap2_1::StateMap2_1()
 {
 	d3ddv = NULL;
 }
 
-void StateMap2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
+void StateMap2_1::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 {
 	kbd = _kbd;
 	d3ddv = _d3ddv;
@@ -22,7 +22,7 @@ void StateMap2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	Parser tmx("resource\\map\\Map2-1.tmx");// doc file map.tmx
 }
 
-void StateMap2::Draw(int vpx, int vpy)
+void StateMap2_1::Draw(int vpx, int vpy)
 {
 	d3ddv->BeginScene();
 	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 0.0f, 0);
@@ -31,7 +31,7 @@ void StateMap2::Draw(int vpx, int vpy)
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void StateMap2::Render(int vpx, int vpy)
+void StateMap2_1::Render(int vpx, int vpy)
 {
 	map->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
@@ -42,7 +42,7 @@ void StateMap2::Render(int vpx, int vpy)
 	//explosion->Draw(vpx, vpy);
 }
 
-void StateMap2::Update(int &vpx, int &vpy)
+void StateMap2_1::Update(int &vpx, int &vpy)
 {
 	kbd->UpdateKeyboard();
 	map->Update();
@@ -56,7 +56,7 @@ void StateMap2::Update(int &vpx, int &vpy)
 	ViewPortUpdate(vpx, vpy);	
 }
 
-void StateMap2::ViewPortUpdate(int &vpx, int &vpy)
+void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)
 {
 	int px = simon->GetX();
 	
@@ -67,7 +67,7 @@ void StateMap2::ViewPortUpdate(int &vpx, int &vpy)
 
 }
 
-void StateMap2::Exit(int &vpx, int &vpy)
+void StateMap2_1::Exit(int &vpx, int &vpy)
 {
 	Current_State = 3;
 	vpx = 0;

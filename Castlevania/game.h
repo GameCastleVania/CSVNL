@@ -4,9 +4,13 @@
 #include <Windows.h>
 #include "sound.h"
 #include "keyboard.h"
-#include "StateMap2.h"
 #include "MainMenu.h"
 #include "StateManagement.h"
+//test
+#include "StateMap2_1.h"
+#include "StateMap2_2.h"
+#include "StateMap2_3.h"
+#include "StateMap2_4.h"
 
 #define WINDOW_WIDTH 514
 #define WINDOW_HEIGHT 480
