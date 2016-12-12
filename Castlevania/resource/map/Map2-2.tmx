@@ -24,8 +24,8 @@
     <object x="1" y="161" width="61" height="189" />
   </objectgroup>
   <objectgroup name="MoveObject">
-    <object name="StairDL" id="1" type=" " x="2432" y="192" width="32" height="32" />
-    <object name="StairDL" id="2" type=" " x="98" y="33" width="32" height="32" />
+    <object name="Stair" id="1" type="DL" x="2432" y="192" width="32" height="32" />
+    <object name="Stair" id="2" type="UR" x="98" y="33" width="32" height="32" />
     <object name="Doors" id="3" type=" " x="1524" y="33" width="44" height="96" />
     <object name="platform" id="4" type=" " x="1659" y="129" width="64" height="16" />
   </objectgroup>

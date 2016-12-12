@@ -32,10 +32,10 @@
     <object x="2" y="3" width="60" height="255" />
   </objectgroup>
   <objectgroup name="MoveObject">
-    <object name="StairDL" id="1" type=" " x="320" y="194" width="32" height="32" />
-    <object name="StairDL" id="2" type=" " x="352" y="164" width="32" height="32" />
-    <object name="StairDL" id="3" type=" " x="1313" y="33" width="32" height="32" />
-    <object name="StairDL" id="4" type=" " x="1697" y="290" width="32" height="32" />
+    <object name="Stair" id="1" type="UR" x="320" y="194" width="32" height="32" />
+    <object name="Stair" id="2" type="DL" x="352" y="164" width="32" height="32" />
+    <object name="Stair" id="3" type="UR" x="1313" y="33" width="32" height="32" />
+    <object name="Stair" id="4" type="DL" x="1697" y="290" width="32" height="32" />
     <object name="platform" id="5" type=" " x="2424" y="131" width="64" height="16" />
     <object name="platform" id="6" type=" " x="2171" y="131" width="64" height="16" />
     <object name="Doors" id="7" type=" " x="1524" y="99" width="44" height="96" />

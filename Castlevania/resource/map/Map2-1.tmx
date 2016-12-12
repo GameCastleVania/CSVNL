@@ -11,19 +11,19 @@
     <object x="1" y="1" width="31" height="93" />
   </objectgroup>
   <objectgroup name="MoveObject">
-    <object name="StairDL" id="1" type=" " x="224" y="287" width="32" height="32" />
-    <object name="StairDL" id="2" type=" " x="161" y="96" width="32" height="32" />
+    <object name="Stair" id="1" type="UR" x="224" y="287" width="32" height="32" />
+    <object name="Stair" id="2" type="UR" x="161" y="96" width="32" height="32" />
     <object name="SpearKnights" id="3" type=" " x="66" y="65" width="32" height="64" />
     <object name="Bats" id="4" type=" " x="3" y="32" width="32" height="32" />
     <object name="BoneTowers" id="5" type=" " x="412" y="129" width="32" height="64" />
     <object name="Ghosts" id="6" type=" " x="353" y="226" width="28" height="28" />
     <object name="MedusaHeads" id="7" type=" " x="96" y="190" width="32" height="32" />
-    <object name="StairUR" id="8" type=" " x="289" y="222" width="32" height="32" />
-    <object name="StairUR" id="9" type=" " x="193" y="63" width="32" height="32" />
-    <object name="StairUR" id="10" type=" " x="224" y="31" width="32" height="32" />
-    <object name="StairUR" id="11" type=" " x="256" y="0" width="32" height="32" />
-    <object name="StairDL" id="12" type=" " x="320" y="191" width="32" height="32" />
-    <object name="StairUR" id="13" type=" " x="257" y="257" width="32" height="32" />
+    <object name="Stair" id="8" type=" " x="289" y="222" width="32" height="32" />
+    <object name="Stair" id="9" type=" " x="193" y="63" width="32" height="32" />
+    <object name="Stair" id="10" type=" " x="224" y="31" width="32" height="32" />
+    <object name="Stair" id="11" type=" " x="256" y="0" width="32" height="32" />
+    <object name="Stair" id="12" type="DL" x="321" y="192" width="32" height="32" />
+    <object name="Stair" id="13" type=" " x="257" y="257" width="32" height="32" />
   </objectgroup>
   <QuadTree name="QuadTree">
     <QuadNode NodeID="0" x="0" y="0" width="512" height="512" id="1 2 3 4 5 6 7 8 9 10 11 12 13 " />
