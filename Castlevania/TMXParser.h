@@ -20,6 +20,7 @@
 #include "Ghost.h"
 #include "Medusa.h"
 #include "VampireBat.h"
+#include "Platform.h"
 
 
 
@@ -41,7 +42,7 @@ public:
 
 	void ReadMap(int &_width, int &_height, int* &_mapArr, RecFList &_collisionRecs, RecFList &_ladderRecs);
 	void ReadEnemy(char* name, EnemyList &enemyList);
-	//void ReadGameObject(Platform** platform);
+	void ReadGameObject(Platform** platform);
 	//void ReadGameObject(Bridge* bridge1, Bridge* bridge2);
 	//void ReadGameObject(CapsuleList* capsule, BonuscaseList* bonuscase);
 };
