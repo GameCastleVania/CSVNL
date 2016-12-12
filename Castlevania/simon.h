@@ -31,6 +31,8 @@ public:
 
 	bool LRight = true;
 	bool doJump = false;
+	bool isJumpLeft = false;
+	bool isJumpRight = false;
 	bool doFight = false;
 	bool isUpPress = false;
 	bool isRightPress = false;
