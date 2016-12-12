@@ -117,9 +117,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					{
 						isOnLadder = true;
 						simon->isOnLadder = true;
-					}
-
-					
+					}		
 				}
 
 

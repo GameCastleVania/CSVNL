@@ -14,8 +14,8 @@ void StateMap2_4::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	psound = new PSound(_audio);
 	psound->PlayRepeat(2);
 	map = new Map(d3ddv, "resource\\map\\Map2-4.bmp", "resource\\map\\Map2-4.tmx");
-	simon = new CSimon(d3ddv, psound, 80, 62);
-	mstar = new MorningStar(d3ddv, simon, psound, 80, 62);
+	simon = new CSimon(d3ddv, psound, 1360, 42);
+	mstar = new MorningStar(d3ddv, simon, psound, 1360, 42);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-4.tmx", simon, bulletManager, explosion);
 	collisionManager = new CollisionManager(simon, map, psound);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
@@ -61,10 +61,10 @@ void StateMap2_4::ViewPortUpdate(int &vpx, int &vpy)
 	int px = simon->GetX();
 
 	if (vpx < 0) vpx = 0;
-	if (vpx > 265) vpx = 265;
 
-	if (px > vpx + 265 && px<265) vpx = px - 265;
-
+	if (vpx > 1024) vpx = 1024;
+	if (simon->isRightPress == true && px > 265 && vpx <1024) vpx = px - 265;
+	else if (simon->isLeftPress == true && px <= 1280 && vpx >0) vpx = px - 265;
 }
 
 void StateMap2_4::Exit(int &vpx, int &vpy)

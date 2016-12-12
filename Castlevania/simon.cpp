@@ -8,6 +8,8 @@
 #define JUMP_VELOCITY_BOOST 3.0f
 #define FALLDOWN_VELOCITY_DECREASE 0.5f
 
+extern int Current_State;
+
 CSimon::CSimon()
 {
 
@@ -15,15 +17,35 @@ CSimon::CSimon()
 
 CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 {
-	playerState = STAND;
-	LRight = true;
+	switch (Current_State)
+	{
+	case 2:
+		playerState = STAND;
+		LRight = true;
+		isOnLadder = false;
+		break;
+	case 3:
+		playerState = STANDUR;
+		LRight = true;
+		isOnLadder = true;
+		break;
+	case 4:
+		playerState = STANDUR;
+		LRight = true;
+		isOnLadder = true;
+		break;
+	case 5:
+		playerState = STANDUR;
+		LRight = true;
+		isOnLadder = true;
+		break;
+	default:
+		break;
+	}
+
 	psound = _psound;
 	fight = false;
 	alive = true;
-
-	bool doJump = false;
-	bool isUpPress = false;
-	bool isDownPress = false;
 
 	last_time = 0;
 	_last_time = 0;
@@ -187,6 +209,9 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	if (rightPress == false) isRightPress = false;
 	else isRightPress = true;
 
+	if (leftPress == false) isLeftPress = false;
+	else isLeftPress = true;
+
 
 
 	//jump left or right //fix jump continous
@@ -232,7 +257,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	//Fight
 
-	if ((fightPress) && doFight == false && isfightUP == true && playerState != RUN)
+	if ((fightPress || enterPress) && doFight == false && isfightUP == true && playerState != RUN)
 	{
 		doFight = true;
 		isfightUP = false;

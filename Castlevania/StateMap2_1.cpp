@@ -54,6 +54,8 @@ void StateMap2_1::Update(int &vpx, int &vpy)
 	//bulletManager->Update(vpx, vpy);
 	//explosion->Update();
 	ViewPortUpdate(vpx, vpy);	
+
+	if (simon->GetY() >= 380) StateManagement::GetInstance()->SwitchState(new StateMap2_2());
 }
 
 void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)
@@ -64,14 +66,13 @@ void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)
 	if (vpx > 265) vpx = 265;
 
 	if (px > vpx+265 && px<265) vpx = px - 265;
-
 }
 
 void StateMap2_1::Exit(int &vpx, int &vpy)
 {
 	Current_State = 3;
-	vpx = 0;
-	vpy = 0;
+	vpx = 2045;
+	vpy = 480;
 	delete(psound);
 	delete(map);
 	//delete(explosion);

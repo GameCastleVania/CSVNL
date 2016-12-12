@@ -29,15 +29,16 @@ public:
 	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, float X, float Y);
 	~CSimon();
 
-	bool LRight = true;
+	bool LRight;
 	bool doJump = false;
 	bool isJumpLeft = false;
 	bool isJumpRight = false;
 	bool doFight = false;
 	bool isUpPress = false;
 	bool isRightPress = false;
+	bool isLeftPress = false;
 	bool isDownPress = false;
-	bool isOnLadder = false;
+	bool isOnLadder;
 
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);
