@@ -57,3 +57,13 @@ bool Weapon::GetFight()
 {
 	return fight;
 }
+
+bool Weapon::SetFalling(bool val)
+{
+	falling = val;
+	return falling;
+}
+bool Weapon::GetFalling()
+{
+	return falling;
+}

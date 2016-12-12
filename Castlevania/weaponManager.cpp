@@ -14,7 +14,7 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	}
 
 	axe = Axe(_d3ddv, _explosion, _simon);
-	bmerang = Boomerang(_d3ddv, _explosion);
+	bmerang = Boomerang(_d3ddv, _explosion,_simon);
 	dagger = Dagger(_d3ddv, _explosion, _simon);
 	fbomb = FireBomb(_d3ddv, _explosion, _simon);
 }
@@ -69,7 +69,28 @@ void WeaponManager::Destroy(int vpx, int vpy)
 			}
 			break;
 		}
-		
+		case BOOMERANG:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
+			{
+				simonWList[i]->Destroy();
+			}
+			if (simon->GetLRight())
+			{
+				if (simonWList[i]->GetX() <= (simon->GetX() + 10))
+					simonWList[i]->Destroy();
+			}
+					
+			else
+			{
+				if (simonWList[i]->GetX() >= (simon->GetX() - 10))
+					simonWList[i]->Destroy();
+			}
+					
+			count = 0;
+			
+			break;
+		}
 		default:
 			break;
 		}
@@ -84,6 +105,7 @@ void WeaponManager::Update(int vpx, int vpy)
 	if(kbd->IsKeyDown(DIK_Z)) simon->SetWeaponType(FIREBOMB);
 	if (kbd->IsKeyDown(DIK_X)) simon->SetWeaponType(AXE);
 	if (kbd->IsKeyDown(DIK_C)) simon->SetWeaponType(DAGGER);
+	if (kbd->IsKeyDown(DIK_V)) simon->SetWeaponType(BOOMERANG);
 
 	PlayerShoot();
 	
@@ -136,7 +158,13 @@ void WeaponManager::PlayerShoot()
 			vx = 2;
 			vy = 4;
 			break;
-		}		
+		}	
+		case BOOMERANG:
+		{
+			vx = 5;
+			vy = 0;
+			break;
+		}
 		default:
 			break;
 		}
@@ -161,7 +189,12 @@ void WeaponManager::PlayerShoot()
 			vy = 4;
 			break;
 		}
-
+		case BOOMERANG:
+		{
+			vx = -5;
+			vy = 0;
+			break;
+		}
 		default:
 			break;
 		}
