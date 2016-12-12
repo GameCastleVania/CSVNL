@@ -26,9 +26,11 @@
   <objectgroup name="MoveObject">
     <object name="StairDL" id="1" type=" " x="2432" y="192" width="32" height="32" />
     <object name="StairDL" id="2" type=" " x="98" y="33" width="32" height="32" />
+    <object name="Doors" id="3" type=" " x="1524" y="33" width="44" height="96" />
+    <object name="platform" id="4" type=" " x="1659" y="129" width="64" height="16" />
   </objectgroup>
   <QuadTree name="QuadTree">
-    <QuadNode NodeID="0" x="0" y="0" width="2560" height="2560" id="1 2 " />
+    <QuadNode NodeID="0" x="0" y="0" width="2560" height="2560" id="1 2 3 4 " />
   </QuadTree>
   <layer name="Map" tilecount="511">
     <data>
