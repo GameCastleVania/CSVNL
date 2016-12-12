@@ -22,6 +22,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="DownUp.cpp" />
     <ClCompile Include="DragonSkullCannon.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="explosion.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="DownUp.h" />
     <ClInclude Include="DragonSkullCannon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />

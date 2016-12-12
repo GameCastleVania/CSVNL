@@ -17,7 +17,7 @@ private:
 	int _width;
 	int _height;
 	int* _mapArr;
-	int animation;
+
 public:
 	Map();
 	Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char* fileName);

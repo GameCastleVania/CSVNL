@@ -13,7 +13,7 @@ Boomerang::Boomerang(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _si
 	explosion = _explosion;
 	last_time = 0;
 	simon = _simon;
-	boomerangL = new Sprite(d3ddv, "resource\\image\\weapon\\4R.png", 28, 28, 3, 3);
+	boomerangL = new Sprite(d3ddv, "resource\\image\\weapon\\4L.png", 28, 28, 3, 3);
 	boomerangR = new Sprite(d3ddv, "resource\\image\\weapon\\4R.png", 28, 28, 3, 3);
 
 	CRec = RecF(0, 0, 28, 28);

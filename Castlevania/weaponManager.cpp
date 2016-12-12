@@ -7,6 +7,7 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	psound = _psound;
 	direc = RIGHT;
 	fight = false;
+	upfight = false;
 	count = 0; 
 
 	for (int i = 0; i < 70; i++){
@@ -71,25 +72,28 @@ void WeaponManager::Destroy(int vpx, int vpy)
 		}
 		case BOOMERANG:
 		{
-			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
-			{
-				simonWList[i]->Destroy();
-			}
 			if (simon->GetLRight())
 			{
-				if (simonWList[i]->GetX() <= (simon->GetX() + 10))
+				if(simonWList[i]->GetX() < (simon->GetX() -40 ))
+				{
 					simonWList[i]->Destroy();
-			}
-					
-			else
+					if (upfight)
+						count = 0;
+				}								
+			}	
+			else if (!simon->GetLRight())
 			{
-				if (simonWList[i]->GetX() >= (simon->GetX() - 10))
+				if(simonWList[i]->GetX() > (simon->GetX()+40))
+				{
 					simonWList[i]->Destroy();
+					if (upfight)
+						count = 0;
+				}
 			}
 					
-			count = 0;
 			
 			break;
+			
 		}
 		default:
 			break;
@@ -102,7 +106,7 @@ void WeaponManager::Destroy(int vpx, int vpy)
 void WeaponManager::Update(int vpx, int vpy)
 {
 	
-	if(kbd->IsKeyDown(DIK_Z)) simon->SetWeaponType(FIREBOMB);
+	if (kbd->IsKeyDown(DIK_Z)) simon->SetWeaponType(FIREBOMB);
 	if (kbd->IsKeyDown(DIK_X)) simon->SetWeaponType(AXE);
 	if (kbd->IsKeyDown(DIK_C)) simon->SetWeaponType(DAGGER);
 	if (kbd->IsKeyDown(DIK_V)) simon->SetWeaponType(BOOMERANG);
@@ -200,6 +204,10 @@ void WeaponManager::PlayerShoot()
 		}
 	}
 
+	if (kbd->IsKeyUp(DIK_RETURN))		
+		upfight = true;
+	else upfight = false;
+
 	if (kbd->IsKeyDown(DIK_RETURN))
 	{
 		fight = true;
@@ -221,9 +229,9 @@ void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
 	for (int i = 0; i < simonWList.size(); i++)
 	{
 		if (type == AXE) simonWList[i] = new Axe(axe);
-		if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
 		if (type == DAGGER) simonWList[i] = new Dagger(dagger);
 		if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
+		if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
 
 		simonWList[i]->SetFight(true);
 		simonWList[i]->Set(x, y, vx, vy, type);

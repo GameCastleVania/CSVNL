@@ -11,6 +11,7 @@
 #include "EnemyManager.h"
 #include "explosion.h"
 #include "MorningStar.h"
+#include "Platform.h"
 
 class State
 {
@@ -22,6 +23,7 @@ protected:
 	Map* map;
 	CSimon* simon;
 	MorningStar* mstar;
+	Platform* platform;
 	BulletManager* bulletManager;
 	WeaponManager* weaponManager;
 	EnemyManager* enemyManager;

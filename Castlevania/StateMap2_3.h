@@ -18,7 +18,7 @@ public:
 	void Render(int vpx, int vpy);
 	void ViewPortUpdate(int &vpx, int &vpy);
 private:
-
+	Platform** platform;
 	Font *text;
 };
 

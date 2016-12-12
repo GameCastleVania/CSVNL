@@ -15,7 +15,6 @@ Map::Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char *fileName)
 	Parser tmx(fileName);
 	tmx.ReadMap(_width, _height, _mapArr, _collisionRecs, _ladderRecs);
 	_spriteSheet = new Sprite(_d3ddv, spriteSheet, 32, 32, 100, 10);
-	animation = 0;
 	////////////////
 	
 }

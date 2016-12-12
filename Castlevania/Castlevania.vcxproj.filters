@@ -59,11 +59,17 @@
     <Filter Include="GameObject\Weapon\WeaponType">
       <UniqueIdentifier>{3ea4a116-0e5e-47d3-82e8-5ffaf6994bef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Enemy\Ground">
-      <UniqueIdentifier>{54862e65-b8f6-4367-8a0f-51910550853c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameState\StateMap\Map2">
       <UniqueIdentifier>{db5334c7-60f3-4549-8060-cb738ac35148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Simon">
+      <UniqueIdentifier>{9bc14771-cbe3-422b-b14a-9b54f84908a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Candle">
+      <UniqueIdentifier>{54862e65-b8f6-4367-8a0f-51910550853c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Ground">
+      <UniqueIdentifier>{7971cb10-e824-452f-a8ae-951b1c9838d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,17 +79,11 @@
     <ClCompile Include="game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="simon.cpp">
-      <Filter>GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>FrameWork</Filter>
     </ClCompile>
     <ClCompile Include="quadtree.cpp">
       <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="gameobject.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="TMXParser.cpp">
       <Filter>FrameWork\IO</Filter>
@@ -181,14 +181,8 @@
     <ClCompile Include="FireBomb.cpp">
       <Filter>GameObject\Weapon\WeaponType</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Enemy\Ground</Filter>
-    </ClCompile>
     <ClCompile Include="Candle.cpp">
-      <Filter>Enemy\Ground</Filter>
-    </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>Enemy\Ground</Filter>
+      <Filter>Enemy\Candle</Filter>
     </ClCompile>
     <ClCompile Include="StateMap2_4.cpp">
       <Filter>GameState\StateMap\Map2</Filter>
@@ -202,6 +196,21 @@
     <ClCompile Include="StateMap2_1.cpp">
       <Filter>GameState\StateMap\Map2</Filter>
     </ClCompile>
+    <ClCompile Include="simon.cpp">
+      <Filter>GameObject\Simon</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Enemy\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Enemy\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="DownUp.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -211,12 +220,6 @@
       <Filter>FrameWork</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="simon.h">
-      <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="gameobject.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="quadtree.h">
@@ -321,14 +324,8 @@
     <ClInclude Include="FireBomb.h">
       <Filter>GameObject\Weapon\WeaponType</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Enemy\Ground</Filter>
-    </ClInclude>
     <ClInclude Include="Candle.h">
-      <Filter>Enemy\Ground</Filter>
-    </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Enemy\Ground</Filter>
+      <Filter>Enemy\Candle</Filter>
     </ClInclude>
     <ClInclude Include="StateMap2_4.h">
       <Filter>GameState\StateMap\Map2</Filter>
@@ -341,6 +338,21 @@
     </ClInclude>
     <ClInclude Include="StateMap2_1.h">
       <Filter>GameState\StateMap\Map2</Filter>
+    </ClInclude>
+    <ClInclude Include="simon.h">
+      <Filter>GameObject\Simon</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Enemy\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Enemy\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="DownUp.h">
+      <Filter>Enemy\EnemyMap2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

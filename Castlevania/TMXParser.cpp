@@ -166,10 +166,12 @@ void Parser::ReadGameObject(Platform** platform)
 				std::string o_name = object_node->first_attribute("name")->value();
 				if (o_name.compare("platform") == 0)
 				{
-					int x, y;
+					int x, y, width, height;
 					x = std::atoi(object_node->first_attribute("x")->value());
 					y = std::atoi(object_node->first_attribute("y")->value());
-					platform[i] = new Platform(x, y);
+					width = std::atoi(object_node->first_attribute("width")->value());
+					height = std::atoi(object_node->first_attribute("height")->value());
+					platform[i] = new Platform(x, mapheight*TILE_SIZE - y - height, width, height);
 					i++;
 				}
 			}

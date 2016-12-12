@@ -55,7 +55,7 @@ void StateMap2_1::Update(int &vpx, int &vpy)
 	//explosion->Update();
 	ViewPortUpdate(vpx, vpy);	
 
-	if (simon->GetY() >= 380) StateManagement::GetInstance()->SwitchState(new StateMap2_2());
+	if (simon->GetY() >= 360 && simon->isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap2_2());
 }
 
 void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)

@@ -19,6 +19,7 @@ public:
 	void ViewPortUpdate(int &vpx, int &vpy);
 private:
 
+	Platform** platform;
 	Font *text;
 };
 

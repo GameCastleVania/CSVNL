@@ -20,6 +20,9 @@ void StateMap2_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	collisionManager = new CollisionManager(simon, map, psound);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
 	Parser tmx("resource\\map\\Map2-2.tmx");// doc file map.tmx
+	platform = new Platform*[1];
+	tmx.ReadGameObject(platform);
+	platform[0]->Init(d3ddv, 60, 2);
 }
 
 void StateMap2_2::Draw(int vpx, int vpy)
@@ -36,6 +39,7 @@ void StateMap2_2::Render(int vpx, int vpy)
 	map->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
 	mstar->Draw(vpx, vpy);
+	platform[0]->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
 	weaponManager->Draw(vpx, vpy);
 	//bulletManager->Draw(vpx, vpy);
@@ -48,13 +52,14 @@ void StateMap2_2::Update(int &vpx, int &vpy)
 	map->Update();
 	simon->Update(kbd, vpx, vpy);
 	mstar->Update(kbd, vpx, vpy);
+	platform[0]->Update();
 	collisionManager->ControlCollision(vpx, vpy);
 	weaponManager->Update(vpx, vpy);
 	//enemyManager->Update();
 	//bulletManager->Update(vpx, vpy);
 	//explosion->Update();
 	ViewPortUpdate(vpx, vpy);
-	if (simon->GetY() >= 380) StateManagement::GetInstance()->SwitchState(new StateMap2_3());
+	if (simon->GetY() >= 360 && simon->isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap2_3());
 }
 
 void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)

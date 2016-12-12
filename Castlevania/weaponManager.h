@@ -20,6 +20,7 @@ protected:
 	WeaponList simonWList;
 	Direction direc;
 
+	bool upfight; // xet trang thai tha phim
 	bool fight; // xet trang thai phim co nhan hay k
 	int count; // xet so lan vu khi thu 2 dc nem 
 
