@@ -13,7 +13,7 @@ Platform::Platform(float X, float Y, float Width, float Height)
 	platForm = NULL;
 	moved = false;
 	LRight = false;
-	CRec = RecF(x, y, 60, 20);
+	CRec = RecF(x, y, 64, 16);
 }
 
 Platform::~Platform()
@@ -51,7 +51,7 @@ void Platform::Update()
 		moved = false;
 	}
 	CRec.x = x;
-	CRec.y = y + 40;
+	CRec.y = y + 16;
 }
 
 void Platform::Draw(int vpx, int vpy)

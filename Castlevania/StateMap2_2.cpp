@@ -23,6 +23,7 @@ void StateMap2_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	platform = new Platform*[1];
 	tmx.ReadGameObject(platform);
 	platform[0]->Init(d3ddv, 60, 2);
+	collisionManager->AddSpecialObjects(platform);
 }
 
 void StateMap2_2::Draw(int vpx, int vpy)
@@ -69,8 +70,12 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 	if (vpx < 0) vpx = 0;
 
 	if (vpx > 2045) vpx = 2045;
-	if (simon->isRightPress == true && px > 265 && vpx <2044) vpx = px -265;
-	else if (simon->isLeftPress == true && px <= 2304 && vpx >0) vpx = px - 265;
+
+	if (px < 1542 || px > 1797)
+	{
+		if (simon->isRightPress == true && px > 265 && vpx <2044) vpx = px - 265;
+		else if (simon->isLeftPress == true && px <= 2304 && vpx >0) vpx = px - 265;
+	}
 }
 
 void StateMap2_2::Exit(int &vpx, int &vpy)

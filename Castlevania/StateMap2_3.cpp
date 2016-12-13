@@ -24,6 +24,7 @@ void StateMap2_3::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	tmx.ReadGameObject(platform);
 	platform[0]->Init(d3ddv, 120, 2);
 	platform[1]->Init(d3ddv, 120, 2);
+	collisionManager->AddSpecialObjects(platform);
 }
 
 void StateMap2_3::Draw(int vpx, int vpy)
