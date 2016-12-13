@@ -11,10 +11,21 @@
     <object x="0" y="2" width="64" height="91" />
   </objectgroup>
   <objectgroup name="MoveObject">
-   <object name="Stair" id="1" type="DL" x="1410" y="257" width="32" height="32" />
+    <object name="Stair" id="1" type="DL" x="1410" y="257" width="32" height="32" />
+    <object name="CandlesSmall" id="2" type=" " x="408" y="129" width="16" height="32" />
+    <object name="CandlesSmall" id="3" type=" " x="538" y="109" width="16" height="32" />
+    <object name="CandlesSmall" id="4" type=" " x="663" y="107" width="16" height="32" />
+    <object name="CandlesSmall" id="5" type=" " x="791" y="105" width="16" height="32" />
+    <object name="CandlesSmall" id="6" type=" " x="920" y="102" width="16" height="32" />
+    <object name="CandlesSmall" id="7" type=" " x="1048" y="103" width="16" height="32" />
+    <object name="CandlesSmall" id="8" type=" " x="1176" y="103" width="16" height="32" />
+    <object name="CandlesSmall" id="9" type=" " x="1305" y="103" width="16" height="32" />
+    <object name="CandlesSmall" id="10" type=" " x="1434" y="102" width="16" height="32" />
+    <object name="MedusaHeads" id="11" type=" " x="961" y="160" width="32" height="32" />
+    <object name="MedusaHeads" id="12" type=" " x="565" y="112" width="32" height="32" />
   </objectgroup>
   <QuadTree name="QuadTree">
-    <QuadNode NodeID="0" x="0" y="0" width="1536" height="1536" id="1 " />
+    <QuadNode NodeID="0" x="0" y="0" width="1536" height="1536" id="1 2 3 4 5 6 7 8 9 10 11 12 " />
   </QuadTree>
   <layer name="Map" tilecount="286">
     <data>
