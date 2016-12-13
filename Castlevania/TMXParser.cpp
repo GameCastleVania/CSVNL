@@ -141,6 +141,10 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					{
 					enemyList.push_back(new VampireBat(x,  mapheight*TILE_SIZE - height - y));
 					}*/
+					if (o_name.compare("CandlesSmall") == 0)
+					{
+						enemyList.push_back(new Candle(x, mapheight*TILE_SIZE - height - y));
+					}
 				}
 			}
 		}

@@ -21,6 +21,7 @@
 #include "Medusa.h"
 #include "VampireBat.h"
 #include "Platform.h"
+#include "Candle.h"
 
 
 
