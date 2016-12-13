@@ -39,6 +39,7 @@ public:
 	bool isLeftPress = false;
 	bool isDownPress = false;
 	bool isOnLadder;
+	bool isOnGround = true;
 
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);

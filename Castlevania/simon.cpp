@@ -75,10 +75,10 @@ void CSimon::Init(LPDIRECT3DDEVICE9 d3ddv)
 	simon_DieR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightdeath.png", 64, 68, 1, 1);
 	simon_StandUR = new Sprite(d3ddv, "resource\\image\\simon\\simon-StandURCT.png", 56, 66, 1, 1);
 	simon_StandDL = new Sprite(d3ddv, "resource\\image\\simon\\simon-StandDLCT.png", 56, 66, 1, 1);
-	simon_LadderUpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftLCT.png", 58, 67, 2, 2);
-	simon_LadderUpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightLCT.png", 58, 67, 2, 2);
-	simon_LadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCT.png", 58, 65, 2, 2);
-	simon_LadderDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightXCT.png", 58, 65, 2, 2);
+	simon_LadderUpL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftLCT.png", 58, 66, 2, 2);
+	simon_LadderUpR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightLCT.png", 58, 66, 2, 2);
+	simon_LadderDownL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftXCT.png", 58, 66, 2, 2);
+	simon_LadderDownR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightXCT.png", 58, 66, 2, 2);
 	simon_CrouchL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftNgoi.png", 56, 67, 1, 1);
 	simon_CrouchR = new Sprite(d3ddv, "resource\\image\\simon\\simon-rightNgoi.png", 56, 67, 1, 1);
 	simon_MSStandL = new Sprite(d3ddv, "resource\\image\\simon\\simon-leftRoi.png", 60, 66, 3, 3);
@@ -128,7 +128,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	////Falling ----------------------------------------------------
 	if (playerState != RUNUPR && playerState != STANDUR)
 	{
-		if (y > 61)
+		if (y > 62)
 		{
 			vy -= 0.2f;
 		}
@@ -199,11 +199,26 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			isOnLadder = true;
 			LRight = true;
 	}
-	else if ((rightPress == false || upPress == false) && isOnLadder == true)
+	else if ((rightPress == false || upPress == false) && isOnLadder == true && LRight == true)
 	{
 		vx = 0;
 		vy = 0;
 		playerState = STANDUR;
+	}
+	/////////// move down on ladder
+	if (leftPress && downPress == true && upPress == false && isOnLadder == true && playerState != CROUCH)
+	{
+		vx = -0.95f;
+		vy = -0.9f;
+		playerState = RUNDOWNL;
+		isOnLadder = true;
+		LRight = false;
+	}
+	else if ((leftPress == false || downPress == false) && isOnLadder == true && LRight == false)
+	{
+		vx = 0;
+		vy = 0;
+		playerState = STANDDL;
 	}
 
 	if (rightPress == false) isRightPress = false;
@@ -216,7 +231,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	//jump left or right //fix jump continous
 
-	if (spacePress && downPress == false && upPress == false && isOnLadder == false 
+	if (spacePress && downPress == false && upPress == false && isOnLadder == false
 		&& playerState != JUMP && (playerState == STAND||playerState == RUN) && fightPress== false)
 	{
 		if (doJump == false)
@@ -266,7 +281,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		playerState = STANDW;
 	}
 
-	if (fightUp == true)
+	if (fightUp == true && enterUp == true)
 	{
 		isfightUP = true;
 	}
@@ -275,7 +290,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 	// Crouch---------------------------------------------------
 
-	if (downPress && playerState != JUMP && isOnLadder == false )
+	if (downPress && playerState != JUMP && isOnLadder == false && isOnGround == true)
 	{
 		if (playerState != JUMP)
 		playerState = CROUCH;

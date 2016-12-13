@@ -47,6 +47,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			if (RecF::Collide(simon->CRec, b->CRec))
 			{
 				//xet va cham theo truc y----------------------------------
+				simon->isOnGround = true;
 				if ((simon->GetVY() < 0 && simon->GetY() - b->CRec.height - 28 > b->CRec.y) && simon->GetX() + 10 >= b->CRec.x && simon->GetX() - 10 <= b->CRec.x + b->CRec.width)
 				{
 					isOnLadder = false;
@@ -93,7 +94,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	}
 #pragma endregion
 
-#pragma region Player collision with ladderUR
+#pragma region Player collision with ladderURDL
 	//Player collide with Ladder---------------------------------------------------------------------------
 
 	//LADDER UPRIGHT---------------------------------------------------------	
@@ -107,13 +108,13 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			if (RecF::Collide(simon->CRec, b->CRec))
 			{
 				/////va cham cau thang
-
-				if (b->CRec.type == 0 || b->CRec.type == 2 || b->CRec.type == 4)
+				simon->isOnGround = false;
+				if (b->CRec.type == 0  || b->CRec.type == 4)
 				{
-					///////////UPRIGHT
+					///////////UPRIGHT && DOWNLEFT
 
 					if (simon->isUpPress == true && simon->isRightPress == true && simon->isDownPress == false && simon->GetLRight() == true
-						&& simon->GetY() - 20 > b->CRec.y && simon->GetX() - 7 >= b->CRec.x && simon->GetX() + 20 <= b->CRec.x + b->CRec.width)
+						&& simon->GetY() - 20 > b->CRec.y && simon->GetX() - 2 >= b->CRec.x && simon->GetX() + 25 <= b->CRec.x + b->CRec.width)
 					{
 						isOnLadder = true;
 						simon->isOnLadder = true;
@@ -124,83 +125,28 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				///////// xet va cham dau tren of cau thang
 				if (b->CRec.type == 2)
 				{
-					if (simon->GetY() - 28 - 32 >= b->CRec.y)
+
+					if (simon->isDownPress == true && simon->isLeftPress == true )
 					{
-						isOnLadder = false;
-						simon->isOnLadder = false;
+						if (simon->isUpPress == false && simon->GetLRight() == false
+							&& simon->GetY() - 28 - 32 > b->CRec.y && simon->GetX() <= b->CRec.x + b->CRec.width)
+						{
+							isOnLadder = true;
+							simon->isOnLadder = true;
+						}
 					}
+					else if (simon->GetY() - 28 - 32 >= b->CRec.y)
+						 {
+							isOnLadder = false;
+							simon->isOnLadder = false;
+							simon->SetY(b->CRec.y + 61);
+							simon->SetVY(0);
+						 }
 				}
 			}
 		}
 	}
 #pragma endregion
-
-	//#pragma region Player collision with ladderDL
-	////LADDER DOWNLEFT---------------------------------------------------------	
-	//	return_object->clear();
-	//	quadtree->Retrieve(return_object, simon);
-	//	for (auto x = return_object->begin(); x != return_object->end(); x++)
-	//	{
-	//		GameObject* b = x._Ptr->_Myval;
-	//		if (b->GetType() == 2)
-	//		{
-	//			if (RecF::Collide(simon->CRec, b->CRec))
-	//			{
-	//				
-	//				///////// xet va cham dau tren of cau thang
-	//				if (b->CRec.type == 2 || b->CRec.type == 4 )
-	//				{
-	//					if (simon->isDownPress == true && simon->isUpPress == false && simon->GetLRight() == false && simon->GetY() - 20 > b->CRec.y && simon->GetX() >= b->CRec.x && simon->GetX() + 13 <= b->CRec.x + b->CRec.width)
-	//					{
-	//						isOnLadder = true;
-	//						simon->isOnLadder = true;
-	//						simon->ladderDOWNLeft();
-	//					}
-	//
-	//					if (simon->isDownPress == false && simon->isUpPress == false && simon->isOnLadder == true && simon->GetLRight() == false && simon->GetY() - 20 - 32 > b->CRec.y)
-	//					{
-	//						simon->SetState(STANDDL);
-	//						isOnLadder = true;
-	//						simon->isOnLadder = true;
-	//						simon->SetY(b->CRec.y + 61);
-	//						simon->SetVY(0);
-	//					}
-	//				}
-	//
-	//				/////va cham cau thang
-	//
-	//				if (b->CRec.type == 0)
-	//				{
-	//
-	//					if (simon->GetY() - 28 - 32 >= b->CRec.y)
-	//					{
-	//						isOnLadder = false;
-	//						simon->isOnLadder = false;
-	//					}
-	//
-	//					if (simon->isDownPress == true && simon->isUpPress ==  false && simon->GetLRight() == false && simon->GetY() - 20 > b->CRec.y && simon->GetX() >= b->CRec.x && simon->GetX() + 13 <= b->CRec.x + b->CRec.width)
-	//					{
-	//						isOnLadder = true;
-	//						simon->isOnLadder = true;
-	//						simon->ladderDOWNLeft();
-	//					}
-	//
-	//					if (simon->isUpPress == false && simon->isDownPress == false && simon->isOnLadder == true && simon->GetLRight() == true && simon->GetY() - 20 - 32 > b->CRec.y)
-	//					{
-	//						simon->SetState(STANDDL);
-	//						isOnLadder = true;
-	//						simon->isOnLadder = true;
-	//						simon->SetY(b->CRec.y + 61);
-	//						simon->SetVY(0);
-	//					}
-	//				}
-	//
-	//
-	//
-	//			}
-	//		}
-	//	}
-	//#pragma endregion
 
 	quadtree->Clear();
 	delete return_object;
