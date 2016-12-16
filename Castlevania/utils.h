@@ -19,7 +19,7 @@ enum PlayerState
 	CROUCHW, //ngoi danh
 	RUN, // chay
 	JUMP,// nhay
-	JUMPFIGHT,
+	JUMPW,
 	LADDERUP, //len cau thang
 	LADDERDOWN, //xuong cau thang
 	LADDERUPW, //len cau thang danh

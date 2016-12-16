@@ -130,9 +130,6 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
-    <ClCompile Include="boss2.cpp">
-      <Filter>Enemy\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -211,6 +208,12 @@
     <ClCompile Include="DownUp.cpp">
       <Filter>Enemy\EnemyMap2</Filter>
     </ClCompile>
+    <ClCompile Include="Que.cpp">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss2.cpp">
+      <Filter>Enemy\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -272,9 +275,6 @@
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="boss2.h">
-      <Filter>Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Enemy</Filter>
@@ -353,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="DownUp.h">
       <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="Que.h">
+      <Filter>Enemy\EnemyMap2</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss2.h">
+      <Filter>Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

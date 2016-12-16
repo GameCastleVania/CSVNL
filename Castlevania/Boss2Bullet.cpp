@@ -9,7 +9,7 @@ Boss2Bullet::~Boss2Bullet()
 
 Boss2Bullet::Boss2Bullet(LPDIRECT3DDEVICE9 d3ddv)
 {
-	bullet = new Sprite(d3ddv, "resource\\image\\boss\\BMap2\\2.png", 64, 20, 2, 2);
+	bullet = new Sprite(d3ddv, "resource\\image\\boss\\BMap2\\2.png", 64, 20, 1, 1);
 	CRec = RecF(0, 0, 32, 10);
 	animate = 0;
 }

@@ -18,11 +18,12 @@ private:
 	DWORD __last_time;
 	PlayerState playerState;
 	WeaponType Simon_WType;
-	
+
 	bool isfightUP = false;
 	bool fight;
 	bool alive;
 	float wpx, wpy;
+	int heightJump;
 
 public:
 	CSimon();
@@ -40,11 +41,12 @@ public:
 	bool isDownPress = false;
 	bool isOnLadder;
 	bool isOnGround = true;
+	bool autoMove = false;
 
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);
 	void Draw(int vpx, int vpy);
-	
+
 	void ladderUPRight();
 	void ladderDOWNLeft();
 
@@ -52,7 +54,9 @@ public:
 	void UpdateGunPoint();
 	void Kill();
 	void SetInvinsible();
-	
+
+	void simonAutoMove();
+
 #pragma region Sprite
 private: //All player sprite
 

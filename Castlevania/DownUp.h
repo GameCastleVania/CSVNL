@@ -1,12 +1,17 @@
 #pragma once
 #include "Enemy.h"
-
+#include "Que.h"
 class DownUp :
 	public Enemy
 {
 private:
 	Sprite *downup;
 	DWORD last_time;
+	int _Time = 0;
+	Que *que[10];
+	int count = -1;
+	bool isUp = false;
+	bool isDown = false;
 
 public:
 	DownUp();

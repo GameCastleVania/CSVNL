@@ -16,6 +16,7 @@ void StateMap2_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	map = new Map(d3ddv, "resource\\map\\Map2-2.bmp", "resource\\map\\Map2-2.tmx");
 	simon = new CSimon(d3ddv, psound, 2320, 42);
 	mstar = new MorningStar(d3ddv, simon, psound, 2320, 42);
+	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-2.tmx", simon, bulletManager, explosion);
 	collisionManager = new CollisionManager(simon, map, psound);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
@@ -38,13 +39,13 @@ void StateMap2_2::Draw(int vpx, int vpy)
 void StateMap2_2::Render(int vpx, int vpy)
 {
 	map->Draw(vpx, vpy);
-	simon->Draw(vpx, vpy);
 	mstar->Draw(vpx, vpy);
 	platform[0]->Draw(vpx, vpy);
+	bulletManager->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
-	weaponManager->Draw(vpx, vpy);
-	//bulletManager->Draw(vpx, vpy);
+	weaponManager->Draw(vpx, vpy);		
 	//explosion->Draw(vpx, vpy);
+	simon->Draw(vpx, vpy);
 }
 
 void StateMap2_2::Update(int &vpx, int &vpy)
@@ -56,8 +57,8 @@ void StateMap2_2::Update(int &vpx, int &vpy)
 	platform[0]->Update();
 	collisionManager->ControlCollision(vpx, vpy);
 	weaponManager->Update(vpx, vpy);
-	//enemyManager->Update();
-	//bulletManager->Update(vpx, vpy);
+	enemyManager->Update();
+	bulletManager->Update(vpx, vpy);
 	//explosion->Update();
 	ViewPortUpdate(vpx, vpy);
 	if (simon->GetY() >= 360 && simon->isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap2_3());
@@ -71,10 +72,23 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 
 	if (vpx > 2045) vpx = 2045;
 
-	if (px < 1542 || px > 1797)
+	if (px < 1287 || px > 1797) /// move viewport & fix viewport when simon stand on platform
 	{
-		if (simon->isRightPress == true && px > 265 && vpx <2044) vpx = px - 265;
-		else if (simon->isLeftPress == true && px <= 2304 && vpx >0) vpx = px - 265;
+		if (px > 265 && vpx <2044) vpx = px - 265;
+		else if (px <= 2304 && vpx >0) vpx = px - 265;
+	}
+	if (px > 1452 && px <= 1580) // colide with door
+	{
+		if (vpx > 1281)
+		{
+			simon->autoMove = false;
+			vpx -= 2;
+		}
+		else simon->autoMove = true;
+	}
+	if (px <= 1450)
+	{
+		if (vpx > 1018) vpx -= 2;
 	}
 }
 

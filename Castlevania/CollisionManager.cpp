@@ -35,49 +35,49 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	//Player collisde with platform--------------------------------------------------------------------
 	if (platform != NULL)
 	{
-		
-			
-				switch (Current_State)
+
+
+		switch (Current_State)
+		{
+		case 3:
+		{
+			RecF temp = platform[0]->CRec;
+			if (RecF::Collide(simon->CRec, temp))
+			{
+				if (simon->GetVY() < 0 && simon->GetY() - 28 > temp.y && simon->GetX() + 10 >= temp.x && simon->GetX() - 10 <= temp.x + temp.width)
 				{
-				case 3:
-					{
-						RecF temp = platform[0]->CRec;
-						if (RecF::Collide(simon->CRec, temp))
-						{
-							if (simon->GetVY() < 0 && simon->GetY() - 28 > temp.y && simon->GetX() + 10 >= temp.x && simon->GetX() - 10 <= temp.x + temp.width)
-							{
-								simon->isJumpLeft = false;
-								simon->isJumpRight = false;
-								simon->SetY(temp.y + 29);
-								simon->SetVY(0);
-								if (simon->GetState() == JUMP) simon->SetState(STAND);
-								if (platform[0]->IsMoved()) simon->SetX(simon->GetX() + platform[0]->GetVX());
-							}
-						}
-					}
-					break;
-				case 4:
-					for (int i = 0; i < 2; i++)
-					{
-						RecF _temp = platform[i]->CRec;
-						if (RecF::Collide(simon->CRec, _temp))
-						{
-							if (simon->GetVY() < 0 && simon->GetY() - 28 > _temp.y && simon->GetX() + 10 >= _temp.x && simon->GetX() - 10 <= _temp.x + _temp.width)
-							{
-								simon->isJumpLeft = false;
-								simon->isJumpRight = false;
-								simon->SetY(_temp.y + 29);
-								simon->SetVY(0);
-								if (simon->GetState() == JUMP) simon->SetState(STAND);
-								if (platform[i]->IsMoved()) simon->SetX(simon->GetX() + platform[i]->GetVX());
-							}
-						}
-					}
-					break;
-				default:
-					break;
-				}	
+					simon->isJumpLeft = false;
+					simon->isJumpRight = false;
+					simon->SetY(temp.y + 29);
+					simon->SetVY(0);
+					if (simon->GetState() == JUMP) simon->SetState(STAND);
+					if (platform[0]->IsMoved()) simon->SetX(simon->GetX() + platform[0]->GetVX());
+				}
+			}
 		}
+		break;
+		case 4:
+			for (int i = 0; i < 2; i++)
+			{
+				RecF _temp = platform[i]->CRec;
+				if (RecF::Collide(simon->CRec, _temp))
+				{
+					if (simon->GetVY() < 0 && simon->GetY() - 28 > _temp.y && simon->GetX() + 10 >= _temp.x && simon->GetX() - 10 <= _temp.x + _temp.width)
+					{
+						simon->isJumpLeft = false;
+						simon->isJumpRight = false;
+						simon->SetY(_temp.y + 29);
+						simon->SetVY(0);
+						if (simon->GetState() == JUMP) simon->SetState(STAND);
+						if (platform[i]->IsMoved()) simon->SetX(simon->GetX() + platform[i]->GetVX());
+					}
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
 	//Player collide with map---------------------------------------------------------------------------
 	bool isOnLadder;
 
@@ -100,8 +100,8 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(b->CRec.y + 60);
 					simon->SetVY(0);
-					if (simon->GetState() == JUMP || simon->GetState() == JUMPFIGHT) simon->SetState(STAND);
-					
+					if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
+
 				}
 
 				//xet va cham theo truc x----------------------------------
@@ -152,8 +152,8 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			if (RecF::Collide(simon->CRec, b->CRec))
 			{
 				/////va cham cau thang
-				simon->isOnGround = false;
-				if (b->CRec.type == 0  || b->CRec.type == 4)
+
+				if (b->CRec.type == 0 || b->CRec.type == 4)
 				{
 					///////////UPRIGHT && DOWNLEFT
 
@@ -161,8 +161,9 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						&& simon->GetY() - 20 > b->CRec.y && simon->GetX() - 2 >= b->CRec.x && simon->GetX() + 25 <= b->CRec.x + b->CRec.width)
 					{
 						isOnLadder = true;
+						simon->isOnGround = false;
 						simon->isOnLadder = true;
-					}		
+					}
 				}
 
 
@@ -170,7 +171,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				if (b->CRec.type == 2)
 				{
 
-					if (simon->isDownPress == true && simon->isLeftPress == true )
+					if (simon->isDownPress == true && simon->isLeftPress == true)
 					{
 						if (simon->isUpPress == false && simon->GetLRight() == false
 							&& simon->GetY() - 28 - 32 > b->CRec.y && simon->GetX() <= b->CRec.x + b->CRec.width)
@@ -180,15 +181,15 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						}
 					}
 					else if (simon->GetY() - 28 - 32 >= b->CRec.y)
-						 {
-							 isOnLadder = false;
-							 simon->isOnLadder = false;
-							 simon->isJumpLeft = false;
-							 simon->isJumpRight = false;
-							simon->SetY(b->CRec.y + 61);
-							simon->SetVY(0);
-							if (simon->GetState() == JUMP || simon->GetState() == JUMPFIGHT) simon->SetState(STAND);
-						 }
+					{
+						isOnLadder = false;
+						simon->isOnLadder = false;
+						simon->isJumpLeft = false;
+						simon->isJumpRight = false;
+						simon->SetY(b->CRec.y + 61);
+						simon->SetVY(0);
+						if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
+					}
 				}
 			}
 		}

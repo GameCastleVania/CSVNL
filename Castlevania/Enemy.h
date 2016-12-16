@@ -22,19 +22,22 @@ protected:
 
 	float gunx, guny;
 	bool shooting; // ban
-
+	float PosX, PosY;
 	int HP;
 	bool LRight;
 	int isDead; // 0 la song, 1 truoc khi chet, 2 chet
+	bool wasHit;
 	int state;
 	bool visible;
 	bool exploded;
-
+	bool ready;
+	int hitTime;
 public:
 	Enemy()
 	{
 		HP = 0;
 		visible = true;
+		ready = false;
 		type = 6;
 		state = 0;
 	}
@@ -51,6 +54,7 @@ public:
 	virtual void UpdateGunPoint() = 0;
 	virtual void Draw(int vpx, int vpy) = 0;
 	virtual void Destroy() = 0;
+
 
 #pragma region Get_Set
 
@@ -97,6 +101,10 @@ public:
 	int GetState()
 	{
 		return state;
+	}
+	void SetHit(bool hit)
+	{
+		wasHit = hit;
 	}
 };
 #pragma endregion

@@ -125,7 +125,7 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					{
 						enemyList.push_back(new BlackKnight(x, mapheight*TILE_SIZE - height - y));
 					}
-					/*if (o_name.compare("BoneTowers") == 0)
+					if (o_name.compare("BoneTowers") == 0)
 					{
 					enemyList.push_back(new DragonSkullCannon(x,  mapheight*TILE_SIZE - height - y));
 					}
@@ -140,10 +140,14 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					if (o_name.compare("Bats") == 0)
 					{
 					enemyList.push_back(new VampireBat(x,  mapheight*TILE_SIZE - height - y));
-					}*/
+					}
 					if (o_name.compare("CandlesSmall") == 0)
 					{
 						enemyList.push_back(new Candle(x, mapheight*TILE_SIZE - height - y));
+					}
+					if (o_name.compare("Boss2") == 0)
+					{
+						enemyList.push_back(new Boss2(x, mapheight*TILE_SIZE - height - y));
 					}
 				}
 			}

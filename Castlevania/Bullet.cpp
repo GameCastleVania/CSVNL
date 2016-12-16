@@ -50,6 +50,7 @@ void Bullet::Set(float X, float Y, float VX, float VY, int Type)
 	type = Type;
 }
 
+
 bool Bullet::CanExplode()
 {
 	return ex;

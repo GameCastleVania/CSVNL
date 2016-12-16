@@ -22,9 +22,8 @@ public:
 	bool GetVisible();
 	void Set(float X, float Y, float VX, float VY);
 	void Set(float, float, float, float, int);
-	void SetByPlayer(bool set);
 	bool CanExplode();
-
+	void SetByPlayer(bool set);
 #pragma endregion
 };
 

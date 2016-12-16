@@ -7,7 +7,7 @@
 #include "utils.h"
 #include <vector>
 
-typedef std::vector <Bullet*> BulletList;
+typedef vector<Bullet*> BulletList;
 class BulletManager
 {
 protected:
@@ -29,7 +29,7 @@ protected:
 
 	Boss2Bullet boss2Bullet;
 public:
-	BulletManager(){}
+	BulletManager() {}
 	BulletManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, Explosion* _explosion, PSound* _psound);
 	~BulletManager();
 

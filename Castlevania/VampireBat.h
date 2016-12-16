@@ -5,16 +5,18 @@ class VampireBat :
 	public Enemy
 {
 private:
-
+	Sprite *BatLR;
+	DWORD last_time;
 
 public:
-	VampireBat(float x, float y);
+	VampireBat(float X, float Y);
 	~VampireBat();
-	void Init(LPDIRECT3DDEVICE9 d3ddv, CSimon* simon, BulletManager* bulletManager, Explosion* explosion);
+	void Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon* _simon, BulletManager* _bulletManager, Explosion* _explosion);
 	void Update();
 	void UpdateGunPoint();
 	void Draw(int vpx, int vpy);
 	void BulletShoot();
+	void UpdateRec();
 	void Destroy();
 };
 

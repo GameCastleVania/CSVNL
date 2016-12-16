@@ -22,7 +22,7 @@
 #include "VampireBat.h"
 #include "Platform.h"
 #include "Candle.h"
-
+#include "Boss2.h"
 
 
 #define TILE_SIZE 32

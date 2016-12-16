@@ -11,7 +11,7 @@ BulletManager::BulletManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, Expl
 	direc = RIGHT;
 
 	bList = BulletList();
-	for (int i = 0; i < 70; i++){
+	for (int i = 0; i < 10; i++) {
 		bList.push_back(new Bullet());
 		bossBList.push_back(new Bullet());
 	}
@@ -26,43 +26,63 @@ BulletManager::~BulletManager()
 
 void BulletManager::Draw(int vpx, int vpy)
 {
-	/*for (int i = 0; i < bList.size(); i++){
+	
+	for (int i = 0; i < bList.size(); i++) {
 		bList[i]->Draw(vpx, vpy);
 	}
 	for (int i = 0; i < bossBList.size(); i++){
-		bossBList[i]->Draw(vpx, vpy);
-	}*/
+	bossBList[i]->Draw(vpx, vpy);
+	}
 }
 
 void BulletManager::Update(int vpx, int vpy)
 {
 	//Update all bullet
-	/*for (int i = 0; i < bList.size(); i++)
+	for (int i = 0; i < bList.size(); i++)
 	{
 
-		if (bList[i]->GetVisible()){
+		if (bList[i]->GetVisible()) {
 			bList[i]->Update();
-			if (bList[i]->GetX() > vpx + 600 || bList[i]->GetX() < vpx || bList[i]->GetY() > vpy || bList[i]->GetY() < vpy - 500){
+			if (bList[i]->GetX() > vpx + 600 || bList[i]->GetX() < vpx || bList[i]->GetY() > vpy || bList[i]->GetY() < vpy - 500) {
 				bList[i]->Destroy();
 			}
 		}
-		if (bossBList[i]->GetVisible()){
+	}
+	for (int i = 0; i < bList.size(); i++)
+	{
+		if (bossBList[i]->GetVisible()) {
 			bossBList[i]->Update();
-			if (bossBList[i]->GetX() > vpx + 600 || bossBList[i]->GetX() < vpx || bossBList[i]->GetY() > vpy || bossBList[i]->GetY() < vpy - 500){
+			if (bossBList[i]->GetX() > vpx + 600 || bossBList[i]->GetX() < vpx || bossBList[i]->GetY() > vpy || bossBList[i]->GetY() < vpy - 500) {
 				bossBList[i]->Destroy();
 			}
 		}
-	}*/
+	}
 }
 
 void BulletManager::Get(BulletType type, float x, float y, float vx, float vy, bool isPlayer)
 {
-	
+	for (int i = 0; i < bList.size(); i++)
+	{
+		if (bList[i]->GetVisible() == false)
+		{
+			switch (type)
+			{
+			case Fire_ball:
+				bList[i] = new FireBall(fireball);
+				bList[i]->Set(x, y, vx, vy, 0);
+				bList[i]->SetVisible(true);
+				break;
+			default:
+				break;
+			}
+			break;
+		}
+	}
 }
 
 void BulletManager::Get(int boss, float x, float y, float vx, float vy)
 {
-	/*for (int i = 0; i < bossBList.size(); i++)
+	for (int i = 0; i < bossBList.size(); i++)
 	{
 		if (bossBList[i]->GetVisible() == false)
 		{
@@ -71,7 +91,7 @@ void BulletManager::Get(int boss, float x, float y, float vx, float vy)
 			bossBList[i]->SetVisible(true);
 			break;
 		}
-	}*/
+	}
 }
 
 BulletList BulletManager::GetList()

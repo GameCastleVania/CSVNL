@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,7 +14,7 @@
     <ClCompile Include="Axe.cpp" />
     <ClCompile Include="BlackKnight.cpp" />
     <ClCompile Include="Boomerang.cpp" />
-    <ClCompile Include="boss2.cpp" />
+    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Boss2Bullet.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
@@ -35,6 +35,7 @@
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Que.cpp" />
     <ClCompile Include="StateMap2_2.cpp" />
     <ClCompile Include="StateMap2_3.cpp" />
     <ClCompile Include="StateMap2_4.cpp" />
@@ -62,7 +63,7 @@
     <ClInclude Include="Axe.h" />
     <ClInclude Include="BlackKnight.h" />
     <ClInclude Include="Boomerang.h" />
-    <ClInclude Include="boss2.h" />
+    <ClInclude Include="Boss2.h" />
     <ClInclude Include="Boss2Bullet.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="psound.h" />
     <ClInclude Include="quadtree.h" />
+    <ClInclude Include="Que.h" />
     <ClInclude Include="recF.h" />
     <ClInclude Include="simon.h" />
     <ClInclude Include="sound.h" />
@@ -115,7 +117,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

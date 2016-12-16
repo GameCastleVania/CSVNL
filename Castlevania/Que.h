@@ -1,22 +1,26 @@
 #pragma once
 #include "Enemy.h"
-
-class Medusa :
+class Que :
 	public Enemy
 {
 private:
-	Sprite *MedusaL;
-	Sprite *MedusaR;
+	Sprite *cay;
 	DWORD last_time;
+	float _Time = 0;
+
 public:
-	Medusa(float X, float Y);
-	~Medusa();
+	Que();
+	Que(float x, float y);
+	~Que();
 	void Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon* _simon, BulletManager* _bulletManager, Explosion* _explosion);
 	void Update();
 	void UpdateGunPoint();
 	void Draw(int vpx, int vpy);
-	void BulletShoot();
-	void UpdateRec();
+	void SetVisible(bool vis)
+	{
+		this->visible = vis;
+	}
+	//void BulletShoot();
 	void Destroy();
 };
 

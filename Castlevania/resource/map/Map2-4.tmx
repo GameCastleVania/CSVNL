@@ -23,9 +23,10 @@
     <object name="CandlesSmall" id="10" type=" " x="1434" y="102" width="16" height="32" />
     <object name="MedusaHeads" id="11" type=" " x="961" y="160" width="32" height="32" />
     <object name="MedusaHeads" id="12" type=" " x="565" y="112" width="32" height="32" />
+    <object name="Boss2" id="13" type=" " x="193" y="160" width="64" height="64" />  
   </objectgroup>
   <QuadTree name="QuadTree">
-    <QuadNode NodeID="0" x="0" y="0" width="1536" height="1536" id="1 2 3 4 5 6 7 8 9 10 11 12 " />
+    <QuadNode NodeID="0" x="0" y="0" width="1536" height="1536" id="1 2 3 4 5 6 7 8 9 10 11 12 13 " />
   </QuadTree>
   <layer name="Map" tilecount="286">
     <data>

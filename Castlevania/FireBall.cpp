@@ -10,7 +10,6 @@ FireBall::FireBall(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion)
 	CRec = RecF(0, 0, 14, 12);
 }
 
-
 FireBall::~FireBall()
 {
 }
@@ -35,7 +34,7 @@ void FireBall::Update()
 
 void FireBall::Destroy()
 {
-	explosion->Get(0, x, y, 0);
+	//explosion->Get(0, x, y, 0);
 	CRec = RecF(0, 0, 0, 0);
 	visible = false;
 	x = y = vx = vy = -100;

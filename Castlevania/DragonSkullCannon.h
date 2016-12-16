@@ -5,12 +5,16 @@ class DragonSkullCannon :
 	public Enemy
 {
 private:
-
+	Sprite *DSkullL;
+	Sprite *DSkullR;
+	int count;
+	bool isShooting;
+	bool shootST;
 
 public:
-	DragonSkullCannon(float x, float y);
+	DragonSkullCannon(float X, float Y);
 	~DragonSkullCannon();
-	void Init(LPDIRECT3DDEVICE9 d3ddv, CSimon* simon, BulletManager* bulletManager, Explosion* explosion);
+	void Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon* _simon, BulletManager* _bulletManager, Explosion* _explosion);
 	void Update();
 	void UpdateGunPoint();
 	void Draw(int vpx, int vpy);
