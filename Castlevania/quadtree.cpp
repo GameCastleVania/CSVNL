@@ -116,6 +116,14 @@ void Quadtree::InsertLadder(RecF* rec)
 	Insert(g);
 }
 
+void Quadtree::InsertDoor(RecF* rec)
+{
+	GameObject* g = new GameObject();
+	g->CRec = *rec;
+	g->SetType(3);
+	Insert(g);
+}
+
 ObjectList* Quadtree::Retrieve(ObjectList* returnObjects, GameObject* object)
 {
 	if (nodes != NULL)

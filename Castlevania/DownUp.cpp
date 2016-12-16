@@ -31,7 +31,7 @@ void DownUp::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bu
 	downup = new Sprite(d3ddv, "resource\\image\\enemy\\EMap2\\7.png", 64, 36, 1, 1);
 	for (int i = 0; i < 10; i++)
 	{
-		que[i] = new Que(PosX, PosY - 10 * i);
+		que[i] = new Que(PosX + 25, PosY - 10 * i);
 		que[i]->Init(_d3ddv, _simon, _bulletManager, _explosion);
 		que[i]->SetVisible(false);
 	}
@@ -39,8 +39,8 @@ void DownUp::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bu
 
 void DownUp::Update()
 {
-	float _x = simon->GetX() - 16;
-	float _y = simon->GetY() - 32;
+	float _x = simon->GetX() - 32;
+	float _y = simon->GetY() - 16;
 	float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
 	if (delta < 300)
 		ready = true;
@@ -89,7 +89,7 @@ void DownUp::Draw(int vpx, int vpy)
 	{
 		if (!exploded)
 		{
-			downup->Render(x + 16, y + 32, vpx, vpy);
+			downup->Render(x + 32, y + 16, vpx, vpy);
 		}
 		for (int i = 0; i < 10; i++)
 			if (que[i]->GetVisible() == true)

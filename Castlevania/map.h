@@ -13,6 +13,7 @@ private:
 	Sprite* _spriteSheet;
 	RecFList _collisionRecs;
 	RecFList _ladderRecs;
+	RecFList _doorRecs;
 
 	int _width;
 	int _height;
@@ -27,9 +28,10 @@ public:
 
 	RecFList CRecList();
 	RecFList CRecLadderList();
+	RecFList CRecDoorList();
 
 	int Width();
 	int Height();
-	void SetMap(int width, int height, int* mapArr, RecFList collisionRecs, RecFList _ladderRecs);
+	void SetMap(int width, int height, int* mapArr, RecFList collisionRecs, RecFList _ladderRecs, RecFList _doorRecs);
 };
 #endif

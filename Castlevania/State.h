@@ -12,6 +12,7 @@
 #include "explosion.h"
 #include "MorningStar.h"
 #include "Platform.h"
+#include "Door.h"
 
 class State
 {
@@ -29,6 +30,7 @@ protected:
 	EnemyManager* enemyManager;
 	Explosion* explosion;
 	CollisionManager* collisionManager;
+	Door* door;
 
 public:
 	State(){}

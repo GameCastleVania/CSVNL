@@ -23,6 +23,8 @@
 #include "Platform.h"
 #include "Candle.h"
 #include "Boss2.h"
+#include "DownUp.h"
+#include "Que.h"
 
 
 #define TILE_SIZE 32
@@ -41,7 +43,7 @@ public:
 
 	rapidxml::xml_node<>* root_node;
 
-	void ReadMap(int &_width, int &_height, int* &_mapArr, RecFList &_collisionRecs, RecFList &_ladderRecs);
+	void ReadMap(int &_width, int &_height, int* &_mapArr, RecFList &_collisionRecs, RecFList &_ladderRecs, RecFList &_doorRecs);
 	void ReadEnemy(char* name, EnemyList &enemyList);
 	void ReadGameObject(Platform** platform);
 	//void ReadGameObject(Bridge* bridge1, Bridge* bridge2);

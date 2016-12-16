@@ -4,7 +4,7 @@
 Bullet::Bullet()
 {
 	x = y = vx = vy = -100;
-	type = 1;
+	type = 5;
 	CRec = RecF(0, 0, 6, 6);
 	explosion = NULL;
 	visible = false;

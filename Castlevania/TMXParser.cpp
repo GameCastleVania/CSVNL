@@ -19,7 +19,7 @@ Parser::~Parser()
 {
 }
 
-void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs, RecFList &_ladderRecs)
+void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionRecs, RecFList &_ladderRecs, RecFList &_doorRecs)
 {
 
 	rapidxml::xml_document<> doc;
@@ -34,6 +34,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 	arr = new int[count];
 	RecFList recList;
 	RecFList ladderList;
+	RecFList doorList;
 
 	for (rapidxml::xml_node<>* layer_node = root_node->first_node("layer"); layer_node; layer_node = layer_node->next_sibling("layer")) {
 		std::string layername = layer_node->first_attribute("name")->value();
@@ -88,6 +89,16 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height, type);
 					ladderList.push_back(rec);
 				}
+				if (o_name.compare("Door") == 0)
+				{
+					int x, y, width, height;
+					x = std::atoi(object_node->first_attribute("x")->value());
+					y = std::atoi(object_node->first_attribute("y")->value());
+					width = std::atoi(object_node->first_attribute("width")->value());
+					height = std::atoi(object_node->first_attribute("height")->value());
+					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height);
+					doorList.push_back(rec);
+				}
 			}
 		}
 	}
@@ -96,7 +107,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 	_height = mapheight;
 	_collisionRecs = recList;
 	_ladderRecs = ladderList;
-
+	_doorRecs = doorList;
 }
 void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 {
@@ -148,6 +159,14 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					if (o_name.compare("Boss2") == 0)
 					{
 						enemyList.push_back(new Boss2(x, mapheight*TILE_SIZE - height - y));
+					}
+					if (o_name.compare("DownUp") == 0)
+					{
+						enemyList.push_back(new DownUp(x, mapheight*TILE_SIZE - height - y));
+					}
+					if (o_name.compare("que") == 0)
+					{
+						enemyList.push_back(new Que(x, mapheight*TILE_SIZE - height - y));
 					}
 				}
 			}

@@ -4,7 +4,7 @@
 Weapon::Weapon()
 {
 	x = y = vx = vy = 0;
-	type = 1;
+	type = 6;
 	CRec = RecF(0, 0, 6, 6);
 	explosion = NULL;
 }

@@ -47,7 +47,7 @@ void Que::Draw(int vpx, int vpy)
 {
 	if (visible)
 	{
-		cay->Render(x + 16, y + 32, vpx, vpy);
+		cay->Render(x + 7, y + 23, vpx, vpy);
 	}
 }
 
