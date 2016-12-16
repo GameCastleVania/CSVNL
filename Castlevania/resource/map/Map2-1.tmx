@@ -13,7 +13,7 @@
   <objectgroup name="MoveObject">
     <object name="Stair" id="1" type="UR" x="224" y="287" width="32" height="32" />
     <object name="Stair" id="2" type="UR" x="161" y="96" width="32" height="32" />
-    <object name="SpearKnights" id="3" type=" " x="257" y="65" width="32" height="64" />
+    <object name="SpearKnights" id="3" type=" " x="181" y="65" width="32" height="64" />
     <object name="Bats" id="4" type=" " x="80" y="18" width="32" height="32" />
     <object name="CandlesSmall" id="5" type=" " x="279" y="1" width="16" height="32" />
     <object name="CandlesSmall" id="6" type=" " x="408" y="195" width="16" height="32" />

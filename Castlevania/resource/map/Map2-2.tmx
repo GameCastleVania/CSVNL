@@ -31,13 +31,13 @@
     <object name="CandlesSmall" id="5" type=" " x="2454" y="1" width="16" height="32" />
     <object name="CandlesSmall" id="6" type=" " x="2326" y="2" width="16" height="32" />
     <object name="CandlesSmall" id="7" type=" " x="2198" y="1" width="16" height="32" />
-    <object name="SpearKnights" id="8" type=" " x="2176" y="195" width="32" height="64" />
+    <object name="SpearKnights" id="8" type=" " x="2192" y="195" width="32" height="64" />
     <object name="Bats" id="9" type=" " x="2127" y="3" width="32" height="32" />
     <object name="CandlesSmall" id="10" type=" " x="2070" y="2" width="16" height="32" />
     <object name="CandlesSmall" id="11" type=" " x="1942" y="2" width="16" height="32" />
     <object name="CandlesSmall" id="12" type=" " x="1815" y="2" width="16" height="32" />
     <object name="CandlesSmall" id="13" type=" " x="1689" y="4" width="16" height="32" />
-    <object name="SpearKnights" id="14" type=" " x="1766" y="66" width="32" height="64" />
+    <object name="SpearKnights" id="14" type=" " x="1773" y="66" width="32" height="64" />
     <object name="CandlesSmall" id="15" type=" " x="1433" y="2" width="16" height="32" />
     <object name="CandlesSmall" id="16" type=" " x="1304" y="1" width="16" height="32" />
     <object name="CandlesSmall" id="17" type=" " x="1175" y="1" width="16" height="32" />

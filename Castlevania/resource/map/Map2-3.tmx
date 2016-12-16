@@ -26,7 +26,7 @@
     <object x="962" y="288" width="62" height="32" />
     <object x="2" y="260" width="1021" height="27" />
     <object x="2" y="290" width="61" height="61" />
-    <object x="260" y="228" width="59" height="29" />
+    <object x="257" y="231" width="64" height="29" />
     <object x="385" y="164" width="64" height="28" />
     <object x="449" y="131" width="63" height="29" />
     <object x="2" y="3" width="60" height="255" />
@@ -74,10 +74,13 @@
     <object name="BoneTowers" id="40" type=" " x="608" y="2" width="32" height="64" />
     <object name="BoneTowers" id="41" type=" " x="479" y="66" width="32" height="64" />
     <object name="Bats" id="42" type=" " x="271" y="65" width="32" height="32" />
+    <object name="que" id="43" type=" " x="978" y="106" width="14" height="20" />
+    <object name="que" id="44" type=" " x="851" y="107" width="14" height="20" />
+    <object name="que" id="45" type=" " x="723" y="105" width="14" height="20" />
   </objectgroup>
   <QuadTree name="QuadTree">
-    <QuadNode NodeID="9" x="0" y="0" width="768" height="768" id="1 2 10 11 12 13 14 16 39 40 41 42 " />
-    <QuadNode NodeID="10" x="768" y="0" width="768" height="768" id="3 7 8 9 15 17 18 19 20 38 " />
+    <QuadNode NodeID="9" x="0" y="0" width="768" height="768" id="1 2 10 11 12 13 14 16 39 40 41 42 45 " />
+    <QuadNode NodeID="10" x="768" y="0" width="768" height="768" id="3 7 8 9 15 17 18 19 20 38 43 44 " />
     <QuadNode NodeID="11" x="0" y="768" width="768" height="768" id="" />
     <QuadNode NodeID="12" x="768" y="768" width="768" height="768" id="" />
     <QuadNode NodeID="1" x="0" y="0" width="1536" height="1536" id="" />
