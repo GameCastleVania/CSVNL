@@ -108,7 +108,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				//simon di qua phai
 				if ((simon->GetVX() > 0 && simon->GetX() + 10 > b->CRec.x))
 				{
-					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() <= b->CRec.y + b->CRec.height))
+					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() -28 <= b->CRec.y + b->CRec.height))
 					{
 						simon->SetX(b->CRec.x - 10);
 						simon->SetVX(0);
@@ -122,7 +122,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				//simon qua trai
 				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
 				{
-					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() <= b->CRec.y + b->CRec.height))
+					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() -28 <= b->CRec.y + b->CRec.height))
 					{
 						simon->SetX(b->CRec.x + b->CRec.width + 10);
 						simon->SetVX(0);
