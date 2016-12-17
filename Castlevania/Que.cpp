@@ -14,7 +14,6 @@ Que::Que(float X, float Y)
 	exploded = false;
 	shooting = false;
 	isDead = 0;
-	HP = 2;
 	vx = 0;
 	vy = 0;
 	CRec = RecF(x, y, 14, 20);

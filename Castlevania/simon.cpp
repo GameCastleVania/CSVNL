@@ -9,6 +9,7 @@
 #define FALLDOWN_VELOCITY_DECREASE 0.5f
 
 extern int Current_State;
+extern float SimonHP;
 
 CSimon::CSimon()
 {
@@ -47,6 +48,7 @@ CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 	fight = false;
 	alive = true;
 	heightJump = 0;
+	HP = SimonHP;
 
 	last_time = 0;
 	_last_time = 0;

@@ -13,7 +13,7 @@ Medusa::Medusa(float X, float Y)
 	shooting = false;
 
 	isDead = 0;
-	HP = 2;
+	HP = 1;
 	vx = 0;
 	vy = 0;
 	CRec = RecF(x, y, 28, 28);

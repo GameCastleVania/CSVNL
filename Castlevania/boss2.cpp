@@ -12,7 +12,7 @@ Boss2::Boss2(float X, float Y)
 	wasHit = false;
 	hitTime = 0;
 	isDead = 0;
-	HP = 15;
+	HP = 16;
 	vx = 2;
 	vy = 0;
 	CRec = RecF(x, y, 28, 28);

@@ -22,6 +22,7 @@ private:
 	bool isfightUP = false;
 	bool fight;
 	bool alive;
+	float HP;
 	float wpx, wpy;
 	int heightJump;
 

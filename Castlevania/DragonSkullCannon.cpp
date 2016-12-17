@@ -10,7 +10,7 @@ DragonSkullCannon::DragonSkullCannon(float X, float Y)
 	isShooting = false;
 	shootST = true;
 	isDead = 0;
-	HP = 2;
+	HP = 6;
 	vx = 0;
 	vy = 0;
 	CRec = RecF(x, y, 32, 64);

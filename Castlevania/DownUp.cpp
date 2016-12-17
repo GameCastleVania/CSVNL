@@ -12,7 +12,6 @@ DownUp::DownUp(float X, float Y)
 	exploded = false;
 	shooting = false;
 	isDead = 0;
-	HP = 2;
 	vx = 0;
 	vy = 0;
 	CRec = RecF(x, y, 64, 36);
@@ -48,7 +47,7 @@ void DownUp::Update()
 	{
 		visible = true;
 		_Time++;
-		if (_Time > 200)
+		if (_Time > 70)
 		{
 			vy = -2;
 			isDown = true;
