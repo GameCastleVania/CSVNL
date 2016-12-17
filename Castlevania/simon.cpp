@@ -157,8 +157,12 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 	
 	if (Current_State == 5)
 	{
-		if (x <= 0) x = 0;
+		if (x <= 46) x = 46;
 		if (x > 513 && vpx == 0) x = 450;
+	}
+	if (Current_State == 2)
+	{
+		if (x <= 46) x = 46;
 	}
 
 	if (autoMove == true && allowCtrl == false) simonAutoMove();
