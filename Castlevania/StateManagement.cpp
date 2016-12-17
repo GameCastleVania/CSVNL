@@ -1,6 +1,8 @@
 #include "StateManagement.h"
 
 extern int Current_State = 0;
+extern bool vpMove = false;
+
 
 StateManagement* StateManagement::s_pIntance = 0;
 

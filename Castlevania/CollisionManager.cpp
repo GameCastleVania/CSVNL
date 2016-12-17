@@ -3,6 +3,7 @@
 #define TILE_SIZE 32
 
 extern int Current_State;
+extern bool vpMove;
 CollisionManager::CollisionManager(CSimon* _Simon, Map* _Map, PSound* _Psound)
 {
 	simon = _Simon;
@@ -24,13 +25,40 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	RecF simonRec = simon->CRec;
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
-
-#pragma region Player collision with map
+	RecFList Doorlist = map->CRecDoorList();
+#pragma region Player collision
+	#pragma region Player collision with map
 	//Bullet, enemy, bonus collide with player------------------------------------------------------------
 
 	//Grenage explosion with player
 
-	//Player collide with bridge-----------------------------------------------------------------------
+	//Player collide with door -----------------------------------------------------------------------
+
+	quadtree->Retrieve(return_object, simon);
+	for (auto x = return_object->begin(); x != return_object->end(); x++)
+	{
+		GameObject* b = x._Ptr->_Myval;
+		if (b->GetType() == 3)
+		{
+			if (RecF::Collide(simon->CRec, b->CRec))
+			{
+				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
+				{
+					if ((simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					{
+						simon->SetVX(0);
+						simon->allowCtrl = false;
+						vpMove = true;
+						if (simon->GetX() >= 1578) simon->SetState(STAND);
+					}
+				}
+				
+				
+			}
+		}
+	}
+
+
 
 	//Player collisde with platform--------------------------------------------------------------------
 	if (platform != NULL)
@@ -136,9 +164,9 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			}
 		}
 	}
-#pragma endregion
+	#pragma endregion
 
-#pragma region Player collision with ladderURDL
+	#pragma region Player collision with ladderURDL
 	//Player collide with Ladder---------------------------------------------------------------------------
 
 	//LADDER UPRIGHT---------------------------------------------------------	
@@ -194,6 +222,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			}
 		}
 	}
+	#pragma endregion
 #pragma endregion
 
 	quadtree->Clear();
@@ -208,6 +237,7 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
+	RecFList Doorlist = map->CRecDoorList();
 
 	for (int i = 0; i < mlist.size(); i++){
 		quadtree->Insert(&mlist[i]);
@@ -215,6 +245,10 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 
 	for (int i = 0; i < Ladderlist.size(); i++){
 		quadtree->InsertLadder(&Ladderlist[i]);
+	}
+
+	for (int i = 0; i < Doorlist.size(); i++){
+		quadtree->InsertDoor(&Doorlist[i]);
 	}
 	return quadtree;
 }

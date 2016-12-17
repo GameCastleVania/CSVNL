@@ -89,7 +89,7 @@ void Parser::ReadMap(int &_width, int &_height, int* &arr, RecFList &_collisionR
 					RecF rec(x, mapheight*TILE_SIZE - y - height, width, height, type);
 					ladderList.push_back(rec);
 				}
-				if (o_name.compare("Door") == 0)
+				if (o_name.compare("Doors") == 0)
 				{
 					int x, y, width, height;
 					x = std::atoi(object_node->first_attribute("x")->value());

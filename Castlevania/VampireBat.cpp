@@ -42,7 +42,7 @@ void VampireBat::Update()
 		vx = 2.5;
 		x += vx;
 		vy = -2.5;
-		if (y < PosY - 60)
+		if (y < PosY - 80)
 			vy = 0;
 		y += vy;
 		DWORD now = GetTickCount();

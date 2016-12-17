@@ -15,14 +15,17 @@ private:
 
 	bool open = false;// trang thai door mo
 	bool close = false;// trang thai door dong
-	bool isopen = false;// trang thai door da mo xong
-	bool isclose = false;// trang thai door da dong xong
+	
 	int time = 0;
 
 public:
 	Door();
 	Door(LPDIRECT3DDEVICE9 d3ddv, CSimon* simon, float x, float y);
 	~Door();
+
+	bool isopen = false;// trang thai door da mo xong
+	bool isclose = false;// trang thai door da dong xong
+
 
 	void Update();
 	void Draw(int vpx, int vpy);

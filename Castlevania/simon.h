@@ -42,6 +42,7 @@ public:
 	bool isOnLadder;
 	bool isOnGround = true;
 	bool autoMove = false;
+	bool allowCtrl = true;
 
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);

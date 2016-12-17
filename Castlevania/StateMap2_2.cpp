@@ -1,6 +1,7 @@
 #include "StateMap2_2.h"
 
 extern int Current_State;
+extern bool vpMove;
 
 StateMap2_2::StateMap2_2()
 {
@@ -82,19 +83,36 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 		if (px > 265 && vpx <2044) vpx = px - 265;
 		else if (px <= 2304 && vpx >0) vpx = px - 265;
 	}
+	
+	
 	if (px > 1452 && px <= 1580) // colide with door
 	{
-		if (vpx > 1281)
+		if (vpx > 1281 && vpMove == true)
 		{
 			simon->autoMove = false;
-			vpx -= 2;
+			vpx -= 1.5;
 		}
-		else simon->autoMove = true;
+		else
+		{
+			vpMove = false;
+		}
+
+		if (vpMove == false && simon->allowCtrl == false) door->SetOpen(true);
+		if (door->isopen == true) simon->autoMove = true;
 	}
-	if (px <= 1450)
+	
+	if (px <= 1450 && simon->autoMove == false)
 	{
-		if (vpx > 1018) vpx -= 2;
+		door->SetClose(true);
+		door->SetOpen(false);
+		if (door->isclose == true && vpx > 1018)
+		{
+			vpx -= 1.5;
+		}
+		if (vpx <= 1018) simon->allowCtrl = true;
 	}
+	
+
 }
 
 void StateMap2_2::Exit(int &vpx, int &vpy)
