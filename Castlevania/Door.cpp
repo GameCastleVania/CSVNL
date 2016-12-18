@@ -2,6 +2,7 @@
 
 #define ANIMATE_RATE 7
 extern int Current_State;
+extern int Stage;
 
 Door::Door()
 {
@@ -31,7 +32,24 @@ void Door::Update()
 	if (open || close)
 	{
 		time++;
+
+		if (close)
+		{
+			switch (Current_State)
+			{
+			case 3:
+				Stage = 5;
+				break;
+			case 4:
+				Stage = 6;
+				break;
+			default:
+				break;
+			}
+		}
+		
 	}
+	
 }
 
 void Door::Draw(int vpx, int vpy)

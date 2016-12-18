@@ -1,6 +1,7 @@
 #include "StateMap2_1.h"
 
 extern int Current_State;
+extern int Stage = 4;
 
 StateMap2_1::StateMap2_1()
 {

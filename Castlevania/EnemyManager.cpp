@@ -45,6 +45,14 @@ void EnemyManager::Draw(int vpx, int vpy)
 	}
 }
 
+void EnemyManager::Destroy()
+{
+	for (int i = 0; i < enemyList.size(); i++)
+	{
+		enemyList[i]->Destroy();
+	}
+}
+
 EnemyList EnemyManager::GetList()
 {
 	return enemyList;

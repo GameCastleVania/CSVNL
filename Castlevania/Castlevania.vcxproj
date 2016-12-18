@@ -32,10 +32,14 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameobject.cpp" />
     <ClCompile Include="Ghost.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Que.cpp" />
+    <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="StateMap2_2.cpp" />
     <ClCompile Include="StateMap2_3.cpp" />
     <ClCompile Include="StateMap2_4.cpp" />
@@ -82,6 +86,9 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameobject.h" />
     <ClInclude Include="Ghost.h" />
+    <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="map.h" />
@@ -93,6 +100,7 @@
     <ClInclude Include="Que.h" />
     <ClInclude Include="recF.h" />
     <ClInclude Include="simon.h" />
+    <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="State.h" />

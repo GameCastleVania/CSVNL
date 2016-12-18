@@ -3,6 +3,7 @@
 extern int Current_State;
 extern bool vpMove;
 
+
 StateMap2_2::StateMap2_2()
 {
 	d3ddv = NULL;

@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "explosion.h"
 #include "BulletManager.h"
+#include "ItemManager.h"
 
 extern int Score;
 

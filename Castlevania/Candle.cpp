@@ -45,5 +45,6 @@ void Candle::UpdateGunPoint()
 void Candle::Destroy()
 {
 	HP = 0;
+
 }
 

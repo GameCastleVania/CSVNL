@@ -15,7 +15,7 @@ Boss2::Boss2(float X, float Y)
 	HP = 16;
 	vx = 2;
 	vy = 0;
-	CRec = RecF(x, y, 28, 28);
+	CRec = RecF(x, y, 64, 64);
 }
 
 Boss2::~Boss2()
@@ -34,7 +34,7 @@ void Boss2::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 void Boss2::Update()
 {
 
-	float _x = simon->GetX() - 16;
+	float _x = simon->GetX() - 32;
 	float _y = simon->GetY() - 32;
 	float kc = sqrtf((_x - PosX)*(_x - PosX) + (_y - PosY)*(_y - PosY));
 	float kc2 = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
@@ -147,9 +147,9 @@ void Boss2::Draw(int vpx, int vpy)
 		if (!exploded)
 		{
 			if (ready)
-				_Boss2Move->Render(x + 16, y + 32, vpx, vpy);
+				_Boss2Move->Render(x + 32, y + 32, vpx, vpy);
 			else
-				_Boss2Idle->Render(x + 16, y + 32, vpx, vpy);
+				_Boss2Idle->Render(x + 32, y + 32, vpx, vpy);
 		}
 	}
 }
@@ -186,7 +186,7 @@ void Boss2::UpdateRec()
 {
 	if (HP > 0)
 	{
-		CRec = RecF(x, y, 32, 64);
+		CRec = RecF(x, y, 64, 64);
 	}
 	else
 	{

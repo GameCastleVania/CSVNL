@@ -18,11 +18,12 @@ private:
 	int _frameRate;
 	void _render(char* text, float x, float y, D3DCOLOR color);
 
-	void _initialize();
+	
 
 public:
 	Font(LPDIRECT3DDEVICE9 d3ddv, int size, int screenWidth, int screenHeight);
 	~Font();
+	void _initialize();
 	void updateAnimation();
 	void render(char* text, float x, float y);
 	void render(int number, float x, float y);

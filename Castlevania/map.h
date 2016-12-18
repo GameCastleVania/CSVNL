@@ -7,6 +7,8 @@
 #include"TMXParser.h"
 #include "utils.h"
 #include "quadtree.h"
+#include "font.h"
+#include "HealthBar.h"
 
 class Map{
 private:
@@ -18,6 +20,12 @@ private:
 	int _width;
 	int _height;
 	int* _mapArr;
+
+	//game board
+	Font* text;
+	Sprite* gameboard;
+	HealthBar* healthbar;
+
 
 public:
 	Map();

@@ -71,6 +71,9 @@
     <Filter Include="Enemy\Ground">
       <UniqueIdentifier>{7971cb10-e824-452f-a8ae-951b1c9838d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{18030c2b-2126-4c7d-93c5-ca99d2504c65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="trace.cpp">
@@ -213,6 +216,18 @@
     </ClCompile>
     <ClCompile Include="Boss2.cpp">
       <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallHeart.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>FrameWork\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +374,18 @@
     </ClInclude>
     <ClInclude Include="Boss2.h">
       <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallHeart.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>FrameWork\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

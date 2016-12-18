@@ -14,6 +14,7 @@ public:
 
 	void Update();
 	void Draw(int vpx, int vpy);
+	void Destroy();
 	EnemyList GetList();
 };
 
