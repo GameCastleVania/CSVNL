@@ -238,7 +238,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		if (leftPress && downPress == true && upPress == false && isOnLadder == true && playerState != CROUCH)
 		{
 			vx = -0.95f;
-			vy = -0.9f;
+			vy = -1.0f;
 			playerState = RUNDOWNL;
 			isOnLadder = true;
 			LRight = false;
@@ -260,7 +260,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 
 		//jump left or right //fix jump continous
 
-		if (spacePress && downPress == false && upPress == false && isOnLadder == false
+		if (spacePress && downPress == false && upPress == false && isOnLadder == false && isJumpLeft == false && isJumpRight == false
 			&& playerState != JUMP && (playerState == STAND || playerState == RUN) && fightPress == false)
 		{
 			if (doJump == false)

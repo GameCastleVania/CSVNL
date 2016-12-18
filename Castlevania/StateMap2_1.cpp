@@ -19,8 +19,8 @@ void StateMap2_1::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	mstar = new MorningStar(d3ddv,simon, psound, 80, 62);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-1.tmx", simon, bulletManager, explosion);
-	collisionManager = new CollisionManager(simon, map, psound);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
+	collisionManager = new CollisionManager(simon, enemyManager, weaponManager, map, psound);
 	Parser tmx("resource\\map\\Map2-1.tmx");// doc file map.tmx
 }
 

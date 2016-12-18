@@ -16,7 +16,7 @@ Dagger::Dagger(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _simon)
 
 	daggerL = new Sprite(d3ddv, "resource\\image\\weapon\\1L.png", 32, 18, 1, 1);
 	daggerR = new Sprite(d3ddv, "resource\\image\\weapon\\1R.png", 32, 18, 1, 1);
-	CRec = RecF(0, 0, 32, 28);
+	CRec = RecF(0, 0, 32, 18);
 }
 
 void Dagger::Draw(float vpx, float vpy)

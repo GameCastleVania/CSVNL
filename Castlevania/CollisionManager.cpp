@@ -4,11 +4,13 @@
 
 extern int Current_State;
 extern bool vpMove;
-CollisionManager::CollisionManager(CSimon* _Simon, Map* _Map, PSound* _Psound)
+CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound)
 {
 	simon = _Simon;
 	map = _Map;
 	psound = _Psound;
+	enemyManager = _EnemyManger;
+	weaponManager = _WeaponManager;
 	platform = NULL;
 }
 
@@ -26,12 +28,74 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
 	RecFList Doorlist = map->CRecDoorList();
+	EnemyList elist = enemyManager->GetList();
+	WeaponList simonWlist = weaponManager->GetSimonWList();
 #pragma region Player collision
-	#pragma region Player collision with map
-	//Bullet, enemy, bonus collide with player------------------------------------------------------------
+#pragma region Player collision with map
+	//Player collide with map---------------------------------------------------------------------------
+	bool isOnLadder;
 
-	//Grenage explosion with player
+	return_object->clear();
+	quadtree->Retrieve(return_object, simon);
+	for (auto x = return_object->begin(); x != return_object->end(); x++)
+	{
+		GameObject* b = x._Ptr->_Myval;
+		if (b->GetType() == 1)
+		{
+			if (RecF::Collide(simon->CRec, b->CRec))
+			{
+				//xet va cham theo truc y----------------------------------
+				simon->isOnGround = true;
+				if ((simon->GetVY() < 0 && simon->GetY() - b->CRec.height - 28 > b->CRec.y) && simon->GetX() + 10 >= b->CRec.x && simon->GetX() - 10 <= b->CRec.x + b->CRec.width)
+				{
+					isOnLadder = false;
+					simon->isOnLadder = false;
+					simon->isJumpLeft = false;
+					simon->isJumpRight = false;
+					simon->SetY(b->CRec.y + 60);
+					simon->SetVY(0);
+					if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
 
+				}
+
+				//xet va cham theo truc x----------------------------------
+				//simon di qua phai
+				if ((simon->GetVX() > 0 && simon->GetX() + 10 > b->CRec.x))
+				{
+					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
+					{
+						simon->SetX(b->CRec.x - 10);
+						simon->SetVX(0);
+					}
+					else if (b->CRec.height > 40 && ((simon->GetY() >= b->CRec.y) && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					{
+						simon->SetX(b->CRec.x - 10);
+						simon->SetVX(0);
+					}
+				}
+				//simon qua trai
+				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
+				{
+					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
+					{
+						if (simon->GetState() != RUNDOWNL)
+						{
+							simon->SetX(b->CRec.x + b->CRec.width + 10);
+							simon->SetVX(0);
+						}
+					}
+					else if (b->CRec.height > 40 && (simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					{
+						simon->SetX(b->CRec.x + b->CRec.width + 10);
+						simon->SetVX(0);
+					}
+				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region Player collision with door
 	//Player collide with door -----------------------------------------------------------------------
 
 	quadtree->Retrieve(return_object, simon);
@@ -49,17 +113,17 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						simon->SetVX(0);
 						simon->allowCtrl = false;
 						vpMove = true;
-						if (simon->GetX() >= 1578) simon->SetState(STAND);
+						if (simon->GetX() >= 1575) simon->SetState(STAND);
 					}
 				}
-				
-				
+
+
 			}
 		}
 	}
+#pragma endregion
 
-
-
+#pragma region Player collision with Platform
 	//Player collisde with platform--------------------------------------------------------------------
 	if (platform != NULL)
 	{
@@ -106,67 +170,9 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			break;
 		}
 	}
-	//Player collide with map---------------------------------------------------------------------------
-	bool isOnLadder;
+#pragma endregion
 
-	return_object->clear();
-	quadtree->Retrieve(return_object, simon);
-	for (auto x = return_object->begin(); x != return_object->end(); x++)
-	{
-		GameObject* b = x._Ptr->_Myval;
-		if (b->GetType() == 1)
-		{
-			if (RecF::Collide(simon->CRec, b->CRec))
-			{
-				//xet va cham theo truc y----------------------------------
-				simon->isOnGround = true;
-				if ((simon->GetVY() < 0 && simon->GetY() - b->CRec.height - 28 > b->CRec.y) && simon->GetX() + 10 >= b->CRec.x && simon->GetX() - 10 <= b->CRec.x + b->CRec.width)
-				{
-					isOnLadder = false;
-					simon->isOnLadder = false;
-					simon->isJumpLeft = false;
-					simon->isJumpRight = false;
-					simon->SetY(b->CRec.y + 60);
-					simon->SetVY(0);
-					if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
-
-				}
-
-				//xet va cham theo truc x----------------------------------
-				//simon di qua phai
-				if ((simon->GetVX() > 0 && simon->GetX() + 10 > b->CRec.x))
-				{
-					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() -28 <= b->CRec.y + b->CRec.height))
-					{
-						simon->SetX(b->CRec.x - 10);
-						simon->SetVX(0);
-					}
-					else if (b->CRec.height > 40 && ((simon->GetY() >= b->CRec.y) && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
-					{
-						simon->SetX(b->CRec.x - 10);
-						simon->SetVX(0);
-					}
-				}
-				//simon qua trai
-				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
-				{
-					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() -28 <= b->CRec.y + b->CRec.height))
-					{
-						simon->SetX(b->CRec.x + b->CRec.width + 10);
-						simon->SetVX(0);
-					}
-					else if (b->CRec.height > 40 && (simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
-					{
-						simon->SetX(b->CRec.x + b->CRec.width + 10);
-						simon->SetVX(0);
-					}
-				}
-			}
-		}
-	}
-	#pragma endregion
-
-	#pragma region Player collision with ladderURDL
+#pragma region Player collision with ladderURDL
 	//Player collide with Ladder---------------------------------------------------------------------------
 
 	//LADDER UPRIGHT---------------------------------------------------------	
@@ -222,7 +228,32 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			}
 		}
 	}
-	#pragma endregion
+#pragma endregion
+
+#pragma region Player collision with Enemy
+	//player weapon collide with enemy------------------------------------------------------------------
+	for (int i = 0; i < elist.size(); i++)
+	{
+		return_object->clear();
+		quadtree->Retrieve(return_object, elist[i]);
+		for (auto x = return_object->begin(); x != return_object->end(); x++)
+		{
+			GameObject* b = x._Ptr->_Myval;
+			if (b->GetType() == 6 && elist[i]->GetHP() > 0)
+			{
+				if (RecF::Collide(elist[i]->CRec, b->CRec))
+				{
+					elist[i]->LowerHP();
+					elist[i]->SetVX(0);
+					elist[i]->SetVY(0);
+				}
+
+			}
+		}
+	}
+
+
+#pragma endregion
 #pragma endregion
 
 	quadtree->Clear();
@@ -238,6 +269,8 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
 	RecFList Doorlist = map->CRecDoorList();
+	EnemyList elist = enemyManager->GetList();
+	WeaponList simonWlist = weaponManager->GetSimonWList();
 
 	for (int i = 0; i < mlist.size(); i++){
 		quadtree->Insert(&mlist[i]);
@@ -249,6 +282,14 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 
 	for (int i = 0; i < Doorlist.size(); i++){
 		quadtree->InsertDoor(&Doorlist[i]);
+	}
+
+	for (int i = 0; i < elist.size(); i++){
+		quadtree->Insert(elist[i]);
+	}
+
+	for (int i = 0; i < simonWlist.size(); i++){
+		if (simonWlist[i]->GetVisible()) quadtree->Insert(simonWlist[i]);
 	}
 	return quadtree;
 }

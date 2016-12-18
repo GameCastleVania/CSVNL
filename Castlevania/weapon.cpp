@@ -5,7 +5,8 @@ Weapon::Weapon()
 {
 	x = y = vx = vy = 0;
 	type = 6;
-	CRec = RecF(0, 0, 6, 6);
+	CRec = RecF(0, 0, 32, 18);
+	visible = false;
 	explosion = NULL;
 }
 
@@ -16,6 +17,7 @@ Weapon::~Weapon()
 
 void Weapon::Destroy()
 {
+	visible = false;
 	x = y = vx = vy = 0;
 }
 
@@ -66,4 +68,14 @@ bool Weapon::SetFalling(bool val)
 bool Weapon::GetFalling()
 {
 	return falling;
+}
+
+void Weapon::SetVisible(bool vis)
+{
+	visible = vis;
+}
+
+bool Weapon::GetVisible()
+{
+	return visible;
 }

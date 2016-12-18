@@ -8,14 +8,14 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	direc = RIGHT;
 	fight = false;
 	upfight = false;
-	count = 0; 
-
+	count = 0;
+	simonWList = WeaponList();
 	for (int i = 0; i < 70; i++){
 		simonWList.push_back(new Weapon());
 	}
 
 	axe = Axe(_d3ddv, _explosion, _simon);
-	bmerang = Boomerang(_d3ddv, _explosion,_simon);
+	bmerang = Boomerang(_d3ddv, _explosion, _simon);
 	dagger = Dagger(_d3ddv, _explosion, _simon);
 	fbomb = FireBomb(_d3ddv, _explosion, _simon);
 }
@@ -29,12 +29,12 @@ void WeaponManager::Draw(int vpx, int vpy)
 	if (fight)
 	{
 		for (int i = 0; i < simonWList.size(); i++){
-			simonWList[i]->Draw(vpx, vpy);	
+			simonWList[i]->Draw(vpx, vpy);
 			count++;
-			Destroy(vpx,vpy);
+			Destroy(vpx, vpy);
 		}
 	}
-	
+
 }
 
 void WeaponManager::Destroy(int vpx, int vpy)
@@ -50,6 +50,7 @@ void WeaponManager::Destroy(int vpx, int vpy)
 				simonWList[i]->Destroy();
 				count = 0;
 			}
+			simonWList[i]->SetVisible(false);
 			break;
 		}
 		case DAGGER:
@@ -59,6 +60,7 @@ void WeaponManager::Destroy(int vpx, int vpy)
 				simonWList[i]->Destroy();
 				count = 0;
 			}
+			simonWList[i]->SetVisible(false);
 			break;
 		}
 		case AXE:
@@ -68,32 +70,33 @@ void WeaponManager::Destroy(int vpx, int vpy)
 				simonWList[i]->Destroy();
 				count = 0;
 			}
+			simonWList[i]->SetVisible(false);
 			break;
 		}
 		case BOOMERANG:
 		{
 			if (simon->GetLRight())
 			{
-				if(simonWList[i]->GetX() < (simon->GetX() -40 ))
-				{
-					simonWList[i]->Destroy();
-					if (upfight)
-						count = 0;
-				}								
-			}	
-			else if (!simon->GetLRight())
-			{
-				if(simonWList[i]->GetX() > (simon->GetX()+40))
+				if (simonWList[i]->GetX() < (simon->GetX() - 40))
 				{
 					simonWList[i]->Destroy();
 					if (upfight)
 						count = 0;
 				}
 			}
-					
-			
+			else if (!simon->GetLRight())
+			{
+				if (simonWList[i]->GetX() > (simon->GetX() + 40))
+				{
+					simonWList[i]->Destroy();
+					if (upfight)
+						count = 0;
+				}
+			}
+
+			simonWList[i]->SetVisible(false);
 			break;
-			
+
 		}
 		default:
 			break;
@@ -105,14 +108,17 @@ void WeaponManager::Destroy(int vpx, int vpy)
 
 void WeaponManager::Update(int vpx, int vpy)
 {
-	
+
 	if (kbd->IsKeyDown(DIK_Z)) simon->SetWeaponType(FIREBOMB);
 	if (kbd->IsKeyDown(DIK_X)) simon->SetWeaponType(AXE);
 	if (kbd->IsKeyDown(DIK_C)) simon->SetWeaponType(DAGGER);
 	if (kbd->IsKeyDown(DIK_V)) simon->SetWeaponType(BOOMERANG);
 
-	PlayerShoot();
-	
+	if (simon->allowCtrl == true)
+	{
+		PlayerShoot();
+	}
+
 	for (int i = 0; i < simonWList.size(); i++)
 	{
 		simonWList[i]->Update();
@@ -150,19 +156,19 @@ void WeaponManager::PlayerShoot()
 			vx = BULLET_SPEED;
 			vy = 0;
 			break;
-		}			
+		}
 		case AXE:
 		{
 			vx = 3;
 			vy = 6;
 			break;
-		}						
+		}
 		case FIREBOMB:
 		{
 			vx = 2;
 			vy = 4;
 			break;
-		}	
+		}
 		case BOOMERANG:
 		{
 			vx = 5;
@@ -204,7 +210,7 @@ void WeaponManager::PlayerShoot()
 		}
 	}
 
-	if (kbd->IsKeyUp(DIK_RETURN))		
+	if (kbd->IsKeyUp(DIK_RETURN))
 		upfight = true;
 	else upfight = false;
 
@@ -220,7 +226,7 @@ void WeaponManager::PlayerShoot()
 			if (type == Normal || type == Spin) psound->Play(7);*/
 			Get(type, x, y, vx, vy);
 		}
-		
+
 	}
 }
 
@@ -228,14 +234,18 @@ void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
 {
 	for (int i = 0; i < simonWList.size(); i++)
 	{
-		if (type == AXE) simonWList[i] = new Axe(axe);
-		if (type == DAGGER) simonWList[i] = new Dagger(dagger);
-		if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
-		if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
+		if (simonWList[i]->GetVisible() == false)
+		{
+			if (type == AXE) simonWList[i] = new Axe(axe);
+			if (type == DAGGER) simonWList[i] = new Dagger(dagger);
+			if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
+			if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
 
-		simonWList[i]->SetFight(true);
-		simonWList[i]->Set(x, y, vx, vy, type);
-		break;
+			simonWList[i]->Set(x, y, vx, vy, 6);
+			simonWList[i]->SetFight(true);
+			simonWList[i]->SetVisible(true);
+			break;
+		}
 	}
 }
 

@@ -26,12 +26,12 @@ BulletManager::~BulletManager()
 
 void BulletManager::Draw(int vpx, int vpy)
 {
-	
+
 	for (int i = 0; i < bList.size(); i++) {
 		bList[i]->Draw(vpx, vpy);
 	}
 	for (int i = 0; i < bossBList.size(); i++){
-	bossBList[i]->Draw(vpx, vpy);
+		bossBList[i]->Draw(vpx, vpy);
 	}
 }
 
@@ -87,7 +87,7 @@ void BulletManager::Get(int boss, float x, float y, float vx, float vy)
 		if (bossBList[i]->GetVisible() == false)
 		{
 			if (boss == 2) bossBList[i] = new Boss2Bullet(boss2Bullet);
-			bossBList[i]->Set(x, y, vx, vy, 1);
+			bossBList[i]->Set(x, y, vx, vy, 5);
 			bossBList[i]->SetVisible(true);
 			break;
 		}

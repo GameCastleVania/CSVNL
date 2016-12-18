@@ -9,6 +9,7 @@ class Weapon : public GameObject
 {
 protected:
 	bool ex = false;
+	bool visible;
 	Explosion* explosion;
 	CSimon* simon;
 	bool fight = false; // co nhan nut danh hay k
@@ -29,6 +30,8 @@ public:
 	bool GetFight();
 	bool SetFalling(bool val);
 	bool GetFalling();
+	void SetVisible(bool vis);
+	bool GetVisible();
 
 #pragma endregion
 };
