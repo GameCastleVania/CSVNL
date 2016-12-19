@@ -1,5 +1,15 @@
 #include "DownUp.h"
 
+#include <iostream>
+#include <sstream>
+#define ANIMATE_RATE 2
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
+
 DownUp::DownUp()
 {
 }
@@ -41,7 +51,8 @@ void DownUp::Update()
 	float _x = simon->GetX() - 32;
 	float _y = simon->GetY() - 16;
 	float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
-	if (delta < 300)
+	//DBOUT(_x << " " << endl);
+	if (delta < 800)
 		ready = true;
 	if (ready)
 	{
@@ -51,6 +62,15 @@ void DownUp::Update()
 		{
 			vy = -2;
 			isDown = true;
+			if (PosX > 800 && PosX < 900)
+			{
+				if (y < PosY - 60)
+				{
+					vy = 2;
+					_Time = 0;
+					isDown = false;
+				}
+			}
 			if (y < PosY - 100)
 			{
 				vy = 2;
