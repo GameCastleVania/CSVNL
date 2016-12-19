@@ -85,7 +85,7 @@ public:
 	}
 	void LowerHP()
 	{
-		HP--;
+		HP -= 1;
 	}
 	bool IsDead()
 	{

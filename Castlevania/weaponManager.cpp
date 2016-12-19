@@ -1,4 +1,13 @@
 #include "weaponManager.h"
+#include <iostream>
+#include <sstream>
+#define ANIMATE_RATE 2
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSimon* _simon, Explosion* _explosion, PSound* _psound)
 {
@@ -37,74 +46,6 @@ void WeaponManager::Draw(int vpx, int vpy)
 
 }
 
-void WeaponManager::Destroy(int vpx, int vpy)
-{
-	for (int i = 0; i < simonWList.size(); i++)
-	{
-		switch (simon->GetWeaponType())
-		{
-		case FIREBOMB:
-		{
-			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
-			{
-				simonWList[i]->Destroy();
-				count = 0;
-			}
-			simonWList[i]->SetVisible(false);
-			break;
-		}
-		case DAGGER:
-		{
-			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
-			{
-				simonWList[i]->Destroy();
-				count = 0;
-			}
-			simonWList[i]->SetVisible(false);
-			break;
-		}
-		case AXE:
-		{
-			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
-			{
-				simonWList[i]->Destroy();
-				count = 0;
-			}
-			simonWList[i]->SetVisible(false);
-			break;
-		}
-		case BOOMERANG:
-		{
-			if (simon->GetLRight())
-			{
-				if (simonWList[i]->GetX() < (simon->GetX() - 40))
-				{
-					simonWList[i]->Destroy();
-					if (upfight)
-						count = 0;
-				}
-			}
-			else if (!simon->GetLRight())
-			{
-				if (simonWList[i]->GetX() > (simon->GetX() + 40))
-				{
-					simonWList[i]->Destroy();
-					if (upfight)
-						count = 0;
-				}
-			}
-
-			simonWList[i]->SetVisible(false);
-			break;
-
-		}
-		default:
-			break;
-		}
-
-
-	}
-}
 
 void WeaponManager::Update(int vpx, int vpy)
 {
@@ -125,9 +66,6 @@ void WeaponManager::Update(int vpx, int vpy)
 	}
 
 }
-
-
-
 
 void WeaponManager::PlayerShoot()
 {
@@ -210,24 +148,28 @@ void WeaponManager::PlayerShoot()
 		}
 	}
 
+	
+	if (kbd->IsKeyDown(DIK_RETURN))
+	{
+		if (upfight)
+		{
+			fight = true;
+			if (fight && count == 0)
+			{
+				WeaponType type = simon->GetWeaponType();
+				/*if (type == Multi) psound->Play(10);
+				if (type == Laser) psound->Play(8);
+				if (type == MachineGun) psound->Play(9);
+				if (type == Normal || type == Spin) psound->Play(7);*/
+				Get(type, x, y, vx, vy);
+			}
+		}
+	}
+
 	if (kbd->IsKeyUp(DIK_RETURN))
 		upfight = true;
 	else upfight = false;
 
-	if (kbd->IsKeyDown(DIK_RETURN))
-	{
-		fight = true;
-		if (fight && count == 0)
-		{
-			WeaponType type = simon->GetWeaponType();
-			/*if (type == Multi) psound->Play(10);
-			if (type == Laser) psound->Play(8);
-			if (type == MachineGun) psound->Play(9);
-			if (type == Normal || type == Spin) psound->Play(7);*/
-			Get(type, x, y, vx, vy);
-		}
-
-	}
 }
 
 void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
@@ -242,8 +184,9 @@ void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
 			if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
 
 			simonWList[i]->Set(x, y, vx, vy, 6);
-			simonWList[i]->SetFight(true);
 			simonWList[i]->SetVisible(true);
+			
+			simonWList[i]->SetFight(true);
 			break;
 		}
 	}
@@ -256,6 +199,67 @@ void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
 //	if (t == L) player->SetBulletType(Laser);
 //	if (t == S) player->SetBulletType(Multi);
 //}
+
+void WeaponManager::Destroy(int vpx, int vpy)
+{
+	for (int i = 0; i < simonWList.size(); i++)
+	{
+		switch (simon->GetWeaponType())
+		{
+		case FIREBOMB:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		case DAGGER:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		case AXE:
+		{
+			if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
+			{
+				simonWList[i]->Destroy();
+				count = 0;
+			}
+			break;
+		}
+		case BOOMERANG:
+		{
+			if (simon->GetLRight())
+			{
+				if (simonWList[i]->GetX() < (simon->GetX() - 40))
+				{
+					simonWList[i]->Destroy();
+					if (upfight)
+						count = 0;
+				}
+			}
+			else if (!simon->GetLRight())
+			{
+				if (simonWList[i]->GetX() > (simon->GetX() + 40))
+				{
+					simonWList[i]->Destroy();
+					if (upfight)
+						count = 0;
+				}
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
+}
 
 
 WeaponList WeaponManager::GetSimonWList()

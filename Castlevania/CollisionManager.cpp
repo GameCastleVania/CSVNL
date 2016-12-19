@@ -1,9 +1,19 @@
 #include "CollisionManager.h"
+#include <iostream>
+#include <sstream>
+#define ANIMATE_RATE 2
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
 
 #define TILE_SIZE 32
 
 extern int Current_State;
 extern bool vpMove;
+
 CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound)
 {
 	simon = _Simon;
@@ -232,6 +242,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 
 #pragma region Player collision with Enemy
 	//player weapon collide with enemy------------------------------------------------------------------
+	int dem;
 	for (int i = 0; i < elist.size(); i++)
 	{
 		return_object->clear();
@@ -239,15 +250,19 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 		for (auto x = return_object->begin(); x != return_object->end(); x++)
 		{
 			GameObject* b = x._Ptr->_Myval;
+			//DBOUT(b->GetType() << endl);
 			if (b->GetType() == 6 && elist[i]->GetHP() > 0)
 			{
 				if (RecF::Collide(elist[i]->CRec, b->CRec))
 				{
-					elist[i]->LowerHP();
-					elist[i]->SetVX(0);
-					elist[i]->SetVY(0);
+					if (dem == 1)
+					{
+						dem = 2;
+						elist[i]->LowerHP();
+						elist[i]->SetVX(0);	
+					}
 				}
-
+				else dem = 1;
 			}
 		}
 	}

@@ -47,22 +47,24 @@ void MorningStar::Draw(int vpx, int vpy)
 
 void MorningStar::Update(Keyboard *kbd, int vpx, int vpy)
 {
-
-	bool fightPress = kbd->IsKeyDown(DIK_K);
-	bool fightUp = kbd->IsKeyUp(DIK_K);
-	if (fightPress && !fight && isfightUp)
+	if (simon->allowCtrl == true)
 	{
-		fight = true;
-		isfightUp = false;
-		if (mstarL->GetIndex() == 3) mstarL->SetIndex(-1);
-		if (mstarR->GetIndex() == 3) mstarR->SetIndex(-1);
-	}
+		bool fightPress = kbd->IsKeyDown(DIK_K);
+		bool fightUp = kbd->IsKeyUp(DIK_K);
+		if (fightPress && !fight && isfightUp)
+		{
+			fight = true;
+			isfightUp = false;
+			if (mstarL->GetIndex() == 3) mstarL->SetIndex(-1);
+			if (mstarR->GetIndex() == 3) mstarR->SetIndex(-1);
+		}
 
-	if (fightUp == true)
-	{
-		isfightUp = true;
+		if (fightUp == true)
+		{
+			isfightUp = true;
+		}
+		else isfightUp = false;
 	}
-	else isfightUp = false;
 
 	DWORD now = GetTickCount();
 	if (now - last_time > 1000 / ANIMATE_RATE)
