@@ -7,6 +7,7 @@ class Boss2Bullet : public Bullet
 protected:
 	Sprite* bullet;
 	int animate;
+	bool isRun = false;
 public:
 	Boss2Bullet();
 	Boss2Bullet(LPDIRECT3DDEVICE9 d3ddv);

@@ -1,7 +1,16 @@
 #include "Boss2.h"
+#include <iostream>
+#include <sstream>
 
 #define ANIMATE_RATE 5
 #define DG_TO_RAD(x) (x * 3.141592654 / 180)
+#define DBOUT( s )            \
+{                             \
+   std::wostringstream os_;    \
+   os_ << s;                   \
+   OutputDebugStringW( os_.str().c_str() );  \
+}
+
 Boss2::Boss2(float X, float Y)
 {
 	PosX = x = X;
@@ -34,98 +43,128 @@ void Boss2::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 void Boss2::Update()
 {
 
-	float _x = simon->GetX() - 32;
+	float _x = simon->GetX();
 	float _y = simon->GetY() - 32;
-	float kc = sqrtf((_x - PosX)*(_x - PosX) + (_y - PosY)*(_y - PosY));
-	float kc2 = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
+	DBOUT(_x << " " << _y << " " << x << " " << y << endl);
+	if (!ready)
+	{
+		if (_x > x)
+			LRight = true;
+		else
+			LRight = false;
+		if (abs(_x - PosX) < 400)
+			_Time++;
+		if (_Time > 300)
+		{
+			ready = true;
+			_Time = 0;
+		}
+	}
 	if (wasHit)
-		HP--;
-	if (HP <= 10)
-		ready = true;
+		HP--;	
 	if (ready)
 	{
+		
 		if (!wasHit)
 		{
-			
-			if (kc < 100)
+
+			if (!IsChange)
 			{
-				MoveTo(_x, _y);
-				IsFinish = false;
+				if (!IsReturn)
+					if (y > _y)
+						temp = -1;
+					else
+						temp = 1;
+				if (LRight)
+				{
+					vx = 2;
+					if (x > _x - 64)
+						IsChange = true;
+				}
+				else
+				{
+					vx = -2;
+					if (x < _x + 16)
+						IsChange = true;
+				}
+				if (HP < 10)
+				{
+					hitTime++;
+					if (hitTime > 60)
+						isShooting = true;
+				}
+				
+				IsReturn = true;
 			}
 			else
 			{
-				if (!IsFinish)
-					MoveTo(PosX, PosY);
-				else
+				if (IsReturn)
 				{
-					if (shooting)
-					{
-						count++;
-
-						if (count > 100)
-						{
-							isShooting = true;
-							count = 0;
-
-						}
-						if (isShooting)
-							BulletShoot((_x - x) / kc2 * 3, (_y - y) / kc2 * 3);
-					}
-					vy++;
-					if (vy > 360)
-					{
-
-						vy = 0;
-					}
+					vy = 0;
+					IsReturn = false;
+					if (y > _y)
+						temp = -1;
 					else
-					{
-
-						if (LRight)
-						{
-							if (vy >= 0 && vy < 90 || vy >= 270)
-								vx = 2;
-							if (vy >= 90 && vy < 270)
-								vx = -2;
-						}
-						else
-						{
-							if (vy >= 0 && vy < 90 || vy >= 270)
-								vx = -2;
-							if (vy >= 90 && vy < 270)
-								vx = 2;
-						}
-					}
-					y += sin(DG_TO_RAD(vy));
-					x += vx;
+						temp = 1;
 				}
 				
+				if (LRight)
+					vx = -2;
+				else
+					vx = 2;
+				if (!HP < 7)
+				{
+					if (vy > 450)
+					{
+						_Time++;						
+						vx = 0;
+						if (_Time > 30)
+						{
+							//isShooting = true;
+							_Time = 0;
+							vy = 0;
+							IsChange = false;
+							LRight = LRight * -1;
+						}
+					}
+				}
 			}
-			DWORD now = GetTickCount();
-			if (now - last_time > 1000 / ANIMATE_RATE)
-			{
-				_Boss2Move->NextRepeat();
-				last_time = now;
-			}	
-
+			if (isShooting)
+				BulletShoot();
+			if(_Time == 0)
+				vy += 5;
+			/*if (y > _y)
+				y -= sin(DG_TO_RAD(vy)) * 2;
+			if(y < _y - 16)*/
+				y += sin(DG_TO_RAD(vy)) * 2 * temp;
+			x += vx;
 		}
-		else
+		DWORD now = GetTickCount();
+		if (now - last_time > 1000 / ANIMATE_RATE)
 		{
-			if (vx != 0)
-				vxbackup = vx;
-			if (vy != 0)
-				vybackup = vy;
-			vx = 0;
-			vy = 0;
-			hitTime++;
-			if (hitTime > 30)
-			{
-				hitTime = 0;
-				vx = vxbackup;
-				vy = vybackup;
-				wasHit = false;
-			}
+			_Boss2Move->NextRepeat();
+			last_time = now;
+		}
+
+	}
+	else
+	{
+		if (vx != 0)
+			vxbackup = vx;
+		if (vy != 0)
+			vybackup = vy;
+		vx = 0;
+		vy = 0;
+		hitTime++;
+		if (hitTime > 30)
+		{
+			hitTime = 0;
+			vx = vxbackup;
+			vy = vybackup;
+			wasHit = false;
 		}
 	}
+
 	if (!exploded && HP <= 0)
 	{
 		explosion->Get(1, x + 18, y + 34, 7);
@@ -154,15 +193,18 @@ void Boss2::Draw(int vpx, int vpy)
 	}
 }
 
-void Boss2::BulletShoot(float _vx, float _vy)
+void Boss2::BulletShoot()
 {
-	bulletManager->Get(2, this->x, this->y, _vx, _vy);
+	if(LRight)
+		bulletManager->Get(2, this->x, this->y, 5, 0);
+	else
+		bulletManager->Get(2, this->x, this->y, -5, 0);
 	isShooting = false;
 }
 
 bool Boss2::MoveTo(float _x, float _y)
 {
-	float kc = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
+	/*float kc = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
 	if (kc != 0)
 	{
 		vx = (_x - x) / kc * 2;
@@ -178,8 +220,9 @@ bool Boss2::MoveTo(float _x, float _y)
 	}
 	else
 	{
-		return false;		
-	}
+		return false;
+	}*/
+	return false;
 }
 
 void Boss2::UpdateRec()

@@ -28,7 +28,34 @@ void Boss2Bullet::Update()
 			bullet->Next();
 			animate = 0;
 		}
-		x += vx;
+		if (PosY > 100 && !isRun)
+		{
+			vy = -3;
+			if (y < 100)
+			{
+				y = 100;
+				vy = 0;
+				isRun = true;
+			}
+		}
+		if (PosY < 100 && !isRun)
+		{
+			vy = 3;
+			if (y > 100)
+			{
+				y = 100;
+				vy = 0;
+				isRun = true;
+			}
+		}
+		
+		if (isRun)
+			x += vx;
+		if (x > 400)
+		{
+			vx = 0;
+			vy = -2;
+		}
 		y += vy;
 		CRec.x = x + 16;
 		CRec.y = y + 10;

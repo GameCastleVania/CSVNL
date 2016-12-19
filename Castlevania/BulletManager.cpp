@@ -26,12 +26,12 @@ BulletManager::~BulletManager()
 
 void BulletManager::Draw(int vpx, int vpy)
 {
-
+	
 	for (int i = 0; i < bList.size(); i++) {
 		bList[i]->Draw(vpx, vpy);
 	}
 	for (int i = 0; i < bossBList.size(); i++){
-		bossBList[i]->Draw(vpx, vpy);
+	bossBList[i]->Draw(vpx, vpy);
 	}
 }
 
@@ -69,7 +69,7 @@ void BulletManager::Get(BulletType type, float x, float y, float vx, float vy, b
 			{
 			case Fire_ball:
 				bList[i] = new FireBall(fireball);
-				bList[i]->Set(x, y, vx, vy, 0);
+				bList[i]->Set(x, y, vx, vy, 5);
 				bList[i]->SetVisible(true);
 				break;
 			default:
@@ -80,7 +80,7 @@ void BulletManager::Get(BulletType type, float x, float y, float vx, float vy, b
 	}
 }
 
-void BulletManager::Get(int boss, float x, float y, float vx, float vy)
+void BulletManager::Get(int boss, float x, float y, float vx, float vy )
 {
 	for (int i = 0; i < bossBList.size(); i++)
 	{

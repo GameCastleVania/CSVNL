@@ -43,8 +43,8 @@ void Bullet::Set(float X, float Y, float VX, float VY)
 
 void Bullet::Set(float X, float Y, float VX, float VY, int Type)
 {
-	x = X;
-	y = Y;
+	PosX = x = X;
+	PosY = y = Y;
 	vx = VX;
 	vy = VY;
 	type = Type;

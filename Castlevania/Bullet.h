@@ -9,6 +9,7 @@ class Bullet : public GameObject
 protected:
 	bool visible;
 	bool ex;
+	float PosX, PosY;
 	Explosion* explosion;
 public:
 	Bullet();
@@ -21,7 +22,7 @@ public:
 	void SetVisible(bool vis);
 	bool GetVisible();
 	void Set(float X, float Y, float VX, float VY);
-	void Set(float, float, float, float, int);
+	void Set(float, float, float, float ,int);
 	bool CanExplode();
 	void SetByPlayer(bool set);
 #pragma endregion
