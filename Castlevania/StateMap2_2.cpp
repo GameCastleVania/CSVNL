@@ -18,7 +18,7 @@ void StateMap2_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	map = new Map(d3ddv, "resource\\map\\Map2-2.bmp", "resource\\map\\Map2-2.tmx");
 	door = new Door(d3ddv, simon, 1484, 223);
 	simon = new CSimon(d3ddv, psound, 2320, 42);
-	mstar = new MorningStar(d3ddv, simon, psound, 2320, 42);
+	//mstar = new MorningStar(d3ddv, simon, psound, 2320, 42);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-2.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
@@ -45,10 +45,10 @@ void StateMap2_2::Render(int vpx, int vpy)
 	door->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
-	mstar->Draw(vpx, vpy);
+	//mstar->Draw(vpx, vpy);
 	platform[0]->Draw(vpx, vpy);
 	bulletManager->Draw(vpx, vpy);
-	weaponManager->Draw(vpx, vpy);		
+	weaponManager->Draw(vpx, vpy);
 	//explosion->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
 }
@@ -60,10 +60,10 @@ void StateMap2_2::Update(int &vpx, int &vpy)
 	door->Update();
 	enemyManager->Update();
 	simon->Update(kbd, vpx, vpy);
-	mstar->Update(kbd, vpx, vpy);
+	//mstar->Update(kbd, vpx, vpy);
 	platform[0]->Update();
 	collisionManager->ControlCollision(vpx, vpy);
-	weaponManager->Update(vpx, vpy);
+	weaponManager->Update(vpx, vpy, kbd);
 
 	bulletManager->Update(vpx, vpy);
 	//explosion->Update();
@@ -84,8 +84,8 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 		if (px > 265 && vpx <2044) vpx = px - 265;
 		else if (px <= 2304 && vpx >0) vpx = px - 265;
 	}
-	
-	
+
+
 	if (px > 1452 && px <= 1580) // colide with door
 	{
 		if (vpx > 1281 && vpMove == true)
@@ -101,7 +101,7 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 		if (vpMove == false && simon->allowCtrl == false) door->SetOpen(true);
 		if (door->isopen == true) simon->autoMove = true;
 	}
-	
+
 	if (px <= 1450 && simon->autoMove == false)
 	{
 		door->SetClose(true);
@@ -112,7 +112,7 @@ void StateMap2_2::ViewPortUpdate(int &vpx, int &vpy)
 		}
 		if (vpx <= 1018) simon->allowCtrl = true;
 	}
-	
+
 
 }
 
@@ -126,7 +126,7 @@ void StateMap2_2::Exit(int &vpx, int &vpy)
 	delete(door);
 	//delete(explosion);
 	delete(simon);
-	delete(mstar);
+	//delete(mstar);
 	delete(weaponManager);
 	//delete(bulletManager);
 	//delete(enemyManager);

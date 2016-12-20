@@ -10,7 +10,6 @@
 #include "weaponManager.h"
 #include "EnemyManager.h"
 #include "explosion.h"
-#include "MorningStar.h"
 #include "Platform.h"
 #include "Door.h"
 
@@ -23,7 +22,6 @@ protected:
 	PSound* psound;
 	Map* map;
 	CSimon* simon;
-	MorningStar* mstar;
 	Platform* platform;
 	BulletManager* bulletManager;
 	WeaponManager* weaponManager;

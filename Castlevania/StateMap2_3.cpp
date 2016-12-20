@@ -17,7 +17,7 @@ void StateMap2_3::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	map = new Map(d3ddv, "resource\\map\\Map2-3.bmp", "resource\\map\\Map2-3.tmx");
 	door = new Door(d3ddv, simon, 1484, 223);
 	simon = new CSimon(d3ddv, psound, 1680, 42);
-	mstar = new MorningStar(d3ddv, simon, psound, 1680, 42);
+	//mstar = new MorningStar(d3ddv, simon, psound, 1680, 42);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-3.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
@@ -43,12 +43,12 @@ void StateMap2_3::Render(int vpx, int vpy)
 {
 	map->Draw(vpx, vpy);
 	door->Draw(vpx, vpy);
-	mstar->Draw(vpx, vpy);
+	//mstar->Draw(vpx, vpy);
 	platform[0]->Draw(vpx, vpy);
 	platform[1]->Draw(vpx, vpy);
 	bulletManager->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
-	weaponManager->Draw(vpx, vpy);	
+	weaponManager->Draw(vpx, vpy);
 	//explosion->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
 }
@@ -59,11 +59,11 @@ void StateMap2_3::Update(int &vpx, int &vpy)
 	map->Update();
 	door->Update();
 	simon->Update(kbd, vpx, vpy);
-	mstar->Update(kbd, vpx, vpy);
+	//mstar->Update(kbd, vpx, vpy);
 	platform[0]->Update();
 	platform[1]->Update();
 	collisionManager->ControlCollision(vpx, vpy);
-	weaponManager->Update(vpx, vpy);
+	weaponManager->Update(vpx, vpy, kbd);
 	enemyManager->Update();
 	bulletManager->Update(vpx, vpy);
 	//explosion->Update();
@@ -121,7 +121,7 @@ void StateMap2_3::Exit(int &vpx, int &vpy)
 	delete(map);
 	//delete(explosion);
 	delete(simon);
-	delete(mstar);
+	//delete(mstar);
 	delete(weaponManager);
 	//delete(bulletManager);
 	//delete(enemyManager);

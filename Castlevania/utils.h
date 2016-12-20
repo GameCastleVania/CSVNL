@@ -42,7 +42,7 @@ enum WeaponType
 	BOOMERANG,
 	DAGGER,
 	FIREBOMB,
-	MORNINGSTAR
+	MORNINGSTAR,
 };
 
 enum EnemyState
@@ -52,7 +52,7 @@ enum EnemyState
 	DEAD,
 	EXPLODEE,
 	SHOOTINGG,
-	RUNN
+	RUNN,
 };
 
 enum Direction
@@ -68,7 +68,7 @@ enum Direction
 	RIGHTDOWNS,
 	DOWN,
 	LEFTDOWN,
-	LEFTDOWNS
+	LEFTDOWNS,
 };
 
 enum ItemType

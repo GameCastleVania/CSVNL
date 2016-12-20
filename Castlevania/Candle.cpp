@@ -1,6 +1,6 @@
 #include "Candle.h"
 
-#define ANIMATE_RATE 8
+#define ANIMATE_RATE 5
 
 
 Candle::Candle()
@@ -28,18 +28,24 @@ void Candle::Init(LPDIRECT3DDEVICE9 D3ddv, CSimon* Simon, BulletManager* BulletM
 
 void Candle::Update()
 {
-	
+	DWORD now = GetTickCount();
+	if (now - last_time > 1000 / ANIMATE_RATE)
+	{
+		candle->Next();
+		last_time = now;
+
+	}
 }
 
 void Candle::Draw(int vpx, int vpy)
 {
-	
+
 	candle->Render(x + 8, y + 16, vpx, vpy);
 }
 
 void Candle::UpdateGunPoint()
 {
-	
+
 }
 
 void Candle::Destroy()
