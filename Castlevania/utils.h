@@ -28,6 +28,8 @@ enum PlayerState
 	RUNUPR,
 	STANDDL,
 	RUNDOWNL,
+	FLYL,
+	FLYR
 };
 
 enum BulletType
