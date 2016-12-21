@@ -17,6 +17,7 @@ private:
 	EnemyManager* enemyManager;
 	WeaponManager* weaponManager;
 	Platform** platform;
+	int time = 0;
 public:
 	CollisionManager(){}
 	CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound);

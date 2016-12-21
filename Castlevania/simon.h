@@ -8,7 +8,7 @@
 #include "recF.h"
 #include "sprite.h"
 
-
+extern int SimonHP;
 class CSimon : public GameObject
 {
 private:
@@ -22,15 +22,17 @@ private:
 	bool isfightUP = false;
 	bool fight;
 	bool alive;
-	float HP;
 	float wpx, wpy;
 	int heightJump;
+	bool blink;
+
+	int invinsible;
 
 public:
 	CSimon();
 	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, float X, float Y);
 	~CSimon();
-
+	int lifecycle;
 	bool LRight;
 	bool doJump = false;
 	bool isJumpLeft = false;
@@ -131,6 +133,11 @@ public: //Get & set function
 	void SetState(PlayerState newState)
 	{
 		playerState = newState;
+	}
+
+	void LowerHP()
+	{
+		SimonHP--;
 	}
 #pragma endregion 
 };

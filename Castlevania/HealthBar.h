@@ -1,7 +1,5 @@
 #include "sprite.h"
 
-extern float SimonHP;
-
 class HealthBar :
 	public Sprite
 {
@@ -19,7 +17,7 @@ public:
 	~HealthBar();
 	HealthBar(LPDIRECT3DDEVICE9 _d3ddv, float x, float y, int vpx, int vpy);
 
-	void Update(int bosshealth);
+	void Update();
 	void Draw(int vpx, int vpy);
 	void Render(int vpx, int vpy);
 

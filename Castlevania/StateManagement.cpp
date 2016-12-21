@@ -2,7 +2,7 @@
 
 extern int Current_State = 0;
 extern bool vpMove = false;
-extern float SimonHP = 16;
+extern int SimonHP = 16;
 
 
 StateManagement* StateManagement::s_pIntance = 0;

@@ -12,6 +12,7 @@
 #define TILE_SIZE 32
 
 extern int Current_State;
+extern int SimonHP;
 extern bool vpMove;
 
 CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound)
@@ -64,7 +65,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(b->CRec.y + 60);
 					simon->SetVY(0);
-					if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
+					if (simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR) simon->SetState(STAND);
 
 				}
 
@@ -152,7 +153,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(temp.y + 29);
 					simon->SetVY(0);
-					if (simon->GetState() == JUMP) simon->SetState(STAND);
+					if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
 					if (platform[0]->IsMoved()) simon->SetX(simon->GetX() + platform[0]->GetVX());
 				}
 			}
@@ -170,7 +171,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						simon->isJumpRight = false;
 						simon->SetY(_temp.y + 29);
 						simon->SetVY(0);
-						if (simon->GetState() == JUMP) simon->SetState(STAND);
+						if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
 						if (platform[i]->IsMoved()) simon->SetX(simon->GetX() + platform[i]->GetVX());
 					}
 				}
@@ -240,32 +241,60 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	}
 #pragma endregion
 
-#pragma region Player collision with Enemy
+#pragma region Player wp collision with Enemy
 	//player weapon collide with enemy------------------------------------------------------------------
-	int dem;
-	for (int i = 0; i < elist.size(); i++)
-	{
-		return_object->clear();
-		quadtree->Retrieve(return_object, elist[i]);
-		for (auto x = return_object->begin(); x != return_object->end(); x++)
+		int dem;
+		for (int i = 0; i < elist.size(); i++)
 		{
-			GameObject* b = x._Ptr->_Myval;
-			//DBOUT(b->GetType() << endl);
-			if (b->GetType() == 6 && elist[i]->GetHP() > 0)
+			return_object->clear();
+			quadtree->Retrieve(return_object, elist[i]);
+			for (auto x = return_object->begin(); x != return_object->end(); x++)
 			{
-				if (RecF::Collide(elist[i]->CRec, b->CRec))
+				GameObject* b = x._Ptr->_Myval;
+				//DBOUT(b->GetType() << endl);
+				if (b->GetType() == 6 && elist[i]->GetHP() > 0)
 				{
-					if (dem == 1)
+					if (RecF::Collide(elist[i]->CRec, b->CRec))
 					{
-						dem = 2;
-						elist[i]->LowerHP();
-						elist[i]->SetVX(0);	
+						if (dem == 1)
+						{
+							dem = 2;
+							elist[i]->LowerHP();
+							elist[i]->SetVX(0);
+						}
 					}
+					else dem = 1;
 				}
-				else dem = 1;
 			}
 		}
+		
+
+#pragma endregion
+
+
+#pragma region Player collision with Enemy
+	//player collide with enemy------------------------------------------------------------------
+	
+	int _dem;
+	quadtree->Retrieve(return_object, simon);
+	for (auto x = return_object->begin(); x != return_object->end(); x++)
+	{
+		GameObject* b = x._Ptr->_Myval;
+		if (b->GetType() == 4 && SimonHP >= 0)
+		{	
+			if (RecF::Collide(b->CRec, simon->CRec))
+			{			
+				if (time == 0)
+				{
+					simon->LowerHP();
+					simon->Kill();
+				}
+				time++;
+				if (time > 250) time = 0;
+			}
+		}		
 	}
+	
 
 
 #pragma endregion

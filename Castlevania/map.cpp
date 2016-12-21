@@ -30,6 +30,7 @@ Map::Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char *fileName)
 void Map::Update()
 {	
 	time -= 1.5f;	
+	healthbar->Update();
 }
 
 void Map::Draw(int vpx, int vpy)
