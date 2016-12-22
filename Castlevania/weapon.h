@@ -12,7 +12,6 @@ protected:
 	bool visible;
 	Explosion* explosion;
 	CSimon* simon;
-	bool fight = false; // co nhan nut danh hay k
 	bool falling = false; // trang thai len cao roi xuong cua Axe va FireBomb
 public:
 	Weapon();
@@ -26,8 +25,6 @@ public:
 	void Set(float, float, float, float, int);
 	void SetByPlayer(bool set);
 	bool CanExplode();
-	bool SetFight(bool val);
-	bool GetFight();
 	bool SetFalling(bool val);
 	bool GetFalling();
 	void SetVisible(bool vis);

@@ -107,14 +107,10 @@ void Ghost::Update()
 			}
 		}
 	}
-	if ((!exploded && HP <= 0) || delta > 900)
+	if ((!exploded && HP <= 0))
 	{
-		if (!delta > 900)
-		{
-			explosion->Get(1, x + 18, y + 34, 7);
-			exploded = true;
-		}
-		
+		explosion->Get(1, x + 14, y + 14, 7);
+		exploded = true;
 		visible = false;
 		shooting = false;
 	}

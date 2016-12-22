@@ -21,7 +21,7 @@ Dagger::Dagger(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _simon)
 
 void Dagger::Draw(float vpx, float vpy)
 {
-	if (fight)
+	if (visible)
 	{
 		if (simon->GetLRight()) daggerR->Render(x + 10, y, vpx, vpy);
 		else if (!simon->GetLRight()) daggerL->Render(x - 10, y, vpx, vpy);
@@ -30,18 +30,22 @@ void Dagger::Draw(float vpx, float vpy)
 
 void Dagger::Update()
 {
-	x += vx;
-	y += vy;
-	CRec.x = x;
-	CRec.y = y;
-	CRec.vx = vx;
-	CRec.vy = vy;
+	if (visible)
+	{
+		x += vx;
+		y += vy;
+		CRec.x = x;
+		CRec.y = y;
+		CRec.vx = vx;
+		CRec.vy = vy;
+	}
+
 
 }
 void Dagger::Destroy()
 {
 	//explosion->Get(1, x, y, 5);
-	fight = false;
+	visible = false;
 	x = y = vx = vy = -100;
 	CRec = RecF(0, 0, 0, 0);
 }

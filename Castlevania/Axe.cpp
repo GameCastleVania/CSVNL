@@ -22,21 +22,23 @@ Axe::Axe(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _simon)
 
 void Axe::Draw(float vpx, float vpy)
 {
-	if (fight)
+	if (visible)
 	{
 		if (simon->GetLRight()) axeR->Render(x + 15, y, vpx, vpy);
-		else if (!simon->GetLRight()) axeL->Render(x - 15, y, vpx, vpy);			
-	}	
+		else if (!simon->GetLRight()) axeL->Render(x - 15, y, vpx, vpy);
+	}
 }
 
 void Axe::Update()
 {
-		if (y > simon->GetY() + 120) falling = true; 
-		
+	if (visible)
+	{
+		if (y > simon->GetY() + 120) falling = true;
+
 		if (falling)
 		{
 			time++;
-			
+
 			// tao duong cong khi roi xuong
 			if (time < 3) {
 				y += 3.0f;
@@ -48,7 +50,7 @@ void Axe::Update()
 			}
 			if (time > 6 && time <= 9) {
 				y += 1.0f;
-				x += vx ;
+				x += vx;
 			}
 			if (time > 9 && time <= 12) {
 				y += 0.3f;
@@ -90,17 +92,18 @@ void Axe::Update()
 			}
 			last_time = now;
 		}
-		
+
 		CRec.x = x;
 		CRec.y = y;
 		CRec.vx = vx;
 		CRec.vy = vy;
+	}
 }
 void Axe::Destroy()
 {
 	//explosion->Get(1, x, y, 5);
-	fight = false;
 	falling = false;
+	visible = false;
 	x = y = -100;
 	vx = vy = 0;
 	CRec = RecF(0, 0, 0, 0);

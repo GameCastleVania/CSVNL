@@ -9,10 +9,10 @@ private:
 	Sprite* type1;
 	Sprite* type2;
 	Sprite* type3;
-
+	DWORD last_time;
 	int index;
 	int animation;
-	bool visible;
+	bool visible = false;
 public:
 	Explode();
 	~Explode();
@@ -25,7 +25,7 @@ public:
 	int GetAnimation();
 };
 
-typedef std::vector<Explode> ListExplode;
+typedef std::vector<Explode*> ListExplode;
 
 class Explosion
 {

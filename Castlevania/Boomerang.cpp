@@ -1,5 +1,5 @@
 #include "Boomerang.h"
-#define ANIMATE_RATE 8
+#define ANIMATE_RATE 10
 
 Boomerang::Boomerang()
 {}
@@ -21,57 +21,60 @@ Boomerang::Boomerang(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon* _si
 
 void Boomerang::Draw(float vpx, float vpy)
 {
-	if (fight)
+	if (visible)
 	{
-		if (simon->GetLRight()) boomerangR->Render(x + 10 , y , vpx, vpy);
-		else if (!simon->GetLRight()) boomerangL->Render(x - 10, y , vpx, vpy);
+		if (simon->GetLRight()) boomerangR->Render(x + 10, y, vpx, vpy);
+		else if (!simon->GetLRight()) boomerangL->Render(x - 10, y, vpx, vpy);
 	}
 }
 
 void Boomerang::Update()
 {
-	if ((x > simon->GetX() + 200) || (x < simon->GetX() - 200)) falling = true;
-
-	if (falling)
+	if (visible)
 	{
-		x -= vx;
-		y += vy;
-	}
-	else
-	{
-		x += vx;
-		y += vy;
-	}
+		if ((x > simon->GetX() + 200) || (x < simon->GetX() - 200)) falling = true;
 
-
-	DWORD now = GetTickCount();
-	if (now - last_time > 1000 / ANIMATE_RATE)
-	{
-
-		if (simon->GetLRight())
+		if (falling)
 		{
-			boomerangR->Next();
-
+			x -= vx;
+			y += vy;
+		}
+		else
+		{
+			x += vx;
+			y += vy;
 		}
 
-		else if (!simon->GetLRight())
-		{
-			boomerangL->Next();
-		}
-		last_time = now;
-	}
-	CRec.x = x;
-	CRec.y = y;
-	CRec.vx = vx;
-	CRec.vy = vy;
 
+		DWORD now = GetTickCount();
+		if (now - last_time > 1000 / ANIMATE_RATE)
+		{
+
+			if (simon->GetLRight())
+			{
+				boomerangR->Next();
+
+			}
+
+			else if (!simon->GetLRight())
+			{
+				boomerangL->Next();
+			}
+			last_time = now;
+		}
+		CRec.x = x;
+		CRec.y = y;
+		CRec.vx = vx;
+		CRec.vy = vy;
+
+	}
 }
 void Boomerang::Destroy()
 {
 	//explosion->Get(1, x, y, 5);
-	fight = false;
 	falling = false;
-	x = y =  -100;
+	visible = false;
+	x = y = -100;
 	vx = vy = 0;
 	CRec = RecF(0, 0, 0, 0);
 }

@@ -21,11 +21,11 @@ protected:
 	WeaponList simonWList;
 	Direction direc;
 
-	bool upfightK; // xet trang thai tha phim K
 	bool upfight; // xet trang thai tha phim enter
+	bool up2nd; // xet trang thai tha phim F
 	bool fight; // xet trang thai phim enter co nhan hay khong
-	bool fightK; // xet trang thai phim K cos nhan hay khong
 	int count; // xet so lan vu khi thu 2 dc nem 
+	int time = 0;
 
 	//Weapon type temp
 	Weapon weapon;
@@ -41,8 +41,7 @@ public:
 	~WeaponManager();
 
 	void Draw(int vpx, int vpy);
-	void Update(int vpx, int vpy, Keyboard* _keyboard);
-	void Destroy(int vpx, int vpy);
+	void Update(int vpx, int vpy);
 
 	void Get(WeaponType type, float x, float y, float vx, float vy);
 	void PlayerShoot();

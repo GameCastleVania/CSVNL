@@ -55,13 +55,10 @@ void VampireBat::Update()
 			last_time = now;
 		}
 	}
-	if ((!exploded && HP <= 0) || abs(x - _x ) > 900)
+	if ((!exploded && HP <= 0))
 	{
-		if (!abs(x - _x) > 900)
-		{
-			explosion->Get(1, x + 18, y + 34, 7);
-			exploded = true;
-		}
+		explosion->Get(1, x + 15, y + 16, true);
+		exploded = true;
 		visible = false;
 		shooting = false;
 	}

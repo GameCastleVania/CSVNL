@@ -71,14 +71,10 @@ void Medusa::Update()
 		}
 	}
 	
-	if ((!exploded && HP <= 0) || abs(x - _x) > 900)
+	if ((!exploded && HP <= 0))
 	{
-		if (!abs(x - _x) > 900)
-		{
-			explosion->Get(1, x + 18, y + 34, 7);
-			exploded = true;
-		}
-		
+		explosion->Get(1, x + 16, y + 16, 7);
+		exploded = true;
 		visible = false;
 		shooting = false;
 	}

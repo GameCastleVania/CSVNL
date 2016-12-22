@@ -3,7 +3,7 @@
 
 Weapon::Weapon()
 {
-	x = y = vx = vy = 0;
+	x = y = vx = vy = -100;
 	type = 6;
 	CRec = RecF(0, 0, 32, 18);
 	visible = false;
@@ -18,7 +18,7 @@ Weapon::~Weapon()
 void Weapon::Destroy()
 {
 	visible = false;
-	x = y = vx = vy = 0;
+	x = y = vx = vy = -100;
 }
 
 
@@ -49,16 +49,6 @@ void Weapon::Draw(float vpx, float vpy)
 
 void Weapon::Update()
 {}
-
-bool Weapon::SetFight(bool val)
-{
-	fight = val;
-	return fight;
-}
-bool Weapon::GetFight()
-{
-	return fight;
-}
 
 bool Weapon::SetFalling(bool val)
 {

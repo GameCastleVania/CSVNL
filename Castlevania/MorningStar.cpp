@@ -1,6 +1,6 @@
 #include "MorningStar.h"
 
-#define ANIMATE_RATE 12
+#define ANIMATE_RATE 8
 
 MorningStar::MorningStar()
 {}
@@ -21,49 +21,64 @@ MorningStar::MorningStar(LPDIRECT3DDEVICE9 d3ddv, Explosion* _explosion, CSimon*
 
 void MorningStar::Draw(float vpx, float vpy)
 {
-	if (fight)
+	if (visible)
 	{
-		if (simon->GetLRight()) mstarR->Render(simon->GetX() + 31, simon->GetY(), vpx, vpy);
-		else if (!simon->GetLRight()) mstarL->Render(simon->GetX() - 31, simon->GetY(), vpx, vpy);
+		if (simon->GetLRight()) mstarR->Render(x, y, vpx, vpy);
+		else if (!simon->GetLRight()) mstarL->Render(x, y, vpx, vpy);
 
 	}
 }
 
 void MorningStar::Update()
 {
-	if (fight)
+
+
+	if (visible)
 	{
+
+		if (simon->GetLRight()){
+			x = simon->GetX() + 31;
+			y = simon->GetY();
+		}
+		else{
+			x = simon->GetX() - 31;
+			y = simon->GetY();
+		}
+
+
 		if (mstarL->GetIndex() == 3) mstarL->SetIndex(-1);
 		if (mstarR->GetIndex() == 3) mstarR->SetIndex(-1);
 
-	}
-
-	DWORD now = GetTickCount();
-	if (now - last_time > 1000 / ANIMATE_RATE)
-	{
-
-		if (simon->GetLRight() && fight)
+		DWORD now = GetTickCount();
+		if (now - last_time > 1000 / ANIMATE_RATE)
 		{
-			if (mstarR->GetIndex() == 2)
-				Destroy();
-			mstarR->NextEnd();
 
+			if (simon->GetLRight() && visible)
+			{
+				if (mstarR->GetIndex() == 2)
+					Destroy();
+				mstarR->NextEnd();
+
+			}
+
+			else if (!simon->GetLRight() && visible)
+			{
+				if (mstarL->GetIndex() == 2)
+					Destroy();
+				mstarL->NextEnd();
+			}
+			last_time = now;
 		}
 
-		else if (!simon->GetLRight() && fight)
-		{
-			if (mstarL->GetIndex() == 2)
-				Destroy();
-			mstarL->NextEnd();
-		}
-		last_time = now;
+		CRec = RecF(x, y, 150, 65);
+
 	}
-
-
 }
 void MorningStar::Destroy()
 {
-	fight = false;
-	x = y = vx = vy = -100;
+	//explosion->Get(1, x, y, 5);
+	visible = false;
 	CRec = RecF(0, 0, 0, 0);
+	x = y = -100;
+	vx = vy = 0;
 }

@@ -90,5 +90,4 @@ enum ItemType
 	BALL,
 };
 
-
 #endif

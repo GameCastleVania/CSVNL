@@ -62,7 +62,7 @@ void DragonSkullCannon::Update()
 
 	if (!exploded && HP <= 0)
 	{
-		//explosion->Get(1, x + 18, y + 34, 7);
+		explosion->Get(1, x + 16, y + 32, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;
