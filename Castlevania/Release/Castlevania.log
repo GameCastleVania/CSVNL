@@ -1,0 +1,69 @@
+﻿Build started 20/12/2016 1:15:38 PM.
+     1>Project "D:\SVN CSVNL\trunk\Castlevania\Castlevania.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MTd /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DownUp.cpp simon.cpp
+         DownUp.cpp
+         C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+         simon.cpp
+         C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+     1>simon.cpp(154): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\SVN CSVNL\trunk\Release\Castlevania.exe" /NOLOGO d3d9.lib d3dx9.lib dsound.lib dinput8.lib dxguid.lib dxerr.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\SVN CSVNL\trunk\Release\Castlevania.pdb" /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\SVN CSVNL\trunk\Release\Castlevania.lib" /MACHINE:X86 /SAFESEH Release\Axe.obj
+         Release\BlackKnight.obj
+         Release\Boomerang.obj
+         Release\Boss2.obj
+         Release\Boss2Bullet.obj
+         Release\Bullet.obj
+         Release\BulletManager.obj
+         Release\Candle.obj
+         Release\CollisionManager.obj
+         Release\Dagger.obj
+         Release\Door.obj
+         Release\DownUp.obj
+         Release\DragonSkullCannon.obj
+         Release\EnemyManager.obj
+         Release\explosion.obj
+         Release\FireBall.obj
+         Release\FireBomb.obj
+         Release\font.obj
+         Release\game.obj
+         Release\gameobject.obj
+         Release\Ghost.obj
+         Release\HealthBar.obj
+         Release\Item.obj
+         Release\ItemManager.obj
+         Release\keyboard.obj
+         Release\MorningStar.obj
+         Release\Platform.obj
+         Release\Que.obj
+         Release\SmallHeart.obj
+         Release\StateMap2_2.obj
+         Release\StateMap2_3.obj
+         Release\StateMap2_4.obj
+         Release\winmain.obj
+         Release\MainMenu.obj
+         Release\map.obj
+         Release\Medusa.obj
+         Release\psound.obj
+         Release\quadtree.obj
+         Release\recF.obj
+         Release\simon.obj
+         Release\sound.obj
+         Release\sprite.obj
+         Release\StateLoad.obj
+         Release\StateManagement.obj
+         Release\StateMap2_1.obj
+         Release\TMXParser.obj
+         Release\trace.obj
+         Release\utils.obj
+         Release\VampireBat.obj
+         Release\weapon.obj
+         Release\weaponManager.obj
+         Generating code
+         Finished generating code
+         Castlevania.vcxproj -> D:\SVN CSVNL\trunk\Release\Castlevania.exe
+     1>Done Building Project "D:\SVN CSVNL\trunk\Castlevania\Castlevania.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.53
