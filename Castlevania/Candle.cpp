@@ -43,6 +43,7 @@ void Candle::Update()
 		exploded = true;
 		visible = false;
 	}
+	UpdateRect();
 }
 
 void Candle::Draw(int vpx, int vpy)
@@ -50,6 +51,20 @@ void Candle::Draw(int vpx, int vpy)
 	if (visible)
 		if (!exploded)
 			candle->Render(x + 8, y + 16, vpx, vpy);
+}
+
+void Candle::UpdateRect()
+{
+	if (HP > 0)
+	{
+		CRec = RecF(x, y, 16, 32);
+	}
+	else
+	{
+		CRec = RecF(0, 0, 0, 0);
+	}
+	if (visible == false)
+		CRec = RecF(0, 0, 0, 0);
 }
 
 void Candle::UpdateGunPoint()

@@ -24,7 +24,7 @@ protected:
 	bool upfight; // xet trang thai tha phim enter
 	bool up2nd; // xet trang thai tha phim F
 	bool fight; // xet trang thai phim enter co nhan hay khong
-	int count; // xet so lan vu khi thu 2 dc nem 
+	//int count; // xet so lan vu khi thu 2 dc nem 
 	int time = 0;
 
 	//Weapon type temp

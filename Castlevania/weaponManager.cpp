@@ -9,6 +9,8 @@
    OutputDebugStringW( os_.str().c_str() );  \
 }
 
+extern int count2w;
+
 WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSimon* _simon, Explosion* _explosion, PSound* _psound)
 {
 	kbd = _keyboard;
@@ -17,13 +19,12 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	direc = RIGHT;
 	upfight = false;
 	up2nd = false;
-	count = 2;
 	simonWList = WeaponList();
 	for (int i = 0; i < 50; i++){
 		simonWList.push_back(new Weapon());
 	}
 
-	simon->SetWeaponType(MORNINGSTAR);
+	//simon->SetWeaponType(MORNINGSTAR);
 
 	axe = Axe(_d3ddv, _explosion, _simon);
 	bmerang = Boomerang(_d3ddv, _explosion, _simon);
@@ -71,9 +72,9 @@ void WeaponManager::Update(int vpx, int vpy)
 				if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
 				{
 					simonWList[i]->Destroy();
-					if (count == -1) count = 2;
-					if (count == 1) count = 2;
-					if (count == 0) count = -1;
+					if (count2w == -1) count2w = 2;
+					if (count2w == 1) count2w = 2;
+					if (count2w == 0) count2w = -1;
 
 
 				}
@@ -84,9 +85,9 @@ void WeaponManager::Update(int vpx, int vpy)
 				if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx)
 				{
 					simonWList[i]->Destroy();
-					if (count == -1) count = 2;
-					if (count == 1) count = 2;
-					if (count == 0) count = -1;
+					if (count2w == -1) count2w = 2;
+					if (count2w == 1) count2w = 2;
+					if (count2w == 0) count2w = -1;
 				}
 				break;
 			}
@@ -95,39 +96,29 @@ void WeaponManager::Update(int vpx, int vpy)
 				if (simonWList[i]->GetX() > vpx + 480 || simonWList[i]->GetX() < vpx || simonWList[i]->GetY() < 0)
 				{
 					simonWList[i]->Destroy();
-					if (count == -1) count = 2;
-					if (count == 1) count = 2;
-					if (count == 0) count = -1;
+					if (count2w == -1) count2w = 2;
+					if (count2w == 1) count2w = 2;
+					if (count2w == 0) count2w = -1;
 				}
 				break;
 			}
 			case BOOMERANG:
 			{
-				if (simon->GetLRight())
-				{
-					if (simonWList[i]->GetX() < (simon->GetX() - 20))
+				if ((simonWList[i]->GetX() > vpx + 580 && simonWList[i]->GetFalling() == true) || 
+					(simonWList[i]->GetX() < vpx - 100 && simonWList[i]->GetFalling() == true) ||
+					(simonWList[i]->GetX() > simon->GetX() - 5 && simonWList[i]->GetX() < simon->GetX() + 5 && 
+					simonWList[i]->GetY() > simon->GetY() - 14 && simonWList[i]->GetY() < simon->GetY() + 14))
 					{
 						simonWList[i]->Destroy();
-						if (count == -1) count = 2;
-						if (count == 1) count = 2;
-						if (count == 0) count = -1;
+						if (count2w == -1) count2w = 2;
+						if (count2w == 1) count2w = 2;
+						if (count2w == 0) count2w = -1;
 					}
-				}
-				else if (!simon->GetLRight())
-				{
-					if (simonWList[i]->GetX() > (simon->GetX() + 20))
-					{
-						simonWList[i]->Destroy();
-						if (count == -1) count = 2;
-						if (count == 1) count = 2;
-						if (count == 0) count = -1;
-					}
-				}
 				break;
 			}
 			case MORNINGSTAR:
 			{
-				count = 2;
+				count2w = 2;
 				break;
 			}
 			default:
@@ -231,24 +222,17 @@ void WeaponManager::PlayerShoot()
 		}
 	}
 
-	if (kbd->IsKeyDown(DIK_F))
+	if (kbd->IsKeyDown(DIK_K))
 	{
-		if (!up2nd)
+		if (up2nd)
 		{
-			if (kbd->IsKeyDown(DIK_RETURN))
+			if (count2w == 1 || count2w == 2)
 			{
-				if (upfight)
-				{
-					if (count == 1 || count == 2)
-					{
-						WeaponType type = simon->GetWeaponType();
-						Get(type, x, y, vx, vy);
-						if (count == 2) count = 1;
-						else if (count == 1) count = 0;
-						//DBOUT(count << endl);
-					}
-
-				}
+				WeaponType type = simon->GetWeaponType();
+				Get(type, x, y, vx, vy);
+				if (count2w == 2) count2w = 1;
+				else if (count2w == 1) count2w = 0;
+				//DBOUT(count << endl);
 			}
 		}
 	}
@@ -256,22 +240,21 @@ void WeaponManager::PlayerShoot()
 	{
 		if (upfight)
 		{
-			WeaponType type = simon->GetWeaponType();
-			Get(type, x, y, vx, vy);
+			//WeaponType type = simon->GetWeaponType();
+			Get(MORNINGSTAR, x, y, vx, vy);
 			//psound->Play(10);			
 		}
 	}
 
 
-	if (kbd->IsKeyUp(DIK_F)){
+	if (kbd->IsKeyUp(DIK_K)){
 		up2nd = true;
-		simon->SetWeaponType(MORNINGSTAR);
+		//simon->SetWeaponType(MORNINGSTAR);
 	}
 	else up2nd = false;
 
 	if (kbd->IsKeyUp(DIK_RETURN)){
 		upfight = true;
-		time += 1.0f;
 	}
 	else upfight = false;
 }

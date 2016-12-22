@@ -3,7 +3,7 @@
 extern int Current_State = 0;
 extern bool vpMove = false;
 extern int SimonHP = 16;
-
+extern int count2w = 2;
 
 StateManagement* StateManagement::s_pIntance = 0;
 

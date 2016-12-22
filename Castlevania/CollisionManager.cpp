@@ -14,6 +14,7 @@
 extern int Current_State;
 extern int SimonHP;
 extern bool vpMove;
+extern int count2w;
 
 CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound)
 {
@@ -65,7 +66,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(b->CRec.y + 60);
 					simon->SetVY(0);
-					if (simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR) simon->SetState(STAND);
+					if (simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR || simon->GetState() == STANDW) simon->SetState(STAND);
 
 				}
 
@@ -256,6 +257,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				if (RecF::Collide(elist[i]->CRec, b->CRec) )
 					{
 						x._Ptr->_Myval->Destroy();
+						count2w = 2;
 						elist[i]->LowerHP();
 					}						
 				}
