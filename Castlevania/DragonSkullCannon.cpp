@@ -10,10 +10,11 @@ DragonSkullCannon::DragonSkullCannon(float X, float Y)
 	isShooting = false;
 	shootST = true;
 	isDead = 0;
+	type = 4;
 	HP = 6;
 	vx = 0;
 	vy = 0;
-	CRec = RecF(x, y, 32, 64);
+	CRec = RecF(x, y, 32, 32);
 }
 
 DragonSkullCannon::~DragonSkullCannon()
@@ -61,11 +62,12 @@ void DragonSkullCannon::Update()
 
 	if (!exploded && HP <= 0)
 	{
-		explosion->Get(1, x + 18, y + 34, 7);
+		//explosion->Get(1, x + 18, y + 34, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;
 	}
+	UpdateRect();
 }
 
 void DragonSkullCannon::UpdateGunPoint()
@@ -98,7 +100,19 @@ void DragonSkullCannon::BulletShoot()
 	isShooting = false;
 
 }
-
+void DragonSkullCannon::UpdateRect()
+{
+	if (HP > 0)
+	{
+		CRec = RecF(x, y, 32, 64);
+	}
+	else
+	{
+		CRec = RecF(0, 0, 0, 0);
+	}
+	if (visible == false)
+		CRec = RecF(0, 0, 0, 0);
+}
 void DragonSkullCannon::Destroy()
 {
 	HP = 0;

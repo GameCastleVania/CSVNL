@@ -428,16 +428,19 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		//}
 		if (lifecycle <= 20)
 		{
-			if (LRight == true) vx = -2;
-			if (LRight == false) vx = 2;
-			if (heightJump < 40)
+			if (isOnLadder == false)
 			{
-				vy = 3;
-				heightJump += 3;
-			}
-			if (heightJump >= 30) vy -= 2;
-			x += vx;
-			y += vy;
+				if (LRight == true) vx = -2;
+				if (LRight == false) vx = 2;
+				if (heightJump < 40)
+				{
+					vy = 3;
+					heightJump += 3;
+				}
+				if (heightJump >= 30) vy -= 2;
+				x += vx;
+				y += vy;
+			}	
 			invinsible = 100;
 		}
 		else
@@ -461,7 +464,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			simon_StandR->Next();
 			simon_JumpR->Next();
 			simon_CrouchR->Next();
-			if (!alive)
+			if (!alive && !isOnLadder)
 				simon_FlyL->Next();
 		}
 		else
@@ -470,7 +473,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			simon_StandL->Next();
 			simon_JumpL->Next();
 			simon_CrouchL->Next();
-			if (!alive)
+			if (!alive && !isOnLadder)
 				simon_FlyR->Next();
 		}
 		last_time = now;
@@ -571,7 +574,7 @@ void CSimon::Draw(int vpx, int vpy)
 {
 	if (LRight == true)
 	{
-		if (alive)
+		if (alive || (!alive && isOnLadder))
 		{
 			if (!blink){
 				switch (playerState)
@@ -614,14 +617,14 @@ void CSimon::Draw(int vpx, int vpy)
 				}
 			}
 		}
-		else
+		else if (!isOnLadder)
 		{
 			simon_FlyL->Render(x, y, vpx, vpy);
 		}
 	}
 	else
 	{
-		if (alive)
+		if (alive || (!alive && isOnLadder))
 		{
 			if (!blink){
 				switch (playerState)
@@ -664,7 +667,7 @@ void CSimon::Draw(int vpx, int vpy)
 				}
 			}
 		}
-		else
+		else if(!isOnLadder)
 		{
 			simon_FlyR->Render(x, y, vpx, vpy);
 		}

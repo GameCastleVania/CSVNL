@@ -1,6 +1,6 @@
 #include "Candle.h"
 
-#define ANIMATE_RATE 5
+#define ANIMATE_RATE 8
 
 
 Candle::Candle()
@@ -11,6 +11,7 @@ Candle::Candle(float X, float Y)
 	x = X;
 	y = Y;
 	exploded = false;
+	type = 9;
 	isDead = 0;
 	HP = 1;
 	CRec = RecF(x, y, 16, 32);
@@ -28,26 +29,38 @@ void Candle::Init(LPDIRECT3DDEVICE9 D3ddv, CSimon* Simon, BulletManager* BulletM
 
 void Candle::Update()
 {
-	DWORD now = GetTickCount();
-	if (now - last_time > 1000 / ANIMATE_RATE)
+	if (HP <= 0)
 	{
-		candle->Next();
-		last_time = now;
-
+		visible = false;
 	}
+	UpdateRect();
 }
 
 void Candle::Draw(int vpx, int vpy)
 {
-
+	if (visible)
 	candle->Render(x + 8, y + 16, vpx, vpy);
 }
 
 void Candle::UpdateGunPoint()
 {
-
+	
 }
 
+
+void Candle::UpdateRect()
+{
+	if (HP > 0)
+	{
+		CRec = RecF(x, y, 16, 32);
+	}
+	else
+	{
+		CRec = RecF(0, 0, 0, 0);
+	}
+	if (visible == false)
+		CRec = RecF(0, 0, 0, 0);
+}
 void Candle::Destroy()
 {
 	HP = 0;

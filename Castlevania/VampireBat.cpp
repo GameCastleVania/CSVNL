@@ -10,6 +10,7 @@ VampireBat::VampireBat(float X, float Y)
 	shooting = false;
 	isDead = 0;
 	HP = 1;
+	type = 4;
 	vx = 1.2;
 	vy = 0;
 	CRec = RecF(x, y, 32, 64);

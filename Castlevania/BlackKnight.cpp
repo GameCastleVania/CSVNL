@@ -22,6 +22,7 @@ BlackKnight::BlackKnight(float X, float Y)
 	shooting = false;
 	wasHit = false;
 	hitTime = 0;
+	type = 4;
 	isDead = 0;
 	HP = 2;
 	vx = 1.2;

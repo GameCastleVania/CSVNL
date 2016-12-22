@@ -20,6 +20,7 @@ Ghost::Ghost(float X, float Y)
 	wasHit = false;
 	hitTime = 0;
 	isDead = 0;
+	type = 4;
 	HP = 2;
 	vx = 0;
 	vy = 0;
@@ -43,8 +44,8 @@ void Ghost::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 void Ghost::Update()
 {
 
-	float _x = simon->GetX() - 16;
-	float _y = simon->GetY() - 32;
+	float _x = simon->GetX() - 14;
+	float _y = simon->GetY() - 14;
 	float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
 	DBOUT("Value " << _x << " " << _y << " " << delta << endl);
 	switch (Current_State)
@@ -117,6 +118,7 @@ void Ghost::Update()
 		visible = false;
 		shooting = false;
 	}
+	UpdateRec();
 }
 
 void Ghost::UpdateGunPoint()
@@ -130,9 +132,9 @@ void Ghost::Draw(int vpx, int vpy)
 		if (!exploded)
 		{
 			if (!LRight)
-				ghostL->Render(x + 16, y + 32, vpx, vpy);
+				ghostL->Render(x + 14, y + 14, vpx, vpy);
 			else
-				ghostR->Render(x + 16, y + 32, vpx, vpy);
+				ghostR->Render(x + 14, y + 14, vpx, vpy);
 		}
 	}
 }
@@ -145,7 +147,7 @@ void Ghost::UpdateRec()
 {
 	if (HP > 0)
 	{
-		CRec = RecF(x, y, 32, 64);
+		CRec = RecF(x, y, 28, 28);
 	}
 	else
 	{

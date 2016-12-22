@@ -39,7 +39,6 @@ public:
 		HP = 0;
 		visible = true;
 		ready = false;
-		type = 4;
 		state = 0;
 	}
 	Enemy(float X, float Y)
@@ -85,7 +84,7 @@ public:
 	}
 	void LowerHP()
 	{
-		HP -= 1;
+		HP --;
 	}
 	bool IsDead()
 	{

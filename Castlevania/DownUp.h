@@ -21,6 +21,7 @@ public:
 	void Update();
 	void UpdateGunPoint();
 	void Draw(int vpx, int vpy);
+	void UpdateRec();
 	//void BulletShoot();
 	void Destroy();
 };

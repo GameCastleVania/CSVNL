@@ -22,6 +22,7 @@ DownUp::DownUp(float X, float Y)
 	exploded = false;
 	shooting = false;
 	isDead = 0;
+	type = 8;
 	vx = 0;
 	vy = 0;
 	CRec = RecF(x, y, 64, 36);
@@ -49,7 +50,7 @@ void DownUp::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bu
 void DownUp::Update()
 {
 	float _x = simon->GetX() - 32;
-	float _y = simon->GetY() - 16;
+	float _y = simon->GetY() - 18;
 	float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
 	//DBOUT(_x << " " << endl);
 	if (delta < 800)
@@ -96,6 +97,7 @@ void DownUp::Update()
 
 		y += vy;
 	}
+	UpdateRec();
 }
 
 void DownUp::UpdateGunPoint()
@@ -116,6 +118,10 @@ void DownUp::Draw(int vpx, int vpy)
 	}
 }
 
+void DownUp::UpdateRec()
+{
+	CRec = RecF(x, y, 64, 36);
+}
 void DownUp::Destroy()
 {
 }

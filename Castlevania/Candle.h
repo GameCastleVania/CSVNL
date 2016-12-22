@@ -16,6 +16,7 @@ public:
 	void Update();
 	void UpdateGunPoint();
 	void Draw(int vpx, int vpy);
+	void UpdateRect();
 	void Destroy();
 };
 

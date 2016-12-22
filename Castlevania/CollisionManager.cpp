@@ -243,7 +243,6 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 
 #pragma region Player wp collision with Enemy
 	//player weapon collide with enemy------------------------------------------------------------------
-		int dem;
 		for (int i = 0; i < elist.size(); i++)
 		{
 			return_object->clear();
@@ -252,18 +251,13 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 			{
 				GameObject* b = x._Ptr->_Myval;
 				//DBOUT(b->GetType() << endl);
-				if (b->GetType() == 6 && elist[i]->GetHP() > 0)
+				if (b->GetType() == 6 && elist[i]->GetType() != 8)
 				{
-					if (RecF::Collide(elist[i]->CRec, b->CRec))
+				if (RecF::Collide(elist[i]->CRec, b->CRec) )
 					{
-						if (dem == 1)
-						{
-							dem = 2;
-							elist[i]->LowerHP();
-							elist[i]->SetVX(0);
-						}
-					}
-					else dem = 1;
+						x._Ptr->_Myval->Destroy();
+						elist[i]->LowerHP();
+					}						
 				}
 			}
 		}
@@ -275,12 +269,11 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 #pragma region Player collision with Enemy
 	//player collide with enemy------------------------------------------------------------------
 	
-	int _dem;
 	quadtree->Retrieve(return_object, simon);
 	for (auto x = return_object->begin(); x != return_object->end(); x++)
 	{
 		GameObject* b = x._Ptr->_Myval;
-		if (b->GetType() == 4 && SimonHP >= 0)
+		if (b->GetType() == 4 && SimonHP >= 0 && b->GetType() != 9)
 		{	
 			if (RecF::Collide(b->CRec, simon->CRec))
 			{			
@@ -292,7 +285,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				time++;
 				if (time > 250) time = 0;
 			}
-		}		
+		}
 	}
 	
 

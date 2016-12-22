@@ -11,12 +11,12 @@ Medusa::Medusa(float X, float Y)
 	LRight = true;
 	exploded = false;
 	shooting = false;
-
+	type = 4;
 	isDead = 0;
 	HP = 1;
 	vx = 0;
 	vy = 0;
-	CRec = RecF(x, y, 28, 28);
+	CRec = RecF(x, y, 32, 32);
 }
 
 Medusa::~Medusa()
@@ -82,6 +82,7 @@ void Medusa::Update()
 		visible = false;
 		shooting = false;
 	}
+	UpdateRec();
 }
 
 void Medusa::UpdateGunPoint()
@@ -95,9 +96,9 @@ void Medusa::Draw(int vpx, int vpy)
 		if (!exploded)
 		{
 			if (!LRight)
-				MedusaL->Render(x + 16, y + 32, vpx, vpy);
+				MedusaL->Render(x + 16, y + 16, vpx, vpy);
 			else
-				MedusaR->Render(x + 16, y + 32, vpx, vpy);
+				MedusaR->Render(x + 16, y + 16, vpx, vpy);
 		}
 	}
 }
@@ -110,7 +111,7 @@ void Medusa::UpdateRec()
 {
 	if (HP > 0)
 	{
-		CRec = RecF(x, y, 32, 64);
+		CRec = RecF(x, y, 32, 32);
 	}
 	else
 	{

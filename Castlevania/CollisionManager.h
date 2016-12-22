@@ -17,6 +17,7 @@ private:
 	EnemyManager* enemyManager;
 	WeaponManager* weaponManager;
 	Platform** platform;
+	int dem;
 	int time = 0;
 public:
 	CollisionManager(){}
