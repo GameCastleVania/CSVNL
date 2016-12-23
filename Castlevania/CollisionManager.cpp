@@ -66,7 +66,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(b->CRec.y + 60);
 					simon->SetVY(0);
-					if (simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR || simon->GetState() == STANDW) simon->SetState(STAND);
+					if ((simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR) && SimonHP > 0) simon->SetState(STAND);
 
 				}
 
@@ -275,7 +275,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	for (auto x = return_object->begin(); x != return_object->end(); x++)
 	{
 		GameObject* b = x._Ptr->_Myval;
-		if (b->GetType() == 4 && SimonHP >= 0 && b->GetType() != 9)
+		if ((b->GetType() == 4 || b->GetType() == 8) && SimonHP >= 0 && b->GetType() != 9)
 		{	
 			if (RecF::Collide(b->CRec, simon->CRec))
 			{			
