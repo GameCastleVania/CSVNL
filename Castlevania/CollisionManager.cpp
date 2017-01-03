@@ -46,7 +46,6 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 #pragma region Player collision
 #pragma region Player collision with map
 	//Player collide with map---------------------------------------------------------------------------
-	bool isOnLadder;
 
 	return_object->clear();
 	quadtree->Retrieve(return_object, simon);
@@ -61,11 +60,11 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				simon->isOnGround = true;
 				if ((simon->GetVY() < 0 && simon->GetY() - b->CRec.height - 28 > b->CRec.y) && simon->GetX() + 10 >= b->CRec.x && simon->GetX() - 10 <= b->CRec.x + b->CRec.width)
 				{
-					isOnLadder = false;
 					simon->isOnLadder = false;
+					simon->_isOnLadder = false;
 					simon->isJumpLeft = false;
 					simon->isJumpRight = false;
-					simon->SetY(b->CRec.y + 60);
+					simon->SetY(b->CRec.y + 61);
 					simon->SetVY(0);
 					if ((simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR) && SimonHP > 0) simon->SetState(STAND);
 
@@ -77,8 +76,11 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				{
 					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
 					{
-						simon->SetX(b->CRec.x - 10);
-						simon->SetVX(0);
+						if (simon->GetState() != RUNDOWNR || simon->GetState() != RUNUPR)
+						{
+							simon->SetX(b->CRec.x - 10);
+							simon->SetVX(0);
+						}
 					}
 					else if (b->CRec.height > 40 && ((simon->GetY() >= b->CRec.y) && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
 					{
@@ -91,7 +93,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				{
 					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
 					{
-						if (simon->GetState() != RUNDOWNL)
+						if (simon->GetState() != RUNDOWNL || simon->GetState() != RUNUPL)
 						{
 							simon->SetX(b->CRec.x + b->CRec.width + 10);
 							simon->SetVX(0);
@@ -207,9 +209,9 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					if (simon->isUpPress == true && simon->isRightPress == true && simon->isDownPress == false && simon->GetLRight() == true
 						&& simon->GetY() - 20 > b->CRec.y && simon->GetX() - 2 >= b->CRec.x && simon->GetX() + 25 <= b->CRec.x + b->CRec.width)
 					{
-						isOnLadder = true;
 						simon->isOnGround = false;
 						simon->isOnLadder = true;
+						simon->_isOnLadder = false;
 					}
 				}
 
@@ -223,17 +225,75 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						if (simon->isUpPress == false && simon->GetLRight() == false
 							&& simon->GetY() - 28 - 32 > b->CRec.y && simon->GetX() <= b->CRec.x + b->CRec.width)
 						{
-							isOnLadder = true;
 							simon->isOnLadder = true;
+							simon->_isOnLadder = false;
 						}
 					}
 					else if (simon->GetY() - 28 - 32 >= b->CRec.y)
 					{
-						isOnLadder = false;
 						simon->isOnLadder = false;
 						simon->isJumpLeft = false;
 						simon->isJumpRight = false;
+						if (Current_State <= 5)
 						simon->SetY(b->CRec.y + 61);
+						else simon->SetY(b->CRec.y + 62);
+						simon->SetVY(0);
+						if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
+					}
+				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region Player collision with ladderULDR
+	//Player collide with Ladder---------------------------------------------------------------------------
+
+	//LADDER UPLEFT---------------------------------------------------------	
+	return_object->clear();
+	quadtree->Retrieve(return_object, simon);
+	for (auto x = return_object->begin(); x != return_object->end(); x++)
+	{
+		GameObject* b = x._Ptr->_Myval;
+		if (b->GetType() == 2)
+		{
+			if (RecF::Collide(simon->CRec, b->CRec))
+			{
+				/////va cham cau thang
+
+				if (b->CRec.type == 1 || b->CRec.type == 4)
+				{
+					///////////UPLEFT && DOWNRIGHT
+
+					if (simon->isUpPress == true && simon->isLeftPress == true && simon->isDownPress == false && simon->GetLRight() == false
+						&& simon->GetY() - 20 > b->CRec.y && simon->GetX() + 15 >= b->CRec.x + b->CRec.width)
+					{
+						simon->isOnGround = false;
+						simon->_isOnLadder = true;
+						simon->isOnLadder = false;
+					}
+				}
+
+
+				///////// xet va cham dau tren of cau thang
+				if (b->CRec.type == 3)
+				{
+
+					if (simon->isDownPress == true && simon->isRightPress == true)
+					{
+						if (simon->isUpPress == false && simon->GetLRight() == true
+							&& simon->GetY() - 28 - 32 > b->CRec.y && simon->GetX() >= b->CRec.x)
+						{
+							simon->_isOnLadder = true;
+							simon->isOnLadder = false;
+						}
+					}
+					else if (simon->GetY() - 28 - 32 >= b->CRec.y && simon->isOnLadder == false)
+					{
+						simon->_isOnLadder = false;
+						simon->isJumpLeft = false;
+						simon->isJumpRight = false;
+						simon->SetY(b->CRec.y + 62);
 						simon->SetVY(0);
 						if (simon->GetState() == JUMP || simon->GetState() == JUMPW) simon->SetState(STAND);
 					}

@@ -1,6 +1,7 @@
 #include "StateMap3_2.h"
 
 extern int Current_State;
+extern bool vpMove;
 
 StateMap3_2::StateMap3_2()
 {
@@ -14,9 +15,10 @@ void StateMap3_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	psound = new PSound(_audio);
 	psound->PlayRepeat(2);
 	map = new Map(d3ddv, "resource\\map\\Map3_2.bmp", "resource\\map\\Map3_2.tmx");
-	simon = new CSimon(d3ddv, psound, 100, 42);
-	mnstar = new MorningStar(d3ddv, simon, psound, 100, 42);
+	simon = new CSimon(d3ddv, psound, 176, 42);
+	mnstar = new MorningStar(d3ddv, simon, psound, 176, 42);
 	explosion = new Explosion(d3ddv);
+	door = new Door(d3ddv, simon, 1504, 127);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map3_2.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
@@ -35,6 +37,7 @@ void StateMap3_2::Draw(int vpx, int vpy)
 void StateMap3_2::Render(int vpx, int vpy)
 {
 	map->Draw(vpx, vpy);
+	door->Draw(vpx, vpy);
 	bulletManager->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
 	weaponManager->Draw(vpx, vpy);
@@ -47,6 +50,7 @@ void StateMap3_2::Update(int &vpx, int &vpy)
 {
 	kbd->UpdateKeyboard();
 	map->Update();
+	door->Update();
 	simon->Update(kbd, vpx, vpy);
 	mnstar->Update(kbd, vpx, vpy);
 	collisionManager->ControlCollision(vpx, vpy);
@@ -59,17 +63,45 @@ void StateMap3_2::Update(int &vpx, int &vpy)
 
 void StateMap3_2::ViewPortUpdate(int &vpx, int &vpy)
 {
-	/*int px = simon->GetX();
+	int px = simon->GetX();
 
 	if (vpx < 0) vpx = 0;
 
-	if (vpx > 1024) vpx = 1024;
-	if (px > 514)
+	if (vpx > 2560) vpx = 2560;
+
+	if (px < 1280 || px > 1792) /// move viewport & fix viewport when simon stand on platform
 	{
-	if (px > 265 && vpx <1024) vpx = px - 265;
-	else if (px <= 1280 && vpx >0) vpx = px - 265;
+		if (px > 265 && vpx < 2560) vpx = px - 265;
+		else if (px <= 2816 && vpx >0) vpx = px - 265;
 	}
-	if (px < 450) vpx -= 2;*/
+
+	if (px > 1485 && px <= 1632) // colide with door
+	{
+		if (vpx < 1281 && vpMove == true)
+		{
+			simon->autoMove = false;
+			vpx += 1.5;
+		}
+		else
+		{
+			vpMove = false;
+		}
+
+		if (vpMove == false && simon->allowCtrl == false) door->SetOpen(true);
+		if (door->isopen == true) simon->autoMove = true;
+	}
+
+	if (px >= 1632 && simon->autoMove == false)
+	{
+		door->SetClose(true);
+		door->SetOpen(false);
+		if (door->isclose == true && vpx < 1536)
+		{
+			vpx += 1.5;
+		}
+		if (vpx >= 1536) simon->allowCtrl = true;
+	}
+
 }
 
 void StateMap3_2::Exit(int &vpx, int &vpy)

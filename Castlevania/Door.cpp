@@ -66,6 +66,14 @@ void Door::Draw(int vpx, int vpy)
 			if (time >= 30 && time < 40) 	door1->Render(x + 55, y -15, vpx, vpy);
 			else if (time >= 40)  door2->Render(x + 55, y -15, vpx, vpy);
 			break;
+		case 7:
+			if (time >= 30 && time < 40) 	door1->Render(x - 55, y + 16, vpx, vpy);
+			else if (time >= 40)  door2->Render(x - 55, y + 16, vpx, vpy);
+			break;
+		case 8:
+			if (time >= 30 && time < 40) 	door1->Render(x - 55, y - 47, vpx, vpy);
+			else if (time >= 40)  door2->Render(x - 55, y - 47, vpx, vpy);
+			break;
 		default:
 			break;
 		}

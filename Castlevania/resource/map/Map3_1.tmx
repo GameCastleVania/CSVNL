@@ -28,11 +28,11 @@
     <object name="CandlesSmall" id="14" type=" " x="182" y="223" width="16" height="32" />
     <object name="Monkey" id="15" type=" " x="336" y="129" width="32" height="32" />
     <object name="BX" id="16" type=" " x="68" y="162" width="32" height="64" />
-    <object name="StairDR" id="17" type=" " x="288" y="128" width="32" height="32" />
-    <object name="StairUL" id="18" type=" " x="255" y="95" width="32" height="32" />
-    <object name="StairUL" id="19" type=" " x="224" y="63" width="32" height="32" />
-    <object name="StairUL" id="20" type=" " x="190" y="31" width="32" height="32" />
-    <object name="StairUL" id="21" type=" " x="159" y="-2" width="32" height="32" />
+    <object name="Stair" id="17" type="UL" x="288" y="128" width="32" height="32" />
+    <object name="Stair" id="18" type=" " x="255" y="95" width="32" height="32" />
+    <object name="Stair" id="19" type=" " x="224" y="63" width="32" height="32" />
+    <object name="Stair" id="20" type=" " x="190" y="31" width="32" height="32" />
+    <object name="Stair" id="21" type=" " x="159" y="-2" width="32" height="32" />
   </objectgroup>
   <QuadTree name="QuadTree">
     <QuadNode NodeID="1" x="0" y="0" width="768" height="768" id="8 10 11 12 13 14 15 16 17 18 19 20 21 " />

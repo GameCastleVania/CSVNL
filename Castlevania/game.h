@@ -12,6 +12,8 @@
 #include "StateMap2_3.h"
 #include "StateMap2_4.h"
 #include "StateMap3_1.h"
+#include "StateMap3_2.h"
+#include "StateMap3_3.h"
 
 
 #define WINDOW_WIDTH 514

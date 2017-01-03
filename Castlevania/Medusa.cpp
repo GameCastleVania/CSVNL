@@ -11,6 +11,7 @@ Medusa::Medusa(float X, float Y)
 	LRight = true;
 	exploded = false;
 	shooting = false;
+	visible = false;
 	type = 4;
 	isDead = 0;
 	HP = 1;

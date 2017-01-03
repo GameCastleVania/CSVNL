@@ -43,6 +43,7 @@ public:
 	bool isLeftPress = false;
 	bool isDownPress = false;
 	bool isOnLadder;
+	bool _isOnLadder;
 	bool isOnGround = true;
 	bool autoMove = false;
 	bool allowCtrl = true;
@@ -73,6 +74,8 @@ private: //All player sprite
 	Sprite* simon_DieR; // chet phai
 	Sprite* simon_StandUR; // dung khi len cau thang
 	Sprite* simon_StandDL;
+	Sprite* simon_StandUL; // dung khi len cau thang
+	Sprite* simon_StandDR;
 	Sprite* simon_LadderUpR; // len cau thang phai
 	Sprite* simon_LadderUpL; // len cau thang trai
 	Sprite* simon_LadderDownR; // xuong cau thang phai

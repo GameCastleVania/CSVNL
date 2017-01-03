@@ -14,8 +14,8 @@ void StateMap3_1::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	psound = new PSound(_audio);
 	psound->PlayRepeat(2);
 	map = new Map(d3ddv, "resource\\map\\Map3_1.bmp", "resource\\map\\Map3_1.tmx");
-	simon = new CSimon(d3ddv, psound, 1500, 42);
-	mnstar = new MorningStar(d3ddv, simon, psound, 1500, 42);
+	simon = new CSimon(d3ddv, psound, 1440, 92);
+	mnstar = new MorningStar(d3ddv, simon, psound, 1440, 92);
 	explosion = new Explosion(d3ddv);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map3_1.tmx", simon, bulletManager, explosion);
@@ -55,28 +55,28 @@ void StateMap3_1::Update(int &vpx, int &vpy)
 	bulletManager->Update(vpx, vpy);
 	explosion->Update();
 	ViewPortUpdate(vpx, vpy);
+	if (simon->GetY() >= 360 && simon->_isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap3_2());
 }
 
 void StateMap3_1::ViewPortUpdate(int &vpx, int &vpy)
 {
-	/*int px = simon->GetX();
+	int px = simon->GetX();
 
 	if (vpx < 0) vpx = 0;
 
 	if (vpx > 1024) vpx = 1024;
-	if (px > 514)
-	{
-		if (px > 265 && vpx <1024) vpx = px - 265;
-		else if (px <= 1280 && vpx >0) vpx = px - 265;
-	}
-	if (px < 450) vpx -= 2;*/
+
+	 /// move viewport & fix viewport when simon stand on platform
+	if (px > 265 && vpx <1024) vpx = px - 265;
+	else if (px <= 1280 && vpx >0) vpx = px - 265;
+
 }
 
 void StateMap3_1::Exit(int &vpx, int &vpy)
 {
 	Current_State = 7;
 	vpx = 0;
-	vpy = 0;
+	vpy = 480;
 	delete(psound);
 	delete(map);
 	delete(explosion);

@@ -20,14 +20,18 @@ enum PlayerState
 	RUN, // chay
 	JUMP,// nhay
 	JUMPW,
-	LADDERUP, //len cau thang
-	LADDERDOWN, //xuong cau thang
+	LADDERUPLeftW, //len cau thang
+	LADDERDOWNRightW, //xuong cau thang
 	LADDERUPW, //len cau thang danh
 	LADDERDOWNW, //xuong cau thang danh
 	STANDUR,
-	RUNUPR,
 	STANDDL,
+	STANDUL,
+	STANDDR,
+	RUNUPR,
+	RUNUPL,
 	RUNDOWNL,
+	RUNDOWNR,
 	FLYL,
 	FLYR
 };
