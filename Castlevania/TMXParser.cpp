@@ -168,6 +168,22 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					{
 						enemyList.push_back(new Que(x, mapheight*TILE_SIZE - height - y));
 					}
+					if (o_name.compare("Monkey") == 0)
+					{
+						enemyList.push_back(new Monkey(x, mapheight*TILE_SIZE - height - y));
+					}
+					if (o_name.compare("BX") == 0)
+					{
+						enemyList.push_back(new BX(x, mapheight*TILE_SIZE - height - y));
+					}
+					/*if (o_name.compare("Boss") == 0)
+					{
+						enemyList.push_back(new Boss3(x, mapheight*TILE_SIZE - height - y));
+					}					
+					if (o_name.compare("Ranen") == 0)
+					{
+						enemyList.push_back(new Ranen(x, mapheight*TILE_SIZE - height - y));
+					}*/
 				}
 			}
 		}

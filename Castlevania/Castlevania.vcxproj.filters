@@ -74,6 +74,12 @@
     <Filter Include="Item">
       <UniqueIdentifier>{18030c2b-2126-4c7d-93c5-ca99d2504c65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy\EnemyMap3">
+      <UniqueIdentifier>{146a99c7-ddf2-4a19-bde6-4fad8da58f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameState\StateMap\Map3">
+      <UniqueIdentifier>{730eb08f-27d4-4f62-ad51-60092277f663}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="trace.cpp">
@@ -228,6 +234,27 @@
     </ClCompile>
     <ClCompile Include="HealthBar.cpp">
       <Filter>FrameWork\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranen.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClCompile>
+    <ClCompile Include="BX.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClCompile>
+    <ClCompile Include="Monkey.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss3.cpp">
+      <Filter>Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMap3_1.cpp">
+      <Filter>GameState\StateMap\Map3</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMap3_2.cpp">
+      <Filter>GameState\StateMap\Map3</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMap3_3.cpp">
+      <Filter>GameState\StateMap\Map3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,6 +413,27 @@
     </ClInclude>
     <ClInclude Include="HealthBar.h">
       <Filter>FrameWork\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranen.h">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClInclude>
+    <ClInclude Include="BX.h">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClInclude>
+    <ClInclude Include="Monkey.h">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss3.h">
+      <Filter>Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMap3_1.h">
+      <Filter>GameState\StateMap\Map3</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMap3_2.h">
+      <Filter>GameState\StateMap\Map3</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMap3_3.h">
+      <Filter>GameState\StateMap\Map3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -240,6 +240,7 @@ void WeaponManager::PlayerShoot()
 	{
 		if (upfight)
 		{
+
 			//WeaponType type = simon->GetWeaponType();
 			Get(MORNINGSTAR, x, y, vx, vy);
 			//psound->Play(10);			
