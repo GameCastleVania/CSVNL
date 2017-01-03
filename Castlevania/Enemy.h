@@ -11,6 +11,7 @@
 #include "ItemManager.h"
 
 extern int Score;
+extern int stopUpdate;
 
 class Enemy : public GameObject
 {
@@ -34,6 +35,7 @@ protected:
 	bool ready;
 	int hitTime;
 public:
+	bool _stopUpdate;
 	Enemy()
 	{
 		HP = 0;

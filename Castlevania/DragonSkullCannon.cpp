@@ -33,33 +33,34 @@ void DragonSkullCannon::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletMa
 
 void DragonSkullCannon::Update()
 {
-
-	float _x = simon->GetX() - 16;
-	float _y = simon->GetY() - 32;
-
-	visible = true;
-	if (simon->GetX() > x)
-		LRight = true;
-	else
-		LRight = false;
-	if (shooting)
+	if (_stopUpdate == false)
 	{
-		count++;
-		if (count > 300 && shootST)
-		{
-			isShooting = true;
-			shootST = false;
-		}
-		if (count > 320)
-		{
-			isShooting = true;
-			count = 0;
-			shootST = true;
-		}
-		if (isShooting)
-			BulletShoot();
-	}
+		float _x = simon->GetX() - 16;
+		float _y = simon->GetY() - 32;
 
+		visible = true;
+		if (simon->GetX() > x)
+			LRight = true;
+		else
+			LRight = false;
+		if (shooting)
+		{
+			count++;
+			if (count > 300 && shootST)
+			{
+				isShooting = true;
+				shootST = false;
+			}
+			if (count > 320)
+			{
+				isShooting = true;
+				count = 0;
+				shootST = true;
+			}
+			if (isShooting)
+				BulletShoot();
+		}
+	}
 	if (!exploded && HP <= 0)
 	{
 		explosion->Get(1, x + 16, y + 32, 7);

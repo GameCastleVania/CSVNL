@@ -18,6 +18,7 @@ Ghost::Ghost(float X, float Y)
 	exploded = false;
 	shooting = false;
 	wasHit = false;
+	visible = false;
 	hitTime = 0;
 	isDead = 0;
 	type = 4;
@@ -43,67 +44,69 @@ void Ghost::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 
 void Ghost::Update()
 {
-
-	float _x = simon->GetX() - 14;
-	float _y = simon->GetY() - 14;
-	float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
-	DBOUT("Value " << _x << " " << _y << " " << delta << endl);
-	switch (Current_State)
+	if (_stopUpdate == false)
 	{
-	case 4:
-		if (PosY < 200)
+		float _x = simon->GetX() - 14;
+		float _y = simon->GetY() - 14;
+		float delta = sqrtf((_x - x)*(_x - x) + (_y - y)*(_y - y));
+		DBOUT("Value " << _x << " " << _y << " " << delta << endl);
+		switch (Current_State)
 		{
-			if ( _x - PosX < -250 ) //&& _y > 315 && _x > 1500 )
-				ready = true;
-		}
-		else
-			if (PosX - _x < -250 && _y > 285 && _x < 1500)
-				ready = true;
-		break;
-	default:
-		break;
-	}
-	
-	if (ready)
-	{
-		visible = true;
-		if (wasHit)
-		{
-			
-			if (vx != 0)
-				vxbackup = vx;
-			if (vy != 0)
-				vybackup = vy;
-			vx = 0;
-			vy = 0;
-			hitTime++;
-			if (hitTime > 10)
+		case 4:
+			if (PosY < 200)
 			{
-				hitTime = 0;
-				vx = vxbackup;
-				vy = vybackup;
-				wasHit = false;
+				if (_x - PosX < -250) //&& _y > 315 && _x > 1500 )
+					ready = true;
 			}
+			else
+				if (PosX - _x < -250 && _y > 285 && _x < 1500)
+					ready = true;
+			break;
+		default:
+			break;
 		}
-		else
-		{
-			vx = (_x - x) / delta * 1.2;
-			vy = (_y - y) / delta * 1.2;
-			if (vx > 0)
-				LRight = true;
-			if (vx < 0)
-				LRight = false;
 
-			x += vx;
-			y += vy;
-			DWORD now = GetTickCount();
-			if (now - last_time > 1000 / ANIMATE_RATE)
+		if (ready)
+		{
+			visible = true;
+			if (wasHit)
 			{
-				if (!LRight)
-					ghostL->NextRepeat();
-				else
-					ghostR->NextRepeat();
-				last_time = now;
+
+				if (vx != 0)
+					vxbackup = vx;
+				if (vy != 0)
+					vybackup = vy;
+				vx = 0;
+				vy = 0;
+				hitTime++;
+				if (hitTime > 10)
+				{
+					hitTime = 0;
+					vx = vxbackup;
+					vy = vybackup;
+					wasHit = false;
+				}
+			}
+			else
+			{
+				vx = (_x - x) / delta * 1.2;
+				vy = (_y - y) / delta * 1.2;
+				if (vx > 0)
+					LRight = true;
+				if (vx < 0)
+					LRight = false;
+
+				x += vx;
+				y += vy;
+				DWORD now = GetTickCount();
+				if (now - last_time > 1000 / ANIMATE_RATE)
+				{
+					if (!LRight)
+						ghostL->NextRepeat();
+					else
+						ghostR->NextRepeat();
+					last_time = now;
+				}
 			}
 		}
 	}

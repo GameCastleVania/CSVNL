@@ -42,129 +42,130 @@ void Boss2::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 }
 void Boss2::Update()
 {
-
-	float _x = simon->GetX();
-	float _y = simon->GetY() - 32;
-	DBOUT(_x << " " << _y << " " << x << " " << y << endl);
-	if (!ready)
+	if (_stopUpdate == false)
 	{
-		if (_x > x)
-			LRight = true;
-		else
-			LRight = false;
-		if (abs(_x - PosX) < 400)
-			_Time++;
-		if (_Time > 300)
+		float _x = simon->GetX();
+		float _y = simon->GetY() - 32;
+		DBOUT(_x << " " << _y << " " << x << " " << y << endl);
+		if (!ready)
 		{
-			ready = true;
-			_Time = 0;
-		}
-	}
-	if (wasHit)
-		HP--;	
-	if (ready)
-	{
-		
-		if (!wasHit)
-		{
-
-			if (!IsChange)
-			{
-				if (!IsReturn)
-					if (y > _y)
-						temp = -1;
-					else
-						temp = 1;
-				if (LRight)
-				{
-					vx = 2;
-					if (x > _x - 64)
-						IsChange = true;
-				}
-				else
-				{
-					vx = -2;
-					if (x < _x + 16)
-						IsChange = true;
-				}
-				if (HP < 10)
-				{
-					hitTime++;
-					if (hitTime > 60)
-						isShooting = true;
-				}
-				
-				IsReturn = true;
-			}
+			if (_x > x)
+				LRight = true;
 			else
+				LRight = false;
+			if (abs(_x - PosX) < 400)
+				_Time++;
+			if (_Time > 300)
 			{
-				if (IsReturn)
+				ready = true;
+				_Time = 0;
+			}
+		}
+		if (wasHit)
+			HP--;
+		if (ready)
+		{
+
+			if (!wasHit)
+			{
+
+				if (!IsChange)
 				{
-					vy = 0;
-					IsReturn = false;
-					if (y > _y)
-						temp = -1;
-					else
-						temp = 1;
-				}
-				
-				if (LRight)
-					vx = -2;
-				else
-					vx = 2;
-				if (!HP < 7)
-				{
-					if (vy > 450)
+					if (!IsReturn)
+						if (y > _y)
+							temp = -1;
+						else
+							temp = 1;
+					if (LRight)
 					{
-						_Time++;						
-						vx = 0;
-						if (_Time > 30)
+						vx = 2;
+						if (x > _x - 64)
+							IsChange = true;
+					}
+					else
+					{
+						vx = -2;
+						if (x < _x + 16)
+							IsChange = true;
+					}
+					if (HP < 10)
+					{
+						hitTime++;
+						if (hitTime > 60)
+							isShooting = true;
+					}
+
+					IsReturn = true;
+				}
+				else
+				{
+					if (IsReturn)
+					{
+						vy = 0;
+						IsReturn = false;
+						if (y > _y)
+							temp = -1;
+						else
+							temp = 1;
+					}
+
+					if (LRight)
+						vx = -2;
+					else
+						vx = 2;
+					if (!HP < 7)
+					{
+						if (vy > 450)
 						{
-							//isShooting = true;
-							_Time = 0;
-							vy = 0;
-							IsChange = false;
-							LRight = LRight * -1;
+							_Time++;
+							vx = 0;
+							if (_Time > 30)
+							{
+								//isShooting = true;
+								_Time = 0;
+								vy = 0;
+								IsChange = false;
+								LRight = LRight * -1;
+							}
 						}
 					}
 				}
-			}
-			if (isShooting)
-				BulletShoot();
-			if(_Time == 0)
-				vy += 5;
-			/*if (y > _y)
-				y -= sin(DG_TO_RAD(vy)) * 2;
-			if(y < _y - 16)*/
+				if (isShooting)
+					BulletShoot();
+				if (_Time == 0)
+					vy += 5;
+				/*if (y > _y)
+					y -= sin(DG_TO_RAD(vy)) * 2;
+					if(y < _y - 16)*/
 				y += sin(DG_TO_RAD(vy)) * 2 * temp;
-			x += vx;
-		}
-		DWORD now = GetTickCount();
-		if (now - last_time > 1000 / ANIMATE_RATE)
-		{
-			_Boss2Move->NextRepeat();
-			last_time = now;
-		}
+				x += vx;
+			}
+			DWORD now = GetTickCount();
+			if (now - last_time > 1000 / ANIMATE_RATE)
+			{
+				_Boss2Move->NextRepeat();
+				last_time = now;
+			}
 
-	}
-	else
-	{
-		if (vx != 0)
-			vxbackup = vx;
-		if (vy != 0)
-			vybackup = vy;
-		vx = 0;
-		vy = 0;
-		hitTime++;
-		if (hitTime > 30)
+		}
+		else
 		{
-			hitTime = 0;
-			vx = vxbackup;
-			vy = vybackup;
-			wasHit = false;
+			if (vx != 0)
+				vxbackup = vx;
+			if (vy != 0)
+				vybackup = vy;
+			vx = 0;
+			vy = 0;
+			hitTime++;
+			if (hitTime > 30)
+			{
+				hitTime = 0;
+				vx = vxbackup;
+				vy = vybackup;
+				wasHit = false;
+			}
 		}
 	}
-
 	if (!exploded && HP <= 0)
 	{
 		explosion->Get(2, x, y, 7);
