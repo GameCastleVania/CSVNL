@@ -66,14 +66,27 @@
     <object name="StairDL" id="37" type=" " x="2689" y="192" width="32" height="32" />
     <object name="StairDL" id="38" type=" " x="2785" y="97" width="32" height="32" />
     <object name="StairDR" id="39" type=" " x="2785" y="64" width="32" height="32" />
+    <object name="StairUL" id="40" type=" " x="161" y="320" width="32" height="32" />
+    <object name="StairUR" id="41" type=" " x="160" y="224" width="32" height="32" />
+    <object name="StairUR" id="42" type=" " x="192" y="193" width="32" height="32" />
+    <object name="StairUL" id="43" type=" " x="1185" y="191" width="32" height="32" />
+    <object name="StairUL" id="44" type=" " x="1217" y="225" width="32" height="32" />
+    <object name="StairUR" id="45" type=" " x="2721" y="160" width="32" height="32" />
+    <object name="StairUR" id="46" type=" " x="2752" y="128" width="32" height="32" />
+    <object name="StairUL" id="47" type=" " x="2754" y="31" width="32" height="32" />
+    <object name="StairUL" id="48" type=" " x="2720" y="0" width="32" height="32" />
   </objectgroup>
   <QuadTree name="QuadTree">
-    <QuadNode NodeID="9" x="0" y="0" width="768" height="768" id="1 2 3 4 5 6 7 8 11 12 17 " />
-    <QuadNode NodeID="10" x="768" y="0" width="768" height="768" id="9 10 13 14 15 16 17 18 19 20 21 22 23 24 25 28 29 " />
+    <QuadNode NodeID="9" x="0" y="0" width="768" height="768" id="1 2 3 4 5 6 7 8 11 12 17 40 41 42 " />
+    <QuadNode NodeID="81" x="768" y="0" width="384" height="384" id="9 10 13 14 15 16 17 18 19 20 " />
+    <QuadNode NodeID="82" x="1152" y="0" width="384" height="384" id="21 22 23 24 25 28 29 43 44 " />
+    <QuadNode NodeID="83" x="768" y="384" width="384" height="384" id="" />
+    <QuadNode NodeID="84" x="1152" y="384" width="384" height="384" id="" />
+    <QuadNode NodeID="10" x="768" y="0" width="768" height="768" id="" />
     <QuadNode NodeID="11" x="0" y="768" width="768" height="768" id="" />
     <QuadNode NodeID="12" x="768" y="768" width="768" height="768" id="" />
     <QuadNode NodeID="1" x="0" y="0" width="1536" height="1536" id="" />
-    <QuadNode NodeID="2" x="1536" y="0" width="1536" height="1536" id="26 27 30 31 32 33 34 35 36 37 38 39 " />
+    <QuadNode NodeID="2" x="1536" y="0" width="1536" height="1536" id="26 27 30 31 32 33 34 35 36 37 38 39 45 46 47 48 " />
     <QuadNode NodeID="3" x="0" y="1536" width="1536" height="1536" id="" />
     <QuadNode NodeID="4" x="1536" y="1536" width="1536" height="1536" id="" />
     <QuadNode NodeID="0" x="0" y="0" width="3072" height="3072" id="" />
