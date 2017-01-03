@@ -21,6 +21,10 @@ EnemyManager::EnemyManager(LPDIRECT3DDEVICE9 _d3ddv, char* _filename, CSimon* _s
 	tmx.ReadEnemy("CandlesSmall", enemyList);
 	tmx.ReadEnemy("Boss2", enemyList);
 	tmx.ReadEnemy("DownUp", enemyList);
+	tmx.ReadEnemy("BX", enemyList);
+	tmx.ReadEnemy("Monkey", enemyList);
+	tmx.ReadEnemy("Ranen", enemyList);
+	tmx.ReadEnemy("Boss", enemyList);
 	//tmx.ReadEnemy("que", enemyList);
 
 	for (int i = 0; i < enemyList.size(); i++)
