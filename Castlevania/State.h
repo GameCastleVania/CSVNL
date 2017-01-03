@@ -5,6 +5,7 @@
 #include "keyboard.h"
 #include "map.h"
 #include "simon.h"
+#include "MorningStar.h"
 #include "CollisionManager.h"
 #include "BulletManager.h"
 #include "weaponManager.h"
@@ -29,6 +30,7 @@ protected:
 	Explosion* explosion;
 	CollisionManager* collisionManager;
 	Door* door;
+	MorningStar* mnstar;
 
 public:
 	State(){}

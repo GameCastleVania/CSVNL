@@ -10,6 +10,7 @@
 }
 
 extern int count2w;
+extern int countw;
 
 WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSimon* _simon, Explosion* _explosion, PSound* _psound)
 {
@@ -30,7 +31,7 @@ WeaponManager::WeaponManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, CSim
 	bmerang = Boomerang(_d3ddv, _explosion, _simon);
 	dagger = Dagger(_d3ddv, _explosion, _simon);
 	fbomb = FireBomb(_d3ddv, _explosion, _simon);
-	mnstar = MorningStar(_d3ddv, _explosion, _simon);
+	
 }
 
 WeaponManager::~WeaponManager()
@@ -115,12 +116,7 @@ void WeaponManager::Update(int vpx, int vpy)
 						if (count2w == 0) count2w = -1;
 					}
 				break;
-			}
-			case MORNINGSTAR:
-			{
-				count2w = 2;
-				break;
-			}
+			}			
 			default:
 				break;
 			}
@@ -175,12 +171,7 @@ void WeaponManager::PlayerShoot()
 			vy = 0;
 			break;
 		}
-		case MORNINGSTAR:
-		{
-			vx = 0;
-			vy = 0;
-			break;
-		}
+		
 		default:
 			break;
 		}
@@ -211,12 +202,7 @@ void WeaponManager::PlayerShoot()
 			vy = 0;
 			break;
 		}
-		case MORNINGSTAR:
-		{
-			vx = 0;
-			vy = 0;
-			break;
-		}
+		
 		default:
 			break;
 		}
@@ -236,16 +222,17 @@ void WeaponManager::PlayerShoot()
 			}
 		}
 	}
-	else if (kbd->IsKeyDown(DIK_RETURN))
-	{
-		if (upfight)
-		{
-
-			//WeaponType type = simon->GetWeaponType();
-			Get(MORNINGSTAR, x, y, vx, vy);
-			//psound->Play(10);			
-		}
-	}
+	//else if (kbd->IsKeyDown(DIK_RETURN))
+	//{
+	//	if (upfight)
+	//	{
+	//		if (countw == 0)
+	//			Get(MORNINGSTAR, x, y, vx, vy);
+	//		//WeaponType type = simon->GetWeaponType();
+	//		
+	//		//psound->Play(10);			
+	//	}
+	//}
 
 
 	if (kbd->IsKeyUp(DIK_K)){
@@ -254,10 +241,10 @@ void WeaponManager::PlayerShoot()
 	}
 	else up2nd = false;
 
-	if (kbd->IsKeyUp(DIK_RETURN)){
+	/*if (kbd->IsKeyUp(DIK_RETURN)){
 		upfight = true;
 	}
-	else upfight = false;
+	else upfight = false;*/
 }
 
 void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
@@ -270,7 +257,7 @@ void WeaponManager::Get(WeaponType type, float x, float y, float vx, float vy)
 			if (type == DAGGER) simonWList[i] = new Dagger(dagger);
 			if (type == FIREBOMB) simonWList[i] = new FireBomb(fbomb);
 			if (type == BOOMERANG) simonWList[i] = new Boomerang(bmerang);
-			if (type == MORNINGSTAR) simonWList[i] = new MorningStar(mnstar);
+			//if (type == MORNINGSTAR) simonWList[i] = new MorningStar(mnstar);
 
 			simonWList[i]->Set(x, y, vx, vy, 6);
 			simonWList[i]->SetVisible(true);

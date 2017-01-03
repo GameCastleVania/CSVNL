@@ -3,7 +3,6 @@
 #include "Boomerang.h"
 #include "Dagger.h"
 #include "FireBomb.h"
-#include "MorningStar.h"
 #include "weapon.h"
 #include "keyboard.h"
 #include "psound.h"
@@ -33,7 +32,6 @@ protected:
 	Boomerang bmerang;
 	Dagger dagger;
 	FireBomb fbomb;
-	MorningStar mnstar;
 
 public:
 	WeaponManager(){}

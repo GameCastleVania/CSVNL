@@ -17,6 +17,7 @@ void StateMap2_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	psound->PlayRepeat(2);
 	map = new Map(d3ddv, "resource\\map\\Map2-2.bmp", "resource\\map\\Map2-2.tmx");
 	simon = new CSimon(d3ddv, psound, 2320, 42);
+	mnstar = new MorningStar(d3ddv, simon, psound, 2320, 42);
 	explosion = new Explosion(d3ddv);
 	door = new Door(d3ddv, simon, 1484, 223);
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
@@ -45,6 +46,7 @@ void StateMap2_2::Render(int vpx, int vpy)
 	door->Draw(vpx, vpy);
 	enemyManager->Draw(vpx, vpy);
 	simon->Draw(vpx, vpy);
+	mnstar->Draw(vpx, vpy);
 	platform[0]->Draw(vpx, vpy);
 	bulletManager->Draw(vpx, vpy);
 	weaponManager->Draw(vpx, vpy);
@@ -59,6 +61,7 @@ void StateMap2_2::Update(int &vpx, int &vpy)
 	door->Update();
 	enemyManager->Update();
 	simon->Update(kbd, vpx, vpy);
+	mnstar->Update(kbd, vpx, vpy);
 	platform[0]->Update();
 	collisionManager->ControlCollision(vpx, vpy);
 	weaponManager->Update(vpx, vpy);
@@ -123,6 +126,7 @@ void StateMap2_2::Exit(int &vpx, int &vpy)
 	delete(door);
 	delete(explosion);
 	delete(simon);
+	delete(mnstar);
 	delete(weaponManager);
 	delete(bulletManager);
 	delete(enemyManager);
