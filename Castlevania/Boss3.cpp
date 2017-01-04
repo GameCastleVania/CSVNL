@@ -142,6 +142,7 @@ void Boss3::Update()
 		explosion->Get(11, x, y - 25, 7);
 		explosion->Get(11, x + 25, y - 25, 7);
 		explosion->Get(11, x + 50, y - 25, 7);
+		explosion->Get(12, 4800, 132, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;
