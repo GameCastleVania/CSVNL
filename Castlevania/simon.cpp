@@ -18,6 +18,7 @@
 #define FALLDOWN_VELOCITY_DECREASE 0.5f
 
 extern int Current_State;
+extern int Life_Simon;
 
 CSimon::CSimon()
 {
@@ -531,10 +532,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 				lifecycle = 0;
 			}
 		}
-	    if (SimonHP <= 0)
+	    if (SimonHP <= 0 && Life_Simon > 0)
 		{
 			if (lifecycle >= 30)
 			{
+				Life_Simon -= 1;
 				alive = true;
 				simon_DieL->Reset();
 				simon_DieR->Reset();
@@ -593,7 +595,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 				invinsible = 0;
 				SimonHP = 16;
 			}
-		}		
+		}
 	}
 	if (invinsible > 0) blink = !blink;
 	else blink = false;

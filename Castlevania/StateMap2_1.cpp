@@ -2,6 +2,8 @@
 
 extern int Current_State;
 extern int Stage = 4;
+extern int Life_Simon;
+extern float timemap;
 
 StateMap2_1::StateMap2_1()
 {
@@ -14,7 +16,7 @@ void StateMap2_1::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	d3ddv = _d3ddv;
 	psound = new PSound(_audio);
 	psound->PlayRepeat(2);
-	map = new Map(d3ddv, "resource\\map\\Map2-1.bmp", "resource\\map\\Map2-1.tmx");
+	map = new Map(d3ddv, "resource\\map\\Map2-1.bmp", "resource\\map\\Map2-1.tmx",kbd);
 	explosion = new Explosion(d3ddv);
 	simon = new CSimon(d3ddv, psound, 80, 62);
 	mnstar = new MorningStar(d3ddv,simon, psound, 80, 62);
@@ -59,6 +61,13 @@ void StateMap2_1::Update(int &vpx, int &vpy)
 	explosion->Update();
 
 	if (simon->GetY() >= 360 && simon->isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap2_2());
+	if (Life_Simon <= 0) {
+		StateManagement::GetInstance()->SwitchState(new StateMainMenu());
+	}
+	if (timemap / 100 <= 0){
+		SimonHP = 0;
+		timemap = 030100.0f;
+	}
 }
 
 void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)
@@ -73,9 +82,17 @@ void StateMap2_1::ViewPortUpdate(int &vpx, int &vpy)
 
 void StateMap2_1::Exit(int &vpx, int &vpy)
 {
-	Current_State = 3;
-	vpx = 2045;
-	vpy = 480;
+	if (Life_Simon > 0){
+		Current_State = 3;
+		vpx = 2045;
+		vpy = 480;
+	}
+	else {
+		Current_State = 0;
+		vpx = 0;
+		vpy = 480;
+	}
+	
 	delete(psound);
 	delete(map);
 	delete(explosion);

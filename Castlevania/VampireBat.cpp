@@ -57,7 +57,7 @@ void VampireBat::Update()
 	}
 	if ((!exploded && HP <= 0))
 	{
-		explosion->Get(1, x + 15, y + 16, true);
+		explosion->Get(10, x + 15, y + 16, true);
 		exploded = true;
 		visible = false;
 		shooting = false;

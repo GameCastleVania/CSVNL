@@ -18,44 +18,166 @@ Explode::Explode(LPDIRECT3DDEVICE9 _d3ddv, int _type, float _x, float _y)
 	type1 = new Sprite(_d3ddv, "resource\\image\\explosion\\0.png", 16, 20, 1, 1);
 	type2 = new Sprite(_d3ddv, "resource\\image\\explosion\\1.png", 43, 44, 3, 3);
 	type3 = new Sprite(_d3ddv, "resource\\image\\explosion\\2.png", 14, 28, 1, 1);
+	smallheart = new Sprite(_d3ddv, "resource\\image\\item\\0.png", 16, 16, 1, 1);
+	bigheart = new Sprite(_d3ddv, "resource\\image\\item\\1.png", 24, 20, 1, 1);
+	boomerangitem = new Sprite(_d3ddv, "resource\\image\\item\\8.png", 30, 28, 1, 1);
+	firebombitem = new Sprite(_d3ddv, "resource\\image\\item\\9.png", 32, 32, 1, 1);
+	axeitem = new Sprite(_d3ddv, "resource\\image\\item\\7.png", 30, 28, 1, 1);
+	daggeritem = new Sprite(_d3ddv, "resource\\image\\item\\4.png", 32, 18, 1, 1);
+	cash = new Sprite(_d3ddv, "resource\\image\\item\\2.png", 30, 30, 3, 3);
+	ball = new Sprite(_d3ddv, "resource\\image\\item\\13.png", 28, 32, 2, 2);
+	two = new Sprite(_d3ddv, "resource\\image\\item\\12.png", 28, 28, 1, 1);
+	chickenleg = new Sprite(_d3ddv, "resource\\image\\item\\10.png", 32, 26, 1, 1);
 }
 
 void Explode::Update()
 {
 	if (visible)
 	{
-		index++;
 		DWORD now = GetTickCount();
-		if (now - last_time > 1000 / 10)
+		switch (type){
+		case 10:
 		{
-			type2->NextRepeat();
-			last_time = now;
+			index++;
+
+			if (now - last_time > 1000 / 10)
+			{
+				type2->NextRepeat();
+				last_time = now;
+			}
+			if (index > 25) visible = false;
+			break;
 		}
-		if (index >25) visible = false;
+		case 11:
+		{
+			index++;
+
+			if (now - last_time > 1000 / 10)
+			{
+				type2->NextRepeat();
+				last_time = now;
+			}
+			if (index > 35) visible = false;
+			break;
+		}
+		case 12:
+			if (now - last_time > 1000 /8)
+			{
+				ball->NextRepeat();
+				last_time = now;
+			}
+			break;
+		case 13:
+			index++;
+			if (index < 20){
+				x += 0.8f;
+				y -= 0.2f;
+			}
+			if (index >= 20 && index < 100){
+				x -= 0.8f;
+				y -= 0.2f;
+			}
+			if (index >= 100 && index < 180){
+				x += 0.8f;
+				y -= 0.2f;
+			}
+
+			y -= 1.5f;
+			if (index >200) visible = false;
+			break;
+		case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+			index++;
+			y -= 2.5f;
+			if (index >200) visible = false;
+			break;
+		default:
+			break;
+		}
+
 	}
 
-	if (type == 4) CRec = RecF(x + 5, y + 5, 54, 54);
-	else CRec = RecF(0, 0, 0, 0);
+	UpdateRect();
 }
 
+void Explode::UpdateRect()
+{
+	switch (type){
+	case 10: case 11:
+		CRec = RecF(0, 0, 0, 0);
+		break;
+	case 12:
+		CRec = RecF(x, y, 28, 32);
+		break;
+	case 13:
+		CRec = RecF(x, y, 16, 16);
+		break;
+	case 14:
+		CRec = RecF(x, y, 24, 20);
+		break;
+	case 15: case 18:
+		CRec = RecF(x, y, 30, 28);
+		break;
+	case 16:
+		CRec = RecF(x, y, 32, 18);
+		break;
+	case 17:
+		CRec = RecF(x, y, 32, 32);
+		break;
+	case 19:
+		CRec = RecF(x, y, 30, 30);
+		break;
+	case 20:
+		CRec = RecF(x, y, 32, 26);
+		break;
+	}
+	
+}
 void Explode::Draw(int vpx, int vpy)
 {
 	if (visible)
 	{
 		switch (type)
 		{
-		case 1:
+		case 10:
 			if (index > 3)
 				type2->Render(x - 5, y + 5, vpx, vpy);
 			if (index < 7)
 				type1->Render(x, y, vpx, vpy);
 			break;
-		case 2:
+		case 11:
 			type2->Render(x, y, vpx, vpy);
 			break;
-		case 3:
-			type3->Render(x, y, vpx, vpy);
+		case 12:
+			ball->Render(x, y, vpx, vpy);
 			break;
+		case 13:
+			smallheart->Render(x, y, vpx, vpy);
+			break;
+		case 14:
+			bigheart->Render(x, y, vpx, vpy);
+			break;
+		case 15:
+			axeitem->Render(x, y, vpx, vpy);
+			break;
+		case 16:
+			daggeritem->Render(x, y, vpx, vpy);
+			break;
+		case 17:
+			firebombitem->Render(x, y, vpx, vpy);
+			break;
+		case 18:
+			boomerangitem->Render(x, y, vpx, vpy);
+			break;
+		case 19:
+			cash->Render(x, y, vpx, vpy);
+			break;
+		/*case 21:
+			two->Render(x, y, vpx, vpy);
+			break;*/
+		case 20:
+			chickenleg->Render(x, y, vpx, vpy);
+			break;
+		
 		default:
 			break;
 		}

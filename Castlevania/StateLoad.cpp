@@ -60,7 +60,7 @@ void StateLoad::Update(int &vpx, int &vpy)
 	
 	if (vt < 200)	//dung khoang time (WINDOW_WIDTH/2) den 200 sau do chuyen map
 	{
-		StateManagement::GetInstance()->SwitchState(new StateMap2_4());
+		StateManagement::GetInstance()->SwitchState(new StateMap2_1());
 	}
 		
 
@@ -101,8 +101,8 @@ void StateLoad::Draw(int vpx, int vpy)
 
 void StateLoad::Exit(int &vpx, int &vpy)
 {
-	Current_State = 5;
-	vpx = 1024;
+	Current_State = 2;
+	vpx = 0;
 	vpy = 480;
 	delete(helicopter);
 	delete(bat);

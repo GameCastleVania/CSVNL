@@ -7,33 +7,49 @@ class Item :
 	public GameObject
 {
 protected:
-	ItemType itype;
+	int typerandom;
 	bool visible = false; // = true thi draw item
-	int time = 0; //thoi gian item bien mat
+	int timeitem = 0; //thoi gian item bien mat
 
+	Sprite* smallheart;
+	Sprite* boomerangitem;
+	Sprite* daggeritem;
+	Sprite* firebombitem;
+	Sprite* cash;
+	Sprite* cross;
+	Sprite* ball;
+	Sprite* two;
+	Sprite* three;
+	//Sprite* timeitem;
+	Sprite* chickenleg;
+	Sprite* bigheart;
 public:
 	Item();
-	Item(LPDIRECT3DDEVICE9 d3ddv);
+	Item(LPDIRECT3DDEVICE9 d3ddv, float x, float y, int a);
 	~Item();
 
 	void Draw(int vpx, int vpy);
 	void Update();
-	void Destroy();
+	void Set(float x, float y, bool visible, int a);
 
-	ItemType GetType();
-
-	void Set(float, float, float, float);
-	void Set(float, float);
-	void Set(float, float, float, float, ItemType);
-
-	bool GetVisible()
-	{
-		return visible;
-	}
-
-	bool SetVisible(bool value)
-	{
-		return visible = value;
-	}
+	bool GetVisible();
 };
+
 typedef std::vector<Item*> ItemList;
+
+class ItemManager
+{
+protected:
+	ItemList item;
+
+public:
+	ItemManager();
+	ItemManager(LPDIRECT3DDEVICE9 _d3ddv);
+	~ItemManager();
+
+	void Draw(int vpx, int vpy);
+	void Update();
+	void Get(float X, float Y, int a);
+
+	ItemList GetList();
+};

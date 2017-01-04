@@ -2,6 +2,8 @@
 
 extern int Current_State;
 extern bool vpMove;
+extern int Life_Simon;
+extern float timemap;
 
 StateMap3_3::StateMap3_3()
 {
@@ -14,7 +16,7 @@ void StateMap3_3::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	d3ddv = _d3ddv;
 	psound = new PSound(_audio);
 	psound->PlayRepeat(2);
-	map = new Map(d3ddv, "resource\\map\\Map3_3.bmp", "resource\\map\\Map3_3.tmx");
+	map = new Map(d3ddv, "resource\\map\\Map3_3.bmp", "resource\\map\\Map3_3.tmx",kbd);
 	simon = new CSimon(d3ddv, psound, 686, 42);
 	mnstar = new MorningStar(d3ddv, simon, psound,686, 42);
 	explosion = new Explosion(d3ddv);
@@ -60,6 +62,14 @@ void StateMap3_3::Update(int &vpx, int &vpy)
 	bulletManager->Update(vpx, vpy);
 	explosion->Update();
 	ViewPortUpdate(vpx, vpy);
+
+	if (Life_Simon <= 0) {
+		StateManagement::GetInstance()->SwitchState(new StateMainMenu());
+	}
+	if (timemap / 100 <= 0){
+		SimonHP = 0;
+		timemap = 030100.0f;
+	}
 }
 
 void StateMap3_3::ViewPortUpdate(int &vpx, int &vpy)
@@ -106,10 +116,17 @@ void StateMap3_3::ViewPortUpdate(int &vpx, int &vpy)
 }
 
 void StateMap3_3::Exit(int &vpx, int &vpy)
-{
-	Current_State = 9;
-	vpx = 0;
-	vpy = 0;
+{	
+	if (Life_Simon > 0){
+		Current_State = 9;
+		vpx = 0;
+		vpy = 0;
+	}
+	else {
+		Current_State = 0;
+		vpx = 0;
+		vpy = 480;
+	}
 	delete(psound);
 	delete(map);
 	delete(explosion);

@@ -126,7 +126,7 @@ void BlackKnight::Update()
 	}
 	if (!exploded && HP <= 0)
 	{
-		explosion->Get(1, x + 18, y + 34, 7);
+		explosion->Get(10, x + 18, y + 34, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;

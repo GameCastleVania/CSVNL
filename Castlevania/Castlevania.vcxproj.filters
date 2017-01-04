@@ -226,12 +226,6 @@
     <ClCompile Include="Item.cpp">
       <Filter>Item</Filter>
     </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="SmallHeart.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
     <ClCompile Include="HealthBar.cpp">
       <Filter>FrameWork\Map</Filter>
     </ClCompile>
@@ -409,12 +403,6 @@
       <Filter>Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="SmallHeart.h">
       <Filter>Item</Filter>
     </ClInclude>
     <ClInclude Include="HealthBar.h">

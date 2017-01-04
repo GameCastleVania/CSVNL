@@ -9,6 +9,7 @@
 #include "quadtree.h"
 #include "font.h"
 #include "HealthBar.h"
+#include "keyboard.h"
 
 class Map{
 private:
@@ -20,16 +21,17 @@ private:
 	int _width;
 	int _height;
 	int* _mapArr;
+	char* ktustage;
 
 	//game board
 	Font* text;
 	Sprite* gameboard;
 	HealthBar* healthbar;
-
+	Keyboard* kbd;
 
 public:
 	Map();
-	Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char* fileName);
+	Map(LPDIRECT3DDEVICE9 _d3ddv, char *spriteSheet, char* fileName, Keyboard* kbd);
 	~Map();
 	void Update();
 	void Draw(int vpx, int vpy);

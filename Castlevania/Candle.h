@@ -1,5 +1,8 @@
 #pragma once
 #include "Enemy.h"
+#include "font.h"
+#include <cstdlib>
+#include <ctime>
 
 class Candle :
 	public Enemy
@@ -7,6 +10,8 @@ class Candle :
 private:
 	Sprite *candle;
 	DWORD last_time;
+	Font* text;
+	char* _score;
 
 public:
 	Candle();

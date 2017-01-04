@@ -9,6 +9,19 @@ private:
 	Sprite* type1;
 	Sprite* type2;
 	Sprite* type3;
+	Sprite* smallheart;
+	Sprite* boomerangitem;
+	Sprite* daggeritem;
+	Sprite* axeitem;
+	Sprite* firebombitem;
+	Sprite* cash;
+	Sprite* cross;
+	Sprite* ball;
+	Sprite* two;
+	Sprite* three;
+	Sprite* chickenleg;
+	Sprite* bigheart;
+
 	DWORD last_time;
 	int index;
 	int animation;
@@ -23,6 +36,7 @@ public:
 	bool Getvisible();
 	int GetType();
 	int GetAnimation();
+	void UpdateRect();
 };
 
 typedef std::vector<Explode*> ListExplode;

@@ -37,7 +37,6 @@
     <ClCompile Include="Ghost.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="keyboard.cpp" />
     <ClCompile Include="MorningStar.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -45,7 +44,6 @@
     <ClCompile Include="Ranen.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="SkeletonBullet.cpp" />
-    <ClCompile Include="SmallHeart.cpp" />
     <ClCompile Include="StateMap3_1.cpp" />
     <ClCompile Include="StateMap2_2.cpp" />
     <ClCompile Include="StateMap2_3.cpp" />
@@ -100,7 +98,6 @@
     <ClInclude Include="Ghost.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="map.h" />
@@ -115,7 +112,6 @@
     <ClInclude Include="simon.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="SkeletonBullet.h" />
-    <ClInclude Include="SmallHeart.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="State.h" />

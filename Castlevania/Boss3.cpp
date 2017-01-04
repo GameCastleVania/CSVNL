@@ -136,12 +136,12 @@ void Boss3::Update()
 	}
 	if (!exploded && HP <= 0)
 	{
-		explosion->Get(2, x, y, 7);
-		explosion->Get(2, x + 25, y, 7);
-		explosion->Get(2, x + 50, y, 7);
-		explosion->Get(2, x, y - 25, 7);
-		explosion->Get(2, x + 25, y - 25, 7);
-		explosion->Get(2, x + 50, y - 25, 7);
+		explosion->Get(11, x, y, 7);
+		explosion->Get(11, x + 25, y, 7);
+		explosion->Get(11, x + 50, y, 7);
+		explosion->Get(11, x, y - 25, 7);
+		explosion->Get(11, x + 25, y - 25, 7);
+		explosion->Get(11, x + 50, y - 25, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;

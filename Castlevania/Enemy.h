@@ -8,7 +8,7 @@
 #include "utils.h"
 #include "explosion.h"
 #include "BulletManager.h"
-#include "ItemManager.h"
+#include "Item.h"
 
 extern int Score;
 extern int stopUpdate;

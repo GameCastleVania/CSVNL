@@ -86,7 +86,7 @@ void Skeleton::Update()
 	if (!exploded && HP <= 0)
 	{
 		ready = false;
-		explosion->Get(1, x + 18, y + 34, 7);
+		explosion->Get(10, x + 18, y + 34, 7);
 		exploded = true;
 		visible = false;
 		shooting = false;

@@ -1,7 +1,8 @@
 #include "Candle.h"
 
 #define ANIMATE_RATE 5
-
+extern int Heart;
+extern int Score;
 
 Candle::Candle()
 {}
@@ -23,7 +24,7 @@ void Candle::Init(LPDIRECT3DDEVICE9 D3ddv, CSimon* Simon, BulletManager* BulletM
 	bulletManager = BulletManager;
 	explosion = Explosion;
 	candle = new Sprite(d3ddv, "resource\\image\\other\\1.png", 16, 32, 2, 2);
-
+	text = new Font(d3ddv, 22, 514, 480);
 }
 
 void Candle::Update()
@@ -39,9 +40,38 @@ void Candle::Update()
 	}
 	if (!exploded && HP <= 0)
 	{
-		explosion->Get(1, x + 8, y + 16, 7);
+		explosion->Get(10, x + 8, y + 16, 7);
 		exploded = true;
 		visible = false;
+
+		srand(time(NULL));
+		int a = rand() % 34 + 1;
+		switch (a){
+		case 14: case 24: case 34:
+			explosion->Get(14, x + 8, y + 16, 7);
+			break;
+		case 15:
+			explosion->Get(15, x + 8, y + 16, 7);
+			break;
+		case 16:
+			explosion->Get(16, x + 8, y + 16, 7);
+			break;
+		case 17:
+			explosion->Get(17, x + 8, y + 16, 7);
+			break;
+		case 18:
+			explosion->Get(18, x + 8, y + 16, 7);
+			break;
+		case 19: case 29: case 33:
+			explosion->Get(19, x + 8, y + 16, 7);
+			break;
+		case 20:
+			explosion->Get(20, x + 8, y + 16, 7);
+			break;
+		default:
+			explosion->Get(13, x + 8, y + 16, 7);
+			break;
+		}
 	}
 	UpdateRect();
 }
