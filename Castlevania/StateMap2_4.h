@@ -9,7 +9,7 @@ class StateMap2_4 : public State
 public:
 	StateMap2_4();
 	~StateMap2_4();
-
+	int time = 0;
 	void Init(LPDIRECT3DDEVICE9 D3ddv, DSound* Audio, Keyboard* kbd);
 	void Update(int &vpx, int &vpy);
 	void Draw(int vpx, int vpy);

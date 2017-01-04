@@ -10,7 +10,7 @@ Boss2Bullet::~Boss2Bullet()
 Boss2Bullet::Boss2Bullet(LPDIRECT3DDEVICE9 d3ddv)
 {
 	bullet = new Sprite(d3ddv, "resource\\image\\boss\\BMap2\\2.png", 64, 20, 1, 1);
-	CRec = RecF(0, 0, 32, 10);
+	CRec = RecF(0, 0, 64, 20);
 	animate = 0;
 }
 
@@ -61,6 +61,11 @@ void Boss2Bullet::Update()
 		CRec.y = y + 10;
 	}
 	animate++;
+
+	CRec = RecF(x, y, 64, 20);
+	if (visible == false)
+		CRec = RecF(0, 0, 0, 0);
+
 }
 
 void Boss2Bullet::Destroy()

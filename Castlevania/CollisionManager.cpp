@@ -16,14 +16,17 @@ extern int SimonHP;
 extern bool vpMove;
 extern int count2w;
 extern int stopUpdate;
+extern int _time;
 
-CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound)
+CollisionManager::CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger ,BulletManager* _BulletManager , WeaponManager* _WeaponManager, MorningStar* _MorningStar, Map* _Map, PSound* _Psound)
 {
 	simon = _Simon;
 	map = _Map;
 	psound = _Psound;
 	enemyManager = _EnemyManger;
 	weaponManager = _WeaponManager;
+	morningStar = _MorningStar;
+	bulletManager = _BulletManager;
 	platform = NULL;
 }
 
@@ -38,9 +41,11 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	Keyboard* kbd;
 	//All game list
 	RecF simonRec = simon->CRec;
+	RecF PrimaryWpRec = morningStar->CRec;
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
 	RecFList Doorlist = map->CRecDoorList();
+	BulletList blist = bulletManager->GetList();
 	EnemyList elist = enemyManager->GetList();
 	WeaponList simonWlist = weaponManager->GetSimonWList();
 #pragma region Player collision
@@ -66,7 +71,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 					simon->isJumpRight = false;
 					simon->SetY(b->CRec.y + 61);
 					simon->SetVY(0);
-					if ((simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR) && SimonHP > 0) simon->SetState(STAND);
+					if ((simon->GetState() == JUMP || simon->GetState() == JUMPW || simon->GetState() == FLYL || simon->GetState() == FLYR || (simon->GetState() == STANDW && simon->isJumpLeft == true) || (simon->GetState() == STANDW && simon->isJumpRight == true)) && SimonHP > 0) simon->SetState(STAND);
 
 				}
 
@@ -76,7 +81,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				{
 					if (b->CRec.height <= 40 && (simon->GetX() < b->CRec.x) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
 					{
-						if (simon->GetState() != RUNDOWNR || simon->GetState() != RUNUPR)
+						if (simon->GetState() != RUNDOWNR && simon->GetState() != RUNUPR)
 						{
 							simon->SetX(b->CRec.x - 10);
 							simon->SetVX(0);
@@ -93,7 +98,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 				{
 					if (b->CRec.height <= 40 && (simon->GetX() > b->CRec.x + b->CRec.width) && (simon->GetY() - 28 <= b->CRec.y + b->CRec.height))
 					{
-						if (simon->GetState() != RUNDOWNL || simon->GetState() != RUNUPL)
+						if (simon->GetState() != RUNDOWNL && simon->GetState() != RUNUPL)
 						{
 							simon->SetX(b->CRec.x + b->CRec.width + 10);
 							simon->SetVX(0);
@@ -121,18 +126,33 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 		{
 			if (RecF::Collide(simon->CRec, b->CRec))
 			{
-				if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
+				if (Current_State <= 5)
 				{
-					if ((simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+					if ((simon->GetVX() < 0 && simon->GetX() - 10 > b->CRec.x))
 					{
-						simon->SetVX(0);
-						simon->allowCtrl = false;
-						vpMove = true;
-						if (simon->GetX() >= 1575) simon->SetState(STAND);
+						if ((simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+						{
+							simon->SetVX(0);
+							simon->allowCtrl = false;
+							vpMove = true;
+							if (simon->GetX() >= 1575) simon->SetState(STAND);
+						}
 					}
 				}
-
-
+				else
+				{
+					if ((simon->GetVX() > 0 && simon->GetX() > b->CRec.x))
+					{
+						if ((simon->GetY() >= b->CRec.y && (simon->GetY() - 28 < b->CRec.y + b->CRec.height)))
+						{
+							simon->SetVX(0);
+							simon->allowCtrl = false;
+							vpMove = true;
+							if (Current_State == 7 && simon->GetX() <= 1500) simon->SetState(STAND);
+							if (Current_State == 8 && simon->GetX() <= 2008) simon->SetState(STAND);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -229,7 +249,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 							simon->_isOnLadder = false;
 						}
 					}
-					else if (simon->GetY() - 28 - 32 >= b->CRec.y)
+					else if (simon->GetY() - 28 - 32 >= b->CRec.y && simon->_isOnLadder == false)
 					{
 						simon->isOnLadder = false;
 						simon->isJumpLeft = false;
@@ -325,9 +345,25 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 						}	
 					else elist[i]->_stopUpdate = false;
 				}
-			}
+			}		
 		}
 		
+
+		for (int i = 0; i < elist.size(); i++)
+		{
+			return_object->clear();
+			quadtree->Retrieve(return_object, elist[i]);
+			if (RecF::Collide(elist[i]->CRec, morningStar->CRec) && elist[i]->GetType() != 8 && morningStar->fight == true)
+			{
+				if (elist[i]->stopUpdate == false)
+				{
+					elist[i]->stopUpdate = true;
+					elist[i]->LowerHP();
+				}
+			}
+			else elist[i]->stopUpdate = false;
+		}
+
 
 #pragma endregion
 
@@ -339,17 +375,12 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 	for (auto x = return_object->begin(); x != return_object->end(); x++)
 	{
 		GameObject* b = x._Ptr->_Myval;
-		if ((b->GetType() == 4 || b->GetType() == 8) && SimonHP >= 0 && b->GetType() != 9)
+		if ((b->GetType() == 4 || b->GetType() == 5 || b->GetType() == 8) && SimonHP >= 0 && b->GetType() != 9)
 		{	
 			if (RecF::Collide(b->CRec, simon->CRec))
-			{			
-				if (time == 0)
-				{
+			{		
 					simon->LowerHP();
 					simon->Kill();
-				}
-				time++;
-				if (time > 250) time = 0;
 			}
 		}
 	}
@@ -357,6 +388,7 @@ void CollisionManager::CheckCollison(int vpx, int vpy)
 
 
 #pragma endregion
+
 #pragma endregion
 
 	quadtree->Clear();
@@ -372,7 +404,8 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 	RecFList mlist = map->CRecList();
 	RecFList Ladderlist = map->CRecLadderList();
 	RecFList Doorlist = map->CRecDoorList();
-	EnemyList elist = enemyManager->GetList();
+	EnemyList elist = enemyManager->GetList(); 
+	BulletList blist = bulletManager->GetList();
 	WeaponList simonWlist = weaponManager->GetSimonWList();
 
 	for (int i = 0; i < mlist.size(); i++){
@@ -394,6 +427,11 @@ Quadtree* CollisionManager::CreateQuadTree(int vpx, int vpy)
 	for (int i = 0; i < simonWlist.size(); i++){
 		if (simonWlist[i]->GetVisible()) quadtree->Insert(simonWlist[i]);
 	}
+
+	for (int i = 0; i < blist.size(); i++){
+		if (blist[i]->GetVisible()) quadtree->Insert(blist[i]);
+	}
+
 	return quadtree;
 }
 

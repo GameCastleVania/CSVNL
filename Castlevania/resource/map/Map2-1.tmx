@@ -24,10 +24,6 @@
     <object name="Stair" id="11" type=" " x="256" y="0" width="32" height="32" />
     <object name="Stair" id="12" type="DL" x="321" y="192" width="32" height="32" />
     <object name="Stair" id="13" type=" " x="257" y="257" width="32" height="32" />
-	<object name="Monkey" id="14" type=" " x="192" y="96" width="32" height="32" />
-    <object name="Ranen" id="15" type=" " x="33" y="63" width="32" height="32" />
-    <object name="BX" id="16" type=" " x="387" y="127" width="32" height="64" />
-    <object name="Boss" id="17" type=" " x="59" y="239" width="32" height="80" />
   </objectgroup>
   <QuadTree name="QuadTree">
     <QuadNode NodeID="0" x="0" y="0" width="512" height="512" id="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17" />

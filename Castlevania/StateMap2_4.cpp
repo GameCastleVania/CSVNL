@@ -1,6 +1,7 @@
 #include "StateMap2_4.h"
 
 extern int Current_State;
+extern int Boss2HP;
 
 StateMap2_4::StateMap2_4()
 {
@@ -20,7 +21,7 @@ void StateMap2_4::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map2-4.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
-	collisionManager = new CollisionManager(simon, enemyManager, weaponManager, map, psound);
+	collisionManager = new CollisionManager(simon, enemyManager, bulletManager, weaponManager, mnstar, map, psound);
 	Parser tmx("resource\\map\\Map2-4.tmx");// doc file map.tmx
 }
 
@@ -56,6 +57,11 @@ void StateMap2_4::Update(int &vpx, int &vpy)
 	bulletManager->Update(vpx, vpy);
 	explosion->Update();
 	ViewPortUpdate(vpx, vpy);
+	if (Boss2HP <= 0)
+	{
+		StateManagement::GetInstance()->SwitchState(new StateMap3_1());
+	}
+	
 }
 
 void StateMap2_4::ViewPortUpdate(int &vpx, int &vpy)
@@ -76,8 +82,8 @@ void StateMap2_4::ViewPortUpdate(int &vpx, int &vpy)
 void StateMap2_4::Exit(int &vpx, int &vpy)
 {
 	Current_State = 6;
-	vpx = 0;
-	vpy = 0;
+	vpx = 1024;
+	vpy = 480;
 	delete(psound);
 	delete(map);
 	delete(explosion);

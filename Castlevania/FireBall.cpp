@@ -30,6 +30,9 @@ void FireBall::Update()
 	CRec.y = y;
 	CRec.vx = vx;
 	CRec.vy = vy;
+	CRec = RecF(x, y, 14, 12);
+	if (visible == false)
+		CRec = RecF(0, 0, 0, 0);
 }
 
 void FireBall::Destroy()

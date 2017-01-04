@@ -170,20 +170,20 @@ void Parser::ReadEnemy(char* ename, EnemyList& enemyList)
 					}
 					if (o_name.compare("Monkey") == 0)
 					{
-						enemyList.push_back(new Monkey(x, mapheight*TILE_SIZE - height - y));
+						enemyList.push_back(new Fleamen(x, mapheight*TILE_SIZE - height - y));
 					}
 					if (o_name.compare("BX") == 0)
 					{
-						enemyList.push_back(new BX(x, mapheight*TILE_SIZE - height - y));
+						enemyList.push_back(new Skeleton(x, mapheight*TILE_SIZE - height - y));
 					}
-					/*if (o_name.compare("Boss") == 0)
+					if (o_name.compare("Boss") == 0)
 					{
 						enemyList.push_back(new Boss3(x, mapheight*TILE_SIZE - height - y));
 					}					
 					if (o_name.compare("Ranen") == 0)
 					{
-						enemyList.push_back(new Ranen(x, mapheight*TILE_SIZE - height - y));
-					}*/
+						enemyList.push_back(new Raven(x, mapheight*TILE_SIZE - height - y));
+					}
 				}
 			}
 		}

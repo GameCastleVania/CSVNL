@@ -3,9 +3,11 @@
 extern int Current_State = 0;
 extern bool vpMove = false;
 extern int SimonHP = 16;
+extern int Boss2HP = 16;
+extern int Boss3HP = 16;
 extern int count2w = 2;
 extern int countw = 0;
-
+extern int _time = 0;
 StateManagement* StateManagement::s_pIntance = 0;
 
 void StateManagement::Update(bool isPause, LPDIRECT3DDEVICE9 d3ddv, DSound* Audio, Keyboard* kbd, int &vpx, int &vpy)

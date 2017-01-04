@@ -235,15 +235,6 @@
     <ClCompile Include="HealthBar.cpp">
       <Filter>FrameWork\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Ranen.cpp">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClCompile>
-    <ClCompile Include="BX.cpp">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClCompile>
-    <ClCompile Include="Monkey.cpp">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClCompile>
     <ClCompile Include="Boss3.cpp">
       <Filter>Enemy\Boss</Filter>
     </ClCompile>
@@ -255,6 +246,21 @@
     </ClCompile>
     <ClCompile Include="StateMap3_3.cpp">
       <Filter>GameState\StateMap\Map3</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss3Bullet.cpp">
+      <Filter>Bullet\BossBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonBullet.cpp">
+      <Filter>Bullet\EnemyBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Fleamen.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranen.cpp">
+      <Filter>Enemy\EnemyMap3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -414,15 +420,6 @@
     <ClInclude Include="HealthBar.h">
       <Filter>FrameWork\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Ranen.h">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClInclude>
-    <ClInclude Include="BX.h">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClInclude>
-    <ClInclude Include="Monkey.h">
-      <Filter>Enemy\EnemyMap3</Filter>
-    </ClInclude>
     <ClInclude Include="Boss3.h">
       <Filter>Enemy\Boss</Filter>
     </ClInclude>
@@ -434,6 +431,21 @@
     </ClInclude>
     <ClInclude Include="StateMap3_3.h">
       <Filter>GameState\StateMap\Map3</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss3Bullet.h">
+      <Filter>Bullet\BossBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonBullet.h">
+      <Filter>Bullet\EnemyBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Fleamen.h">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Enemy\EnemyMap3</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranen.h">
+      <Filter>Enemy\EnemyMap3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

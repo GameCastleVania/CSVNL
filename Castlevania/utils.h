@@ -40,6 +40,7 @@ enum BulletType
 {
 	Fire_ball,
 	Medusa_Snake,
+	Bone_Bullet
 };
 
 enum WeaponType

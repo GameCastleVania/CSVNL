@@ -44,7 +44,7 @@ void Ghost::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 
 void Ghost::Update()
 {
-	if (_stopUpdate == false)
+	if (_stopUpdate == false && stopUpdate == false)
 	{
 		float _x = simon->GetX() - 14;
 		float _y = simon->GetY() - 14;

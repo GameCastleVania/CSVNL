@@ -58,6 +58,11 @@ CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 		LRight = false;
 		_isOnLadder = true;
 		break;
+	case 8:
+		playerState = STANDUL;
+		LRight = false;
+		_isOnLadder = true;
+		break;
 	default:
 		break;
 	}
@@ -71,6 +76,7 @@ CSimon::CSimon(LPDIRECT3DDEVICE9 _d3ddv, PSound* _psound, float X, float Y)
 	invinsible = 0;
 	last_time = 0;
 	_last_time = 0;
+	HP = SimonHP;
 	x = X;
 	y = Y;
 	vx = 0;
@@ -126,7 +132,6 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 {
 	if (alive && SimonHP > 0)
 	{
-
 		bool upPress = kbd->IsKeyDown(DIK_W);
 		bool downPress = kbd->IsKeyDown(DIK_S);
 		bool leftPress = kbd->IsKeyDown(DIK_A);
@@ -144,7 +149,7 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 			vy -= 0.12f;
 		}
 
-		
+
 		/*if (y < 62)
 		{
 		vy = 0;
@@ -189,6 +194,11 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 		if (Current_State == 2)
 		{
 			if (x <= 46) x = 46;
+		}
+		if (Current_State == 8)
+		{
+			if (vpx <= 513 && x <= 523) x = 523;
+			if (vpx > 4608 && x <= 4618) x = 4618;
 		}
 		/////////////////////////////////
 
@@ -560,6 +570,20 @@ void CSimon::Update(Keyboard *kbd, int vpx, int vpy)
 					vpx = 1024;
 					vpy = 480;
 					break;
+				case 7:
+					x = 97;
+					y = 150;
+					vpx = 0;
+					vpy = 480;
+					LRight = true;
+					break;
+				case 8:
+					x = 545;
+					y = 250;
+					vpx = 513;
+					vpy = 480;
+					LRight = true;
+					break;
 				default:
 					break;
 				}
@@ -708,7 +732,7 @@ void CSimon::Draw(int vpx, int vpy)
 {
 	if (LRight == true)
 	{
-		if (alive || (!alive && isOnLadder))
+		if (alive || (!alive && isOnLadder) || (!alive && _isOnLadder))
 		{
 			if (!blink){
 				switch (playerState)
@@ -759,14 +783,14 @@ void CSimon::Draw(int vpx, int vpy)
 		}
 		else
 		{
-			if (!isOnLadder && SimonHP > 0)
+			if (!isOnLadder && SimonHP > 0 && !_isOnLadder)
 			simon_FlyL->Render(x, y, vpx, vpy);
 			if (SimonHP <=0) simon_DieR->Render(x, y, vpx, vpy);
 		}
 	}
 	else
 	{
-		if (alive || (!alive && isOnLadder))
+		if (alive || (!alive && isOnLadder) || (!alive && _isOnLadder))
 		{
 			if (!blink){
 				switch (playerState)
@@ -817,7 +841,7 @@ void CSimon::Draw(int vpx, int vpy)
 		}
 		else
 		{
-			if (!isOnLadder && SimonHP > 0)
+			if (!isOnLadder && SimonHP > 0 && !_isOnLadder)
 				simon_FlyR->Render(x, y, vpx, vpy);
 			if (SimonHP <= 0) simon_DieL->Render(x, y, vpx, vpy);
 		}
@@ -879,7 +903,7 @@ void CSimon::UpdateCRec()
 	{
 		CRec.x = x - 10;
 		CRec.y = y - 33;
-		CRec.width = 50;
+		CRec.width = 40;
 		CRec.height = 66;
 		CRec.vx = vx;
 		CRec.vy = vy;
@@ -888,7 +912,7 @@ void CSimon::UpdateCRec()
 	{
 		CRec.x = x - 10;
 		CRec.y = y - 33;
-		CRec.width = 56;
+		CRec.width = 40;
 		CRec.height = 66;
 		CRec.vx = vx;
 		CRec.vy = vy;
@@ -898,7 +922,7 @@ void CSimon::UpdateCRec()
 	{
 		CRec.x = x - 28;
 		CRec.y = y - 33;
-		CRec.width = 56;
+		CRec.width = 40;
 		CRec.height = 66;
 		CRec.vx = 0;
 		CRec.vy = 0;
@@ -909,7 +933,7 @@ void CSimon::UpdateCRec()
 	{
 		CRec.x = x - 10;
 		CRec.y = y - 33;
-		CRec.width = 58;
+		CRec.width = 40;
 		CRec.height = 66;
 		CRec.vx = 0;
 		CRec.vy = 0;
@@ -919,7 +943,7 @@ void CSimon::UpdateCRec()
 	{
 		CRec.x = x - 10;
 		CRec.y = y - 33;
-		CRec.width = 60;
+		CRec.width = 40;
 		CRec.height = 66;
 		CRec.vx = 0;
 		CRec.vy = 0;
@@ -928,18 +952,54 @@ void CSimon::UpdateCRec()
 
 void CSimon::simonAutoMove()
 {
-	if (x > 1450 && x <= 1580 && autoMove == true)
+	if (Current_State <= 5)
 	{
-		LRight = false;
-		playerState = RUN;
-		vx = -1.2f;
+		if (x > 1450 && x <= 1580 && autoMove == true)
+		{
+			LRight = false;
+			playerState = RUN;
+			vx = -1.2f;
 
+		}
+		else if (x <= 1450)
+		{
+			vx = 0;
+			playerState = STAND;
+			autoMove = false;
+		}
 	}
-	else if (x <= 1450)
+	if (Current_State == 7)
 	{
-		vx = 0;
-		playerState = STAND;
-		autoMove = false;
+		if (x > 1488 && x <= 1632 && autoMove == true)
+		{
+			LRight = true;
+			playerState = RUN;
+			vx = 1.2f;
+
+		}
+		else if (x >= 1632)
+		{
+			vx = 0;
+			playerState = STAND;
+			autoMove = false;
+		}
+	}
+
+	if (Current_State == 8)
+	{
+		if (x > 2001 && x <= 2145 && autoMove == true)
+		{
+			LRight = true;
+			playerState = RUN;
+			vx = 1.2f;
+
+		}
+		else if (x >= 2145)
+		{
+			vx = 0;
+			playerState = STAND;
+			autoMove = false;
+		}
 	}
 }
 

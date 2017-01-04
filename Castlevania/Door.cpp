@@ -18,6 +18,8 @@ Door::Door(LPDIRECT3DDEVICE9 d3ddv, CSimon* _simon, float X, float Y)
 	simon = _simon;
 	door1 = new Sprite(d3ddv, "resource\\image\\other\\door1.png", 96, 96, 1, 1);
 	door2 = new Sprite(d3ddv, "resource\\image\\other\\door2.png", 96, 96, 1, 1);
+	_door1 = new Sprite(d3ddv, "resource\\image\\other\\_door1.png", 96, 96, 1, 1);
+	_door2 = new Sprite(d3ddv, "resource\\image\\other\\_door2.png", 96, 96, 1, 1);
 	closedoor = new Sprite(d3ddv, "resource\\image\\other\\CloseGat.png", 44, 96, 1, 1);
 	open = false;
 	close = false;
@@ -67,12 +69,12 @@ void Door::Draw(int vpx, int vpy)
 			else if (time >= 40)  door2->Render(x + 55, y -15, vpx, vpy);
 			break;
 		case 7:
-			if (time >= 30 && time < 40) 	door1->Render(x - 55, y + 16, vpx, vpy);
-			else if (time >= 40)  door2->Render(x - 55, y + 16, vpx, vpy);
+			if (time >= 30 && time < 40) 	_door1->Render(x + 20, y + 48, vpx, vpy);
+			else if (time >= 40)  _door2->Render(x + 20, y + 48, vpx, vpy);
 			break;
 		case 8:
-			if (time >= 30 && time < 40) 	door1->Render(x - 55, y - 47, vpx, vpy);
-			else if (time >= 40)  door2->Render(x - 55, y - 47, vpx, vpy);
+			if (time >= 30 && time < 40) 	_door1->Render(x + 20, y + 48, vpx, vpy);
+			else if (time >= 40)  _door2->Render(x + 20, y + 48, vpx, vpy);
 			break;
 		default:
 			break;

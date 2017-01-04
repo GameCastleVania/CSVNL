@@ -20,7 +20,8 @@ void StateMap3_1::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map3_1.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
-	collisionManager = new CollisionManager(simon, enemyManager, weaponManager, map, psound);
+	collisionManager = new CollisionManager(simon, enemyManager, bulletManager, weaponManager, mnstar, map, psound);
+
 }
 
 void StateMap3_1::Draw(int vpx, int vpy)

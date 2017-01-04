@@ -9,6 +9,7 @@
 #include "sprite.h"
 
 extern int SimonHP;
+extern int _time;
 class CSimon : public GameObject
 {
 private:
@@ -18,7 +19,6 @@ private:
 	DWORD __last_time;
 	PlayerState playerState;
 	WeaponType Simon_WType;
-
 	bool isfightUP = false;
 	bool fight;
 	bool alive;
@@ -26,13 +26,14 @@ private:
 	int heightJump;
 	bool blink;
 
-	int invinsible;
+	
 
 public:
 	CSimon();
 	CSimon(LPDIRECT3DDEVICE9 d3ddv, PSound* _psound, float X, float Y);
 	~CSimon();
 	int lifecycle;
+	int invinsible;
 	bool LRight;
 	bool doJump = false;
 	bool isJumpLeft = false;
@@ -47,7 +48,7 @@ public:
 	bool isOnGround = true;
 	bool autoMove = false;
 	bool allowCtrl = true;
-
+	int HP;
 	void Init(LPDIRECT3DDEVICE9 d3ddv);
 	void Update(Keyboard *kbd, int vpx, int vpy);
 	void Draw(int vpx, int vpy);
@@ -140,7 +141,9 @@ public: //Get & set function
 
 	void LowerHP()
 	{
-		SimonHP--;
+		if (_time == 0) SimonHP--;
+		_time++;
+		if (_time > 20 && invinsible <= 0) _time = 0;
 	}
 #pragma endregion 
 };

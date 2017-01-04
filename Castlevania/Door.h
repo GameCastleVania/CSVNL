@@ -9,6 +9,8 @@ class Door :
 private:
 	Sprite *door1;
 	Sprite *door2;
+	Sprite *_door1;
+	Sprite *_door2;
 	Sprite *closedoor;
 	DWORD last_time;
 	CSimon* simon;

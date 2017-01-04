@@ -10,7 +10,7 @@
    os_ << s;                   \
    OutputDebugStringW( os_.str().c_str() );  \
 }
-
+extern int Boss2HP;
 Boss2::Boss2(float X, float Y)
 {
 	PosX = x = X;
@@ -19,6 +19,7 @@ Boss2::Boss2(float X, float Y)
 	exploded = false;
 	shooting = true;
 	wasHit = false;
+	type = 4;
 	hitTime = 0;
 	isDead = 0;
 	HP = 16;
@@ -41,9 +42,10 @@ void Boss2::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletManager * _bul
 	_Boss2Move = new Sprite(d3ddv, "resource\\image\\boss\\BMap2\\1.png", 64, 64, 4, 4);
 }
 void Boss2::Update()
-{
-	if (_stopUpdate == false)
+{	
+	if (_stopUpdate == false && stopUpdate == false)
 	{
+		Boss2HP = HP;
 		float _x = simon->GetX();
 		float _y = simon->GetY() - 32;
 		DBOUT(_x << " " << _y << " " << x << " " << y << endl);
@@ -61,8 +63,6 @@ void Boss2::Update()
 				_Time = 0;
 			}
 		}
-		if (wasHit)
-			HP--;
 		if (ready)
 		{
 
@@ -88,7 +88,7 @@ void Boss2::Update()
 						if (x < _x + 16)
 							IsChange = true;
 					}
-					if (HP < 10)
+					if (shooting)
 					{
 						hitTime++;
 						if (hitTime > 60)
@@ -177,6 +177,9 @@ void Boss2::Update()
 		exploded = true;
 		visible = false;
 		shooting = false;
+		ready = false;
+		CRec = RecF(0,0,0,0);
+
 	}
 	UpdateRec();
 }
@@ -235,7 +238,7 @@ void Boss2::UpdateRec()
 {
 	if (HP > 0)
 	{
-		CRec = RecF(x, y, 64, 64);
+		CRec = RecF(x, y, 80, 80);
 	}
 	else
 	{

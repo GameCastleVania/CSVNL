@@ -7,6 +7,7 @@
 #include "map.h"
 #include "EnemyManager.h"
 #include "weaponManager.h"
+#include "MorningStar.h"
 
 class CollisionManager
 {
@@ -16,12 +17,14 @@ private:
 	PSound* psound;
 	EnemyManager* enemyManager;
 	WeaponManager* weaponManager;
+	MorningStar* morningStar;
 	Platform** platform;
-	int dem;
+	BulletManager* bulletManager;
+	int dem = 0;
 	int time = 0;
 public:
 	CollisionManager(){}
-	CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, WeaponManager* _WeaponManager, Map* _Map, PSound* _Psound);
+	CollisionManager(CSimon* _Simon, EnemyManager* _EnemyManger, BulletManager* _BulletManager, WeaponManager* _WeaponManager, MorningStar* _MorningStar, Map* _Map, PSound* _Psound);
 	~CollisionManager();
 
 	void AddSpecialObjects(Platform** platform);

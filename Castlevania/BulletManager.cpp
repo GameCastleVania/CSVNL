@@ -17,7 +17,9 @@ BulletManager::BulletManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, Expl
 	}
 
 	fireball = FireBall(_d3ddv, _explosion);
+	boneBullet = SkeletonBullet(_d3ddv, _explosion);
 	boss2Bullet = Boss2Bullet(_d3ddv);
+	boss3Bullet = Boss3Bullet(_d3ddv);
 }
 
 BulletManager::~BulletManager()
@@ -72,6 +74,10 @@ void BulletManager::Get(BulletType type, float x, float y, float vx, float vy, b
 				bList[i]->Set(x, y, vx, vy, 5);
 				bList[i]->SetVisible(true);
 				break;
+			case Bone_Bullet:
+				bList[i] = new SkeletonBullet(boneBullet);
+				bList[i]->Set(x, y, vx, vy, 5);
+				bList[i]->SetVisible(true);
 			default:
 				break;
 			}
@@ -80,16 +86,26 @@ void BulletManager::Get(BulletType type, float x, float y, float vx, float vy, b
 	}
 }
 
-void BulletManager::Get(int boss, float x, float y, float vx, float vy )
+void BulletManager::Get(int boss, float x, float y, float vx, float vy)
 {
+	
 	for (int i = 0; i < bossBList.size(); i++)
 	{
 		if (bossBList[i]->GetVisible() == false)
 		{
-			if (boss == 2) bossBList[i] = new Boss2Bullet(boss2Bullet);
-			bossBList[i]->Set(x, y, vx, vy, 5);
-			bossBList[i]->SetVisible(true);
-			break;
+			switch (boss)
+			{
+			case 2:
+				bossBList[i] = new Boss2Bullet(boss2Bullet);
+				bossBList[i]->Set(x, y, vx, vy, 5);
+				bossBList[i]->SetVisible(true);
+				break;
+			case 3:
+				bossBList[i] = new Boss3Bullet(boss3Bullet);
+				bossBList[i]->Set(x, y, vx, vy, 5);
+				bossBList[i]->SetVisible(true);
+				break;
+			}
 		}
 	}
 }

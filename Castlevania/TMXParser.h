@@ -26,9 +26,9 @@
 #include "DownUp.h"
 #include "Que.h"
 #include "Boss3.h"
-#include "BX.h"
-#include "Monkey.h"
 #include "Ranen.h"
+#include "Fleamen.h"
+#include "Skeleton.h"
 
 
 #define TILE_SIZE 32

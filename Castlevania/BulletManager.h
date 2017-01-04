@@ -1,6 +1,8 @@
 #pragma once
 #include "FireBall.h"
 #include "Boss2Bullet.h"
+#include "SkeletonBullet.h"
+#include "Boss3Bullet.h"
 #include "Bullet.h"
 #include "keyboard.h"
 #include "psound.h"
@@ -26,8 +28,9 @@ protected:
 	//Bullet type temp
 	Bullet bullet;
 	FireBall fireball;
-
+	SkeletonBullet boneBullet;
 	Boss2Bullet boss2Bullet;
+	Boss3Bullet boss3Bullet;
 public:
 	BulletManager() {}
 	BulletManager(LPDIRECT3DDEVICE9 _d3ddv, Keyboard* _keyboard, Explosion* _explosion, PSound* _psound);

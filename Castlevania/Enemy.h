@@ -36,6 +36,7 @@ protected:
 	int hitTime;
 public:
 	bool _stopUpdate;
+	bool stopUpdate;
 	Enemy()
 	{
 		HP = 0;

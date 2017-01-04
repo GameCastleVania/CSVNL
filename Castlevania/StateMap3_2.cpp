@@ -2,6 +2,7 @@
 
 extern int Current_State;
 extern bool vpMove;
+extern int simonHP;
 
 StateMap3_2::StateMap3_2()
 {
@@ -22,7 +23,8 @@ void StateMap3_2::Init(LPDIRECT3DDEVICE9 _d3ddv, DSound* _audio, Keyboard* _kbd)
 	bulletManager = new BulletManager(d3ddv, kbd, explosion, psound);
 	enemyManager = new EnemyManager(d3ddv, "resource\\map\\Map3_2.tmx", simon, bulletManager, explosion);
 	weaponManager = new WeaponManager(d3ddv, kbd, simon, explosion, psound);
-	collisionManager = new CollisionManager(simon, enemyManager, weaponManager, map, psound);
+	collisionManager = new CollisionManager(simon, enemyManager, bulletManager, weaponManager, mnstar, map, psound);
+
 }
 
 void StateMap3_2::Draw(int vpx, int vpy)
@@ -59,6 +61,7 @@ void StateMap3_2::Update(int &vpx, int &vpy)
 	bulletManager->Update(vpx, vpy);
 	explosion->Update();
 	ViewPortUpdate(vpx, vpy);
+	if (simon->GetY() >= 360 && simon->_isOnLadder == true) StateManagement::GetInstance()->SwitchState(new StateMap3_3());
 }
 
 void StateMap3_2::ViewPortUpdate(int &vpx, int &vpy)
@@ -69,18 +72,18 @@ void StateMap3_2::ViewPortUpdate(int &vpx, int &vpy)
 
 	if (vpx > 2560) vpx = 2560;
 
-	if (px < 1280 || px > 1792) /// move viewport & fix viewport when simon stand on platform
+	if (px < 1280 || px > 1804) /// move viewport & fix viewport when simon stand on platform
 	{
 		if (px > 265 && vpx < 2560) vpx = px - 265;
 		else if (px <= 2816 && vpx >0) vpx = px - 265;
 	}
 
-	if (px > 1485 && px <= 1632) // colide with door
+	if (px > 1485 && px <= 1631) // colide with door
 	{
 		if (vpx < 1281 && vpMove == true)
 		{
 			simon->autoMove = false;
-			vpx += 1.5;
+			vpx += 3;
 		}
 		else
 		{
@@ -97,7 +100,7 @@ void StateMap3_2::ViewPortUpdate(int &vpx, int &vpy)
 		door->SetOpen(false);
 		if (door->isclose == true && vpx < 1536)
 		{
-			vpx += 1.5;
+			vpx += 3;
 		}
 		if (vpx >= 1536) simon->allowCtrl = true;
 	}
@@ -107,8 +110,8 @@ void StateMap3_2::ViewPortUpdate(int &vpx, int &vpy)
 void StateMap3_2::Exit(int &vpx, int &vpy)
 {
 	Current_State = 8;
-	vpx = 0;
-	vpy = 0;
+	vpx = 513;
+	vpy = 480;
 	delete(psound);
 	delete(map);
 	delete(explosion);

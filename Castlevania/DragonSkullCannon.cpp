@@ -33,7 +33,7 @@ void DragonSkullCannon::Init(LPDIRECT3DDEVICE9 _d3ddv, CSimon * _simon, BulletMa
 
 void DragonSkullCannon::Update()
 {
-	if (_stopUpdate == false)
+	if (_stopUpdate == false && stopUpdate == false)
 	{
 		float _x = simon->GetX() - 16;
 		float _y = simon->GetY() - 32;

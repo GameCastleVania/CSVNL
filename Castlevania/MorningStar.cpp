@@ -84,9 +84,23 @@ void MorningStar::Update(Keyboard *kbd, int vpx, int vpy)
 		}
 		last_time = now;
 	}
+	UpdateRect();
 }
+
+
+void MorningStar::UpdateRect()
+{
+	if (fight)
+	{
+		if (simon->GetLRight() == true && mstarR->GetIndex() == 1)
+			CRec = RecF(simon->GetX(), simon->GetY(), 120, 5);
+		else if (mstarL->GetIndex() == 1)
+			CRec = RecF(simon->GetX() - 120, simon->GetY(), 120, 5);
+	}
+}
+
 void MorningStar::Destroy()
 {
 	fight = false;
-
+	CRec = RecF(0, 0, 0, 0);
 }
